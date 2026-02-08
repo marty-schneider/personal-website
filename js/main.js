@@ -120,11 +120,55 @@
     });
   }
 
+  // --- Theme Toggle ---
+  var THEME_KEY = 'marty-theme';
+
+  function getStoredTheme() {
+    try {
+      return localStorage.getItem(THEME_KEY);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function setStoredTheme(theme) {
+    try {
+      localStorage.setItem(THEME_KEY, theme);
+    } catch (e) {}
+  }
+
+  function applyTheme(theme) {
+    if (theme === 'warcraft') {
+      document.documentElement.classList.add('warcraft');
+    } else {
+      document.documentElement.classList.remove('warcraft');
+    }
+  }
+
+  // Apply stored theme immediately (before DOMContentLoaded) to prevent flash
+  var storedTheme = getStoredTheme();
+  if (storedTheme) {
+    applyTheme(storedTheme);
+  }
+
+  function initThemeToggle() {
+    var toggle = document.getElementById('theme-toggle');
+    if (!toggle) return;
+
+    toggle.addEventListener('click', function () {
+      var isWarcraft = document.documentElement.classList.contains('warcraft');
+      var newTheme = isWarcraft ? 'terminal' : 'warcraft';
+      applyTheme(newTheme);
+      setStoredTheme(newTheme);
+    });
+  }
+
   // --- Initialize ---
   document.addEventListener('DOMContentLoaded', function () {
     typeEffect();
     initFadeIn();
     initProfileFallback();
+    initThemeToggle();
 
     if (navToggle) {
       navToggle.addEventListener('click', toggleMobileNav);
