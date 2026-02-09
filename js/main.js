@@ -5,22 +5,13 @@
   'use strict';
 
   // --- Typing Animation ---
-  var typingPhrasesCyber = [
+  var typingPhrases = [
     'Vulnerability Management',
     'Penetration Testing',
     'Security Operations',
     'Threat Analysis',
     'Incident Response',
     'Network Defense',
-  ];
-
-  var typingPhrasesWarcraft = [
-    'Defending the Realm',
-    'Hunting Vulnerabilities',
-    'Warding Against Threats',
-    'Securing the Kingdom',
-    'Vanquishing Exploits',
-    'Forging Digital Shields',
   ];
 
   let phraseIndex = 0;
@@ -31,9 +22,7 @@
   function typeEffect() {
     if (!typingEl) return;
 
-    var isWC = document.documentElement.classList.contains('warcraft');
-    var phrases = isWC ? typingPhrasesWarcraft : typingPhrasesCyber;
-    var currentPhrase = phrases[phraseIndex % phrases.length];
+    var currentPhrase = typingPhrases[phraseIndex % typingPhrases.length];
 
     if (isDeleting) {
       charIndex--;
@@ -50,7 +39,7 @@
       isDeleting = true;
     } else if (isDeleting && charIndex === 0) {
       isDeleting = false;
-      phraseIndex = (phraseIndex + 1) % phrases.length;
+      phraseIndex = (phraseIndex + 1) % typingPhrases.length;
       delay = 500;
     }
 
@@ -131,60 +120,11 @@
     });
   }
 
-  // --- Theme Toggle ---
-  var THEME_KEY = 'marty-theme';
-
-  function getStoredTheme() {
-    try {
-      return localStorage.getItem(THEME_KEY);
-    } catch (e) {
-      return null;
-    }
-  }
-
-  function setStoredTheme(theme) {
-    try {
-      localStorage.setItem(THEME_KEY, theme);
-    } catch (e) {}
-  }
-
-  function applyTheme(theme) {
-    if (theme === 'warcraft') {
-      document.documentElement.classList.add('warcraft');
-    } else {
-      document.documentElement.classList.remove('warcraft');
-    }
-  }
-
-  // Apply stored theme immediately (before DOMContentLoaded) to prevent flash
-  var storedTheme = getStoredTheme();
-  if (storedTheme) {
-    applyTheme(storedTheme);
-  }
-
-  function initThemeToggle() {
-    var toggle = document.getElementById('theme-toggle');
-    if (!toggle) return;
-
-    toggle.addEventListener('click', function () {
-      var isWarcraft = document.documentElement.classList.contains('warcraft');
-      var newTheme = isWarcraft ? 'terminal' : 'warcraft';
-      applyTheme(newTheme);
-      setStoredTheme(newTheme);
-
-      // Reset typing animation to use correct phrase set
-      phraseIndex = 0;
-      charIndex = 0;
-      isDeleting = false;
-    });
-  }
-
   // --- Initialize ---
   document.addEventListener('DOMContentLoaded', function () {
     typeEffect();
     initFadeIn();
     initProfileFallback();
-    initThemeToggle();
 
     if (navToggle) {
       navToggle.addEventListener('click', toggleMobileNav);
