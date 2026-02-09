@@ -5,13 +5,22 @@
   'use strict';
 
   // --- Typing Animation ---
-  const typingPhrases = [
+  var typingPhrasesCyber = [
     'Vulnerability Management',
     'Penetration Testing',
     'Security Operations',
     'Threat Analysis',
     'Incident Response',
     'Network Defense',
+  ];
+
+  var typingPhrasesWarcraft = [
+    'Defending the Realm',
+    'Hunting Vulnerabilities',
+    'Warding Against Threats',
+    'Securing the Kingdom',
+    'Vanquishing Exploits',
+    'Forging Digital Shields',
   ];
 
   let phraseIndex = 0;
@@ -22,7 +31,9 @@
   function typeEffect() {
     if (!typingEl) return;
 
-    const currentPhrase = typingPhrases[phraseIndex];
+    var isWC = document.documentElement.classList.contains('warcraft');
+    var phrases = isWC ? typingPhrasesWarcraft : typingPhrasesCyber;
+    var currentPhrase = phrases[phraseIndex % phrases.length];
 
     if (isDeleting) {
       charIndex--;
@@ -39,7 +50,7 @@
       isDeleting = true;
     } else if (isDeleting && charIndex === 0) {
       isDeleting = false;
-      phraseIndex = (phraseIndex + 1) % typingPhrases.length;
+      phraseIndex = (phraseIndex + 1) % phrases.length;
       delay = 500;
     }
 
@@ -160,6 +171,11 @@
       var newTheme = isWarcraft ? 'terminal' : 'warcraft';
       applyTheme(newTheme);
       setStoredTheme(newTheme);
+
+      // Reset typing animation to use correct phrase set
+      phraseIndex = 0;
+      charIndex = 0;
+      isDeleting = false;
     });
   }
 
