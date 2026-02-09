@@ -839,22 +839,39 @@ html.warcraft .theme-icon--warcraft {
   transform: rotate(90deg) scale(0.5);
 }
 
-html.warcraft .theme-toggle:hover {
+html.warcraft .theme-toggle {
+  background: none;
+  border-style: solid;
+  border-width: 4px;
+  border-image-source: url('https://warcraftcn.com/warcraftcn/button-bg-sm.webp');
+  border-image-slice: 16 fill;
+  border-image-repeat: stretch;
+  border-radius: 0;
   color: var(--cyan);
-  border-color: var(--cyan);
-  background: var(--cyan-glow);
+  padding: 4px;
+}
+
+html.warcraft .theme-toggle:hover {
+  filter: brightness(1.3);
+  color: #fff;
+  transform: scale(1.1);
 }
 
 /* --- Warcraft Navigation --- */
 html.warcraft .nav {
-  background: rgba(17, 13, 7, 0.95);
-  border-bottom: 2px solid #3a2a18;
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+  background: rgba(17, 13, 7, 0.97);
+  border-bottom: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+  border-style: solid;
+  border-width: 0 0 5px 0;
+  border-image-source: url('https://warcraftcn.com/warcraftcn/button-bg.webp');
+  border-image-slice: 16 fill;
+  border-image-repeat: stretch;
+  border-image-width: 0 0 5px 0;
 }
 
 html.warcraft .nav.scrolled {
-  border-bottom-color: var(--cyan);
-  box-shadow: 0 2px 30px rgba(212, 168, 67, 0.15);
+  box-shadow: 0 4px 30px rgba(212, 168, 67, 0.2);
 }
 
 html.warcraft .nav-logo {
@@ -879,14 +896,25 @@ html.warcraft .nav-link {
 }
 
 html.warcraft .nav-link:hover {
-  color: var(--cyan);
-  background: var(--cyan-glow);
+  color: #fff;
+  background: none;
+  border-style: solid;
+  border-width: 3px;
+  border-image-source: url('https://warcraftcn.com/warcraftcn/button-bg-sm.webp');
+  border-image-slice: 16 fill;
+  border-image-repeat: stretch;
+  border-radius: 0;
   text-shadow: 0 0 8px rgba(212, 168, 67, 0.5);
 }
 
 html.warcraft .nav-mobile {
   background: rgba(17, 13, 7, 0.98);
-  border-top: 1px solid #3a2a18;
+  border-top: none;
+  border-style: solid;
+  border-width: 3px 0 0 0;
+  border-image-source: url('https://warcraftcn.com/warcraftcn/button-bg.webp');
+  border-image-slice: 16;
+  border-image-repeat: stretch;
 }
 
 /* --- Warcraft Hero --- */
@@ -908,8 +936,13 @@ html.warcraft .hero-photo-ring {
 }
 
 html.warcraft .hero-photo {
-  border: 3px solid #5a4420;
-  box-shadow: 0 0 20px rgba(212, 168, 67, 0.15), inset 0 0 20px rgba(0, 0, 0, 0.3);
+  border: none;
+  border-style: solid;
+  border-width: 6px;
+  border-image-source: url('https://warcraftcn.com/warcraftcn/button-bg-with-frame.webp');
+  border-image-slice: 16;
+  border-image-repeat: stretch;
+  box-shadow: 0 0 25px rgba(212, 168, 67, 0.2), 0 0 50px rgba(0, 0, 0, 0.4);
 }
 
 html.warcraft .hero-photo img {
@@ -949,11 +982,20 @@ html.warcraft .cursor {
 
 html.warcraft .social-link {
   color: var(--cyan);
+  border-style: solid;
+  border-width: 4px;
+  border-image-source: url('https://warcraftcn.com/warcraftcn/button-bg-sm.webp');
+  border-image-slice: 16 fill;
+  border-image-repeat: stretch;
+  border-radius: 0;
+  padding: 6px;
+  transition: filter 0.2s, transform 0.2s;
 }
 
 html.warcraft .social-link:hover {
   color: #fff;
-  filter: drop-shadow(0 0 6px rgba(212, 168, 67, 0.5));
+  filter: brightness(1.3) drop-shadow(0 0 8px rgba(212, 168, 67, 0.5));
+  transform: scale(1.05);
 }
 
 html.warcraft .scroll-indicator {
@@ -980,33 +1022,15 @@ html.warcraft .prompt {
 
 /* --- Warcraft Terminal Block (Scroll/Parchment) --- */
 html.warcraft .terminal-block {
-  background: var(--bg-terminal);
-  border: 2px solid #3a2a18;
-  border-radius: 4px;
-  box-shadow:
-    0 4px 30px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(212, 168, 67, 0.08);
+  background: none;
+  border-style: solid;
+  border-width: 6px;
+  border-image-source: url('https://warcraftcn.com/warcraftcn/input-frame.webp');
+  border-image-slice: 16 fill;
+  border-image-repeat: stretch;
+  border-radius: 0;
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.5);
   position: relative;
-}
-
-html.warcraft .terminal-block::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(212, 168, 67, 0.3), transparent);
-}
-
-html.warcraft .terminal-block::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(212, 168, 67, 0.3), transparent);
 }
 
 html.warcraft .terminal-header {
@@ -1059,26 +1083,24 @@ html.warcraft .timeline-item:first-child .timeline-marker {
 }
 
 html.warcraft .timeline-content {
-  background: var(--bg-card);
-  border: 1px solid #3a2a18;
-  border-radius: 4px;
+  background-image: url('https://warcraftcn.com/warcraftcn/card-bg.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: none;
+  border-style: solid;
+  border-width: 5px;
+  border-image-source: url('https://warcraftcn.com/warcraftcn/button-bg-with-frame.webp');
+  border-image-slice: 16 fill;
+  border-image-repeat: stretch;
+  border-radius: 0;
   position: relative;
-}
-
-html.warcraft .timeline-content::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--cyan), transparent);
-  opacity: 0.3;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
 html.warcraft .timeline-content:hover {
-  border-color: rgba(212, 168, 67, 0.4);
-  box-shadow: 0 0 25px rgba(212, 168, 67, 0.08);
+  filter: brightness(1.1);
+  box-shadow: 0 6px 30px rgba(212, 168, 67, 0.15);
 }
 
 html.warcraft .timeline-header h3 {
@@ -1102,49 +1124,27 @@ html.warcraft .timeline-details li::before {
 
 /* --- Warcraft Certification Cards --- */
 html.warcraft .cert-card {
-  background: var(--bg-card);
-  border: 2px solid #3a2a18;
-  border-radius: 4px;
+  background-image: url('https://warcraftcn.com/warcraftcn/card-bg.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: none;
+  border-style: solid;
+  border-width: 5px;
+  border-image-source: url('https://warcraftcn.com/warcraftcn/button-bg-with-frame.webp');
+  border-image-slice: 16 fill;
+  border-image-repeat: stretch;
+  border-radius: 0;
   position: relative;
-  overflow: hidden;
-}
-
-html.warcraft .cert-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background:
-    linear-gradient(135deg, rgba(212, 168, 67, 0.04) 0%, transparent 50%),
-    linear-gradient(315deg, rgba(212, 168, 67, 0.02) 0%, transparent 50%);
-  pointer-events: none;
-}
-
-html.warcraft .cert-card::after {
-  content: '';
-  position: absolute;
-  top: -1px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 40px;
-  height: 3px;
-  background: var(--cyan);
-  border-radius: 0 0 3px 3px;
-  opacity: 0.5;
-  transition: width 0.3s, opacity 0.3s;
+  overflow: visible;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s, box-shadow 0.3s, filter 0.3s;
 }
 
 html.warcraft .cert-card:hover {
-  border-color: var(--cyan);
   transform: translateY(-4px);
-  box-shadow: 0 8px 30px rgba(212, 168, 67, 0.1);
-}
-
-html.warcraft .cert-card:hover::after {
-  width: 80%;
-  opacity: 0.8;
+  filter: brightness(1.15);
+  box-shadow: 0 8px 30px rgba(212, 168, 67, 0.2);
 }
 
 html.warcraft .cert-name {
@@ -1157,38 +1157,43 @@ html.warcraft .cert-issuer {
 }
 
 html.warcraft .status-active {
-  color: var(--green);
-  background: rgba(90, 158, 62, 0.1);
-  border-color: rgba(90, 158, 62, 0.3);
+  color: #e8d5b5;
+  background: none;
+  border-style: solid;
+  border-width: 4px;
+  border-image-source: url('https://warcraftcn.com/warcraftcn/button-bg-sm.webp');
+  border-image-slice: 16 fill;
+  border-image-repeat: stretch;
+  border-radius: 0;
   font-family: 'Cinzel', serif;
   font-weight: 700;
   letter-spacing: 0.1em;
+  padding: 2px 12px;
 }
 
 /* --- Warcraft Project Cards --- */
 html.warcraft .project-card {
-  background: var(--bg-card);
-  border: 2px solid #3a2a18;
-  border-radius: 4px;
+  background-image: url('https://warcraftcn.com/warcraftcn/card-bg.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: none;
+  border-style: solid;
+  border-width: 5px;
+  border-image-source: url('https://warcraftcn.com/warcraftcn/button-bg-with-frame.webp');
+  border-image-slice: 16 fill;
+  border-image-repeat: stretch;
+  border-radius: 0;
   position: relative;
-  overflow: hidden;
-}
-
-html.warcraft .project-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(180deg, rgba(212, 168, 67, 0.03) 0%, transparent 40%);
-  pointer-events: none;
+  overflow: visible;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s, box-shadow 0.3s, filter 0.3s;
 }
 
 html.warcraft .project-card:hover {
-  border-color: var(--cyan);
   transform: translateY(-4px);
-  box-shadow: 0 8px 30px rgba(212, 168, 67, 0.1);
+  filter: brightness(1.15);
+  box-shadow: 0 8px 30px rgba(212, 168, 67, 0.2);
 }
 
 html.warcraft .project-header h3 {
@@ -1197,11 +1202,19 @@ html.warcraft .project-header h3 {
 }
 
 html.warcraft .project-tag {
-  background: var(--cyan-glow);
-  color: var(--cyan);
+  background: none;
+  color: #e8d5b5;
   font-family: 'Cinzel', serif;
   font-weight: 600;
-  border: 1px solid rgba(212, 168, 67, 0.2);
+  border-style: solid;
+  border-width: 4px;
+  border-image-source: url('https://warcraftcn.com/warcraftcn/button-bg-sm.webp');
+  border-image-slice: 16 fill;
+  border-image-repeat: stretch;
+  border-radius: 0;
+  padding: 2px 10px;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
 }
 
 html.warcraft .project-desc {
@@ -1210,11 +1223,18 @@ html.warcraft .project-desc {
 }
 
 html.warcraft .project-tech span {
-  background: rgba(122, 106, 85, 0.15);
-  border-color: rgba(122, 106, 85, 0.25);
-  color: var(--text-dim);
+  background: none;
+  color: #b8a080;
   font-family: 'Cinzel', serif;
   font-weight: 500;
+  border-style: solid;
+  border-width: 3px;
+  border-image-source: url('https://warcraftcn.com/warcraftcn/button-bg-sm.webp');
+  border-image-slice: 16 fill;
+  border-image-repeat: stretch;
+  border-radius: 0;
+  padding: 2px 8px;
+  font-size: 0.7rem;
 }
 
 /* --- Warcraft Contact --- */
@@ -1231,19 +1251,15 @@ html.warcraft .inline-link:hover {
 
 /* --- Warcraft Footer --- */
 html.warcraft .footer {
-  border-top: 2px solid #3a2a18;
+  border-top: none;
+  border-style: solid;
+  border-width: 5px 0 0 0;
+  border-image-source: url('https://warcraftcn.com/warcraftcn/button-bg.webp');
+  border-image-slice: 16 fill;
+  border-image-repeat: stretch;
+  border-image-width: 5px 0 0 0;
   font-family: 'Cinzel', serif;
   position: relative;
-}
-
-html.warcraft .footer::before {
-  content: '';
-  position: absolute;
-  top: -1px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(212, 168, 67, 0.3), transparent);
 }
 
 /* --- Warcraft Selection --- */
