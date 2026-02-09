@@ -758,7 +758,7 @@ a:hover {
    Theme Toggle Button
    ============================================ */
 .theme-toggle {
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   background: none;
