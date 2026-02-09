@@ -16,17 +16,23 @@
   <!-- Navigation -->
   <nav class="nav" id="nav">
     <div class="nav-inner">
-      <a href="#hero" class="nav-logo">~/</a>
+      <a href="#hero" class="nav-logo nav-logo--cyber">~/</a>
+      <a href="#hero" class="nav-logo nav-logo--wc">Schneider</a>
       <div class="nav-links">
-        <span class="nav-separator">&gt;</span>
+        <span class="nav-separator nav-separator--cyber">&gt;</span>
+        <span class="nav-separator nav-separator--wc">&#9670;</span>
         <a href="#whoami" class="nav-link">whoami</a>
-        <span class="nav-separator">&gt;</span>
+        <span class="nav-separator nav-separator--cyber">&gt;</span>
+        <span class="nav-separator nav-separator--wc">&#9670;</span>
         <a href="#experience" class="nav-link">experience</a>
-        <span class="nav-separator">&gt;</span>
+        <span class="nav-separator nav-separator--cyber">&gt;</span>
+        <span class="nav-separator nav-separator--wc">&#9670;</span>
         <a href="#certifications" class="nav-link">certifications</a>
-        <span class="nav-separator">&gt;</span>
+        <span class="nav-separator nav-separator--cyber">&gt;</span>
+        <span class="nav-separator nav-separator--wc">&#9670;</span>
         <a href="#projects" class="nav-link">projects</a>
-        <span class="nav-separator">&gt;</span>
+        <span class="nav-separator nav-separator--cyber">&gt;</span>
+        <span class="nav-separator nav-separator--wc">&#9670;</span>
         <a href="#contact" class="nav-link">contact</a>
       </div>
       <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Warcraft theme" title="Toggle Warcraft Theme">
@@ -45,11 +51,16 @@
       </button>
     </div>
     <div class="nav-mobile" id="nav-mobile">
-      <a href="#whoami" class="nav-link">&gt; whoami</a>
-      <a href="#experience" class="nav-link">&gt; experience</a>
-      <a href="#certifications" class="nav-link">&gt; certifications</a>
-      <a href="#projects" class="nav-link">&gt; projects</a>
-      <a href="#contact" class="nav-link">&gt; contact</a>
+      <a href="#whoami" class="nav-link nav-link--cyber">&gt; whoami</a>
+      <a href="#whoami" class="nav-link nav-link--wc">&#9670; whoami</a>
+      <a href="#experience" class="nav-link nav-link--cyber">&gt; experience</a>
+      <a href="#experience" class="nav-link nav-link--wc">&#9670; experience</a>
+      <a href="#certifications" class="nav-link nav-link--cyber">&gt; certifications</a>
+      <a href="#certifications" class="nav-link nav-link--wc">&#9670; certifications</a>
+      <a href="#projects" class="nav-link nav-link--cyber">&gt; projects</a>
+      <a href="#projects" class="nav-link nav-link--wc">&#9670; projects</a>
+      <a href="#contact" class="nav-link nav-link--cyber">&gt; contact</a>
+      <a href="#contact" class="nav-link nav-link--wc">&#9670; contact</a>
     </div>
   </nav>
 
@@ -63,7 +74,8 @@
         </div>
       </div>
       <h1 class="hero-name">MARTY SCHNEIDER</h1>
-      <p class="hero-title">Cybersecurity and Operations Professional</p>
+      <p class="hero-title hero-title--cyber">Cybersecurity and Operations Professional</p>
+      <p class="hero-title hero-title--wc">Guardian of the Digital Realm</p>
       <p class="hero-typing">
         <span id="typing-text"></span><span class="cursor">_</span>
       </p>
@@ -85,22 +97,29 @@
         </a>
       </div>
     </div>
-    <div class="scroll-indicator">
+    <div class="scroll-indicator scroll-indicator--cyber">
       <span>&gt; scroll_down</span>
       <div class="scroll-arrow"></div>
+    </div>
+    <div class="scroll-indicator scroll-indicator--wc">
+      <span>&#9660; Journey Forth &#9660;</span>
     </div>
   </section>
 
   <!-- Whoami Section -->
   <section class="section" id="whoami">
     <div class="container">
-      <h2 class="section-title"><span class="prompt">$</span> whoami</h2>
+      <h2 class="section-title section-title--cyber"><span class="prompt">$</span> whoami</h2>
+      <h2 class="section-title section-title--wc"><span class="prompt-wc">&#9876;</span> Chronicles of the Hero</h2>
       <div class="terminal-block">
-        <div class="terminal-header">
+        <div class="terminal-header terminal-header--cyber">
           <span class="terminal-dot red"></span>
           <span class="terminal-dot yellow"></span>
           <span class="terminal-dot green"></span>
           <span class="terminal-title">about.sh</span>
+        </div>
+        <div class="terminal-header terminal-header--wc">
+          <span class="terminal-title--wc">Tome of Knowledge</span>
         </div>
         <div class="terminal-body">
           <p class="terminal-line"><span class="comment"># Career Transition to Cybersecurity</span></p>
@@ -118,7 +137,8 @@
   <!-- Experience Section -->
   <section class="section" id="experience">
     <div class="container">
-      <h2 class="section-title"><span class="prompt">$</span> cat experience.log</h2>
+      <h2 class="section-title section-title--cyber"><span class="prompt">$</span> cat experience.log</h2>
+      <h2 class="section-title section-title--wc"><span class="prompt-wc">&#9876;</span> Battle History</h2>
       <div class="timeline">
         <div class="timeline-item">
           <div class="timeline-marker"></div>
@@ -157,7 +177,8 @@
   <!-- Certifications Section -->
   <section class="section" id="certifications">
     <div class="container">
-      <h2 class="section-title"><span class="prompt">$</span> ls certifications/</h2>
+      <h2 class="section-title section-title--cyber"><span class="prompt">$</span> ls certifications/</h2>
+      <h2 class="section-title section-title--wc"><span class="prompt-wc">&#9733;</span> Accolades &amp; Achievements</h2>
       <div class="cert-grid">
         <div class="cert-card">
           <div class="cert-icon">&#x1F6E1;</div>
@@ -190,7 +211,8 @@
   <!-- Projects Section -->
   <section class="section" id="projects">
     <div class="container">
-      <h2 class="section-title"><span class="prompt">$</span> find ./projects -type f</h2>
+      <h2 class="section-title section-title--cyber"><span class="prompt">$</span> find ./projects -type f</h2>
+      <h2 class="section-title section-title--wc"><span class="prompt-wc">&#9760;</span> Quests &amp; Campaigns</h2>
       <div class="projects-grid">
         <div class="project-card">
           <div class="project-header">
@@ -251,14 +273,18 @@
   <!-- Contact Section -->
   <section class="section" id="contact">
     <div class="container">
-      <h2 class="section-title"><span class="prompt">$</span> ./contact.sh</h2>
+      <h2 class="section-title section-title--cyber"><span class="prompt">$</span> ./contact.sh</h2>
+      <h2 class="section-title section-title--wc"><span class="prompt-wc">&#9993;</span> Send a Raven</h2>
       <div class="contact-content">
         <div class="terminal-block">
-          <div class="terminal-header">
+          <div class="terminal-header terminal-header--cyber">
             <span class="terminal-dot red"></span>
             <span class="terminal-dot yellow"></span>
             <span class="terminal-dot green"></span>
             <span class="terminal-title">contact.sh</span>
+          </div>
+          <div class="terminal-header terminal-header--wc">
+            <span class="terminal-title--wc">Missive Chamber</span>
           </div>
           <div class="terminal-body">
             <p class="terminal-line"><span class="comment"># Let's connect</span></p>
@@ -278,7 +304,8 @@
   <footer class="footer">
     <div class="container">
       <p>&copy; 2026 Marty Schneider. All rights reserved.</p>
-      <p class="footer-sub">Built with <span class="highlight">&lt;/code&gt;</span> and caffeine.</p>
+      <p class="footer-sub footer-sub--cyber">Built with <span class="highlight">&lt;/code&gt;</span> and caffeine.</p>
+      <p class="footer-sub footer-sub--wc">Forged in the fires of <span class="highlight">dedication</span> and determination.</p>
     </div>
   </footer>
 
