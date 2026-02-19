@@ -549,8 +549,19 @@ a:hover {
 }
 
 .cert-icon {
-  font-size: 2rem;
-  margin-bottom: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px; /* Gives breathing room for the icon */
+  margin-bottom: 15px; /* Space below icon */
+}
+
+.cert-icon img {
+  width: 70px; /* Adjust this: 60px for small, 80px for medium */
+  height: auto; /* Keeps proportions intact */
+  max-width: 100%; /* Prevents overflow on smaller screens */
+  object-fit: contain; /* Ensures it fits without stretching */
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1)); /* Optional: subtle shadow for polish */
 }
 
 .cert-name {
