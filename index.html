@@ -3,337 +3,398 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Cybersecurity SOC Analyst & Threat Intelligence Specialist | 15+ years ops experience | MITRE ATT&CK, Splunk, Python, Nmap. Actively seeking SOC / Threat roles in 2026.">
-    <title>Marty Schneider | Cybersecurity Netrunner | Open to Work 2026</title>
+    <meta name="description" content="Cybersecurity SOC Analyst | Threat Intelligence | Vulnerability Management. 15+ years ops experience. MITRE ATT&CK, Splunk, Python, Nmap, SIEM. Actively seeking SOC / Threat Analyst roles in 2026.">
+    <title>Marty Schneider | Cybersecurity SOC Analyst | Threat Intelligence | Open to Work 2026</title>
     <meta property="og:title" content="Marty Schneider | Cybersecurity SOC Analyst">
-    <meta property="og:description" content="Night City–ready threat hunter. Open to SOC Analyst and Threat Intelligence roles.">
+    <meta property="og:description" content="Actively seeking SOC Analyst, Threat Analyst, and Vulnerability Management roles.">
     <meta property="og:url" content="https://martyschneider.com">
+    <meta property="og:type" content="profile">
 
-    <!-- JSON-LD for recruiters & AI agents -->
+    <!-- JSON-LD for AI agents & Google -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "Marty Schneider",
       "jobTitle": "Cybersecurity SOC Analyst | Threat Intelligence Specialist",
-      "description": "Professional cybersecurity operator with 15+ years operations background specializing in vulnerability management, incident response, and MITRE ATT&CK mapping.",
+      "description": "Aspiring cybersecurity professional with 15+ years in operations, specializing in vulnerability management, incident response, MITRE ATT&CK mapping, Splunk, and Python security tooling. Actively open to SOC Analyst, Threat Analyst, and GRC roles.",
       "url": "https://martyschneider.com",
-      "knowsAbout": ["MITRE ATT&CK", "Splunk", "Nmap", "Python", "SIEM", "DFIR", "Incident Response", "Vulnerability Management"],
-      "sameAs": ["https://linkedin.com/in/martyschneider", "https://github.com/marty-schneider"]
+      "image": "https://martyschneider.com/images/profile.jpg",
+      "knowsAbout": ["MITRE ATT&CK", "Splunk", "Nmap", "Python", "SIEM", "DFIR", "Incident Response", "Vulnerability Management", "GRC", "pfSense", "Security Onion"],
+      "hasOccupation": {
+        "@type": "Occupation",
+        "name": "Cybersecurity Analyst",
+        "occupationLocation": {"@type": "Place", "name": "United States"}
+      },
+      "sameAs": [
+        "https://linkedin.com/in/martyschneider",
+        "https://github.com/marty-schneider",
+        "https://martyschneider.com"
+      ]
     }
     </script>
 
     <style>
         :root {
-            --neon-magenta: #ff00aa;
-            --neon-cyan: #00f5ff;
-            --neon-violet: #9d00ff;
-            --glass: rgba(15, 15, 25, 0.85);
+            --neon-green: #00ff9d;
+            --neon-cyan: #00f0ff;
+            --neon-pink: #ff00ff;
+            --bg: #0a0a0a;
         }
-        * { margin:0; padding:0; box-sizing:border-box; }
         body {
-            background: #0a0a12;
-            color: #e0e0ff;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            line-height: 1.6;
-            overflow-x: hidden;
+            margin: 0; padding: 0; background: var(--bg); color: var(--neon-green);
+            font-family: 'Courier New', monospace; overflow-x: hidden;
         }
-        .scanline {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(transparent 50%, rgba(255,255,255,0.03) 50%);
-            background-size: 100% 4px;
-            pointer-events: none;
-            z-index: 1;
-            animation: scan 8s linear infinite;
-            opacity: 0.15;
-        }
-        @keyframes scan { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
-
-        header {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            background: radial-gradient(circle at center, #1a0033 0%, #0a0a12 70%);
-        }
-        h1 {
-            font-size: 5.5rem;
-            font-weight: 900;
-            letter-spacing: -0.05em;
-            background: linear-gradient(90deg, #ff00aa, #00f5ff, #9d00ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 40px rgba(255,0,170,0.6);
-            animation: glitch-header 4s infinite alternate;
-        }
-        .subtitle {
-            font-size: 1.8rem;
-            color: var(--neon-cyan);
-            margin-top: 1rem;
-            text-shadow: 0 0 20px var(--neon-cyan);
-        }
-        .nav {
-            position: fixed;
-            top: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--glass);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,0,170,0.3);
-            border-radius: 9999px;
-            padding: 12px 30px;
-            z-index: 100;
-            display: flex;
-            gap: 30px;
-            font-size: 1.05rem;
-        }
-        .nav a {
-            color: #e0e0ff;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        .nav a:hover { color: var(--neon-magenta); }
-
-        .section {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 120px 20px 80px;
-            position: relative;
-            z-index: 2;
-        }
-        h2 {
-            font-size: 2.8rem;
-            margin-bottom: 2rem;
-            color: var(--neon-violet);
-            position: relative;
-            display: inline-block;
-        }
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 60%;
-            height: 3px;
-            background: linear-gradient(to right, var(--neon-magenta), transparent);
-        }
-
-        .glass-terminal {
-            background: var(--glass);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(0,245,255,0.4);
-            border-radius: 16px;
-            padding: 2rem;
-            box-shadow: 0 0 60px rgba(0,245,255,0.25);
-            max-width: 780px;
-            margin: 4rem auto;
-        }
-        .terminal-header {
-            color: var(--neon-cyan);
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .terminal-header::before {
-            content: '● ● ●';
-            color: #ff5555;
-        }
-
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 2rem;
-        }
-        .card {
-            background: var(--glass);
-            border: 1px solid rgba(255,0,170,0.3);
-            border-radius: 16px;
-            padding: 2rem;
-            transition: all 0.4s cubic-bezier(0.23,1,0.32,1);
-        }
-        .card:hover {
-            transform: translateY(-12px) scale(1.02);
-            border-color: var(--neon-cyan);
-            box-shadow: 0 0 50px rgba(0,245,255,0.4);
-        }
-
-        .badge {
-            display: inline-block;
-            background: rgba(157,0,255,0.15);
-            color: var(--neon-violet);
-            padding: 4px 14px;
-            border-radius: 9999px;
-            font-size: 0.85rem;
-            margin: 4px 4px 0 0;
-            border: 1px solid rgba(157,0,255,0.3);
-        }
-
-        .soc-widget {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: var(--glass);
-            border: 1px solid var(--neon-magenta);
-            border-radius: 16px;
-            padding: 1.5rem;
-            width: 300px;
-            backdrop-filter: blur(12px);
-            z-index: 200;
-            box-shadow: 0 0 40px rgba(255,0,170,0.3);
-        }
-
-        @keyframes glitch-header {
-            0% { transform: translate(0); }
-            20% { transform: translate(-2px, 2px); }
-            40% { transform: translate(-2px, -2px); }
-            60% { transform: translate(2px, 2px); }
-            80% { transform: translate(2px, -2px); }
-            100% { transform: translate(0); }
-        }
+        .matrix-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.08; pointer-events: none; }
+        header { text-align: center; padding: 4rem 1rem; position: relative; }
+        h1 { font-size: 4rem; margin: 0; text-shadow: 0 0 20px var(--neon-green); animation: glitch 2s infinite; }
+        .terminal { border: 2px solid var(--neon-green); background: rgba(0,0,0,0.95); padding: 1rem; margin: 2rem auto; max-width: 900px; box-shadow: 0 0 30px var(--neon-green); }
+        .output { min-height: 120px; white-space: pre-wrap; }
+        input { background: transparent; border: none; color: var(--neon-green); font-family: inherit; font-size: 1.1rem; width: 100%; outline: none; }
+        .neon-btn { background: transparent; border: 2px solid var(--neon-cyan); color: var(--neon-cyan); padding: 0.8rem 1.5rem; cursor: pointer; transition: all 0.3s; }
+        .neon-btn:hover { background: var(--neon-cyan); color: black; box-shadow: 0 0 20px var(--neon-cyan); }
+        .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; padding: 2rem; }
+        .card { border: 2px solid var(--neon-pink); padding: 1.5rem; background: rgba(10,10,10,0.8); transition: transform 0.3s; }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 0 30px var(--neon-pink); }
+        .badge { display: inline-block; background: #1a1a1a; border: 1px solid var(--neon-cyan); padding: 4px 10px; margin: 4px; font-size: 0.8rem; }
+        .soc-widget { position: fixed; bottom: 20px; right: 20px; width: 280px; background: rgba(0,0,0,0.95); border: 2px solid var(--neon-green); padding: 1rem; z-index: 100; }
+        .alert { color: #ff4444; animation: pulse 1.5s infinite; }
+        @keyframes glitch { 0% { text-shadow: 2px 0 #ff00ff; } 20% { text-shadow: -2px 0 #00ffff; } 40% { text-shadow: 2px 0 #ffff00; } }
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
     </style>
 </head>
 <body>
 
-    <div class="scanline"></div>
+    <canvas id="matrix" class="matrix-bg"></canvas>
 
-    <!-- Top Nav -->
-    <nav class="nav">
-        <a href="#about">About</a>
-        <a href="#experience">Experience</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Connect</a>
-    </nav>
-
-    <!-- Hero -->
     <header>
-        <div>
-            <h1>MARTY SCHNEIDER</h1>
-            <p class="subtitle">Cybersecurity Netrunner • SOC Analyst • Threat Hunter</p>
-            <p style="margin-top: 2rem; font-size: 1.3rem; color: #aaa; max-width: 620px;">
-                15+ years turning chaos into intelligence.<br>
-                <strong>Actively seeking SOC Analyst &amp; Threat Intelligence roles — 2026</strong>
-            </p>
-            <div style="margin-top: 3rem; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-                <a href="mailto:marty.schneider@gmail.com" style="background: transparent; border: 2px solid var(--neon-cyan); color: var(--neon-cyan); padding: 14px 32px; border-radius: 9999px; text-decoration: none; font-weight: 600; transition: all 0.3s;">Transmit Message</a>
-                <a href="https://linkedin.com/in/martyschneider" target="_blank" style="background: var(--neon-magenta); color: white; padding: 14px 32px; border-radius: 9999px; text-decoration: none; font-weight: 600;">Link to Corpo Profile</a>
-            </div>
+        <h1>MARTY SCHNEIDER</h1>
+        <p style="font-size:1.5rem; color:var(--neon-cyan);">Cybersecurity SOC Analyst | Threat Intelligence | Open to Work 2026</p>
+        <div style="margin-top:2rem;">
+            <a href="mailto:marty.schneider@gmail.com" class="neon-btn">Email Me</a>
+            <a href="https://linkedin.com/in/martyschneider" target="_blank" class="neon-btn" style="margin-left:1rem;">LinkedIn</a>
+            <a href="https://github.com/marty-schneider" target="_blank" class="neon-btn" style="margin-left:1rem;">GitHub</a>
         </div>
+        <p style="margin-top:3rem; font-size:1.2rem; color:#ff00ff;">↓ Type commands below or scroll ↓</p>
     </header>
 
-    <!-- About -->
-    <section id="about" class="section">
-        <h2>WHO AM I</h2>
-        <p style="max-width: 720px; font-size: 1.15rem;">
-            Former operations specialist now fully jacked into cybersecurity. I live for turning raw telemetry into actionable threat intel, mapping adversaries with MITRE ATT&CK, and building tools that make defenders faster than attackers.
-        </p>
-    </section>
-
-    <!-- Experience -->
-    <section id="experience" class="section" style="background: rgba(26,0,51,0.4);">
-        <h2>RUN HISTORY</h2>
-        <!-- Paste your full experience here exactly as you had before — just styled cleaner -->
-        <div style="margin: 2rem 0; padding-left: 2rem; border-left: 4px solid var(--neon-cyan);">
-            <h3 style="color: var(--neon-cyan);">Community Jr. SOC Analyst — Level Effect (2025–Present)</h3>
-            <ul style="margin-top: 1rem; padding-left: 1.2rem;">
-                <li>Real-time alert triage across 100+ student environments</li>
-                <li>Endpoint forensics and MITRE-mapped incident response</li>
-            </ul>
-        </div>
-        <!-- Add the rest of your roles here — same content, new styling -->
-    </section>
-
-    <!-- Neural Link Console (Interactive Terminal) -->
-    <div class="glass-terminal">
-        <div class="terminal-header">NEURAL LINK CONSOLE v4.20 • CONNECTED TO NIGHT CITY GRID</div>
-        <div id="output" style="font-family: monospace; min-height: 160px; color: #ddd; margin-bottom: 1rem;"></div>
-        <div style="display:flex; align-items:center;">
-            <span style="color:var(--neon-cyan); margin-right:8px;">▶</span>
-            <input id="cmd" type="text" placeholder="enter command (type 'help')" 
-                   style="flex:1; background:transparent; border:none; color:#fff; font-family:monospace; font-size:1.1rem; outline:none;">
-        </div>
+    <!-- INTERACTIVE TERMINAL -->
+    <div class="terminal" style="max-width:700px;">
+        <div style="color:#00ff9d; margin-bottom:0.5rem;">$ welcome to marty@secure ~ %</div>
+        <div id="output" class="output"></div>
+        <span style="color:var(--neon-green);">$ </span><input type="text" id="cmd" placeholder="type 'help'..." autofocus>
     </div>
 
-    <!-- Projects -->
-    <section id="projects" class="section">
-        <h2>PROJECTS / RUNS</h2>
-        <div class="project-grid">
-            <div class="card">
-                <h3 style="color:var(--neon-magenta);">Cybersecurity Report Generator</h3>
-                <p>Automated IOC → MITRE ATT&CK + CVE reporting engine (TypeScript)</p>
-                <div style="margin-top:1.5rem;">
-                    <span class="badge">TypeScript</span>
-                    <span class="badge">MITRE ATT&CK</span>
-                    <span class="badge">OpenAI</span>
-                </div>
-                <a href="https://github.com/marty-schneider/cybersecurity-report-generator" target="_blank" style="display:block; margin-top:2rem; color:var(--neon-cyan); text-decoration:underline;">View on GitHub →</a>
+  <!-- Whoami Section -->
+  <section class="section" id="whoami">
+    <div class="container">
+      <h2 class="section-title"><span class="prompt">$</span> whoami</h2>
+      <div class="terminal-block">
+        <div class="terminal-header">
+          <span class="terminal-dot red"></span>
+          <span class="terminal-dot yellow"></span>
+          <span class="terminal-dot green"></span>
+          <span class="terminal-title">about.sh</span>
+        </div>
+        <div class="terminal-body">
+          <p class="terminal-line"><span class="comment"># Career Transition to Cybersecurity</span></p>
+          <p class="terminal-line">&nbsp;</p>
+          <p class="terminal-line">I'm an aspiring cybersecurity professional with a passion for protecting digital infrastructure and uncovering vulnerabilities before adversaries do. As I am making my transition into cybersecurity, I'm developing expertise in vulnerability management, security operations, and penetration testing.</p>
+          <p class="terminal-line">&nbsp;</p>
+          <p class="terminal-line">I have 15 years of experience in startup operations and my background gives me a unique perspective on security challenges, combining analytical thinking with hands-on technical and operational skills. I believe in continuous learning, community contribution, and staying ahead of the evolving threat landscape.</p>
+          <p class="terminal-line">&nbsp;</p>
+          <p class="terminal-line"><span class="highlight">Focus areas:</span> Vulnerability Management | Security Operations | Threat Analysis | Incident Response</p>
+        </div>
+        <!-- Add the rest of your roles exactly as before — I kept them clean in the full file -->
+    </section>
+
+  <!-- Experience Section -->
+  <section class="section" id="experience">
+    <div class="container">
+      <h2 class="section-title"><span class="prompt">$</span> cat experience.log</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <h3>Community Jr. SOC Analyst</h3>
+              <span class="timeline-date">2025 &ndash; Present</span>
             </div>
-            <!-- Add your other three projects in identical card style -->
+            <p class="timeline-company">Level Effect</p>
+            <ul class="timeline-details">
+              <li>Provided technical support to SOC100 students on core cybersecurity topics, and from IT administration to network traffic analysis, including SOC Tier 1 tasks like alert triage, endpoint analysis, log analytics, and incident response.</li>
+              <li>Guided students through labs, provided feedback, and ensured adherence to best practices and community standards on Discord.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <h3>Cyber Defense Analyst Program</h3>
+              <span class="timeline-date">2025 &ndash; Present</span>
+            </div>
+            <p class="timeline-company">Level Effect</p>
+            <ul class="timeline-details">
+              <li>Completed an intensive Cyber Defense Analyst program featuring extended hands-on operations in a virtual Security Operations Center, triaging real-world simulated incidents, investigating threats, and authoring professional DFIR reports under instructor guidance from former NSA analysts.</li>
+              <li>Mastered advanced SOC Tier 1–2 skills, including Windows artifact triage, malware traffic analysis, persistence mechanism detection, and proactive threat hunting across endpoints and networks.</li>
+              <li>Demonstrated proficiency in high-pressure SOC workflows through a week-long Tier 2 capstone and rigorous practical exam, earning performance-based Cyber Defense Certified Professional (CDCP) validation with manually graded submissions.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <h3>Operations Consultant</h3>
+              <span class="timeline-date">2020 &ndash; Present</span>
+            </div>
+            <p class="timeline-company">Erebor Management</p>
+            <ul class="timeline-details">
+              <li>Analyzed large-scale datasets using SQL and pivot tables to identify operational risks, reducing human escalations by 50% in AI-driven freight tracking systems—mirroring SOC threat triage for faster incident resolution.</li>
+              <li>Mitigated compliance vulnerabilities by redesigning workflows for regulated ad networks, partnering with engineering teams to implement security controls that accelerated product launches by 30% while ensuring audit readiness.</li>
+            </ul>
+          </div>
+        </div><div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <h3>Founder & GRC Lead</h3>
+              <span class="timeline-date">2015 &ndash; 2019</span>
+            </div>
+            <p class="timeline-company">Hometown Heart</p>
+            <ul class="timeline-details">
+              <li>Directed GRC program for $40M P&L operation, implementing security policies and third-party vendor audits that mitigated regulatory risks across 350+ employees and 250+ drivers, achieving 100% compliance in state/local licensing.</li>
+              <li>Monitored emerging threats and regulations using log aggregation tools, developing incident response processes and onboarding/offboarding that reduced access vulnerabilities by standardizing evidence collection and access controls.</li>
+              <li>Negotiated 100+ contracts (NDAs, vendor agreements) with lifecycle management tooling, centralizing sensitive data to enable rapid threat detection and prevent breaches—resulting in zero compliance incidents during 3x revenue growth.</li>
+              <li>Led data governance for HR transitions (250+ 1099 to FT employees), analyzing insurance and financial logs to identify fraud risks, ensuring secure handling of sensitive records in line with federal reporting standards.</li>
+            </ul>
+          </div>
+        </div><div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="timeline-header">
+              <h3>Chief of Staff & Data Analyst</h3>
+              <span class="timeline-date">2010 &ndash; 2014</span>
+            </div>
+            <p class="timeline-company">Votizen</p>
+            <ul class="timeline-details">
+              <li>Aggregated and analyzed 200M+ voter records via SQL queries and geospatial tools, detecting data inconsistencies to support secure aggregation—reducing processing errors by 50% and enabling compliant data sharing.</li>
+              <li>Collaborated with engineering to clean and implement geolocation datasets, performing vulnerability scans on municipal data sources to mitigate exposure risks during outreach to 400+ entities.</li>
+              <li>Managed data entry teams of 20 to populate elected official profiles, utilizing log analysis to track and resolve discrepancies, ensuring integrity of sensitive civic datasets for advocacy campaigns.</li>
+              <li>Optimized finance and accounting systems by preparing legal documents and maintaining audit trails, streamlining threat detection in financial reporting to support CPA accuracy and regulatory compliance.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certifications Section -->
+  <section class="section" id="certifications">
+    <div class="container">
+      <h2 class="section-title"><span class="prompt">$</span> ls certifications/</h2>
+      <div class="cert-grid">
+        <div class="cert-card">
+          <div class="cert-icon">
+            <img src="https://media.licdn.com/dms/image/sync/v2/D5627AQGv4uYLrAQKsQ/articleshare-shrink_800/B56ZsuOT1RKEAI-/0/1766007062231?e=1771286400&v=beta&t=EYWwwIrmqTsboO4j5wzzPW_hPYQD3UAw1qxOT0Sffq4" alt="Cyber Defense Icon">
+          </div>
+          <h3 class="cert-name">Cyber Defense Analyst Program</h3>
+          <p class="cert-issuer">Level Effect</p>
+          <p class="cert-status"><span class="status-active">ACTIVE</span></p>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon">
+            <img src="https://media.licdn.com/dms/image/v2/D562DAQHemS2D6dbUrQ/profile-treasury-image-shrink_480_480/B56ZpMIKgfIsAM-/0/1762213800375?e=1771286400&v=beta&t=dEN-dPwXIK4JEQU60fVyg18gbWPTYKsu79lzxp2YpdQ" alt="Cyber Defense Icon">
+          </div>
+          <h3 class="cert-name">AISEC-100: Practical AI for Security</h3>
+          <p class="cert-issuer">Level Effect</p>
+          <p class="cert-status"><span class="status-active">ACTIVE</span></p>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon">
+            <img src="https://media.licdn.com/dms/image/v2/D562DAQF4wj5dxZHZgA/profile-treasury-image-shrink_800_800/B56ZhkB.xuHUAc-/0/1754024897932?e=1771286400&v=beta&t=V173nFTqN1pMMBqoklkPT1Er3E9s1HPk2yEBsv24O4g" alt="Cyber Defense Icon">
+          </div>
+          <h3 class="cert-name">Google Cyber Security Professional Certificate</h3>
+          <p class="cert-issuer">Google</p>
+          <p class="cert-status"><span class="status-active">ACTIVE</span></p>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon">
+            <img src="https://media.licdn.com/dms/image/sync/v2/D5627AQFlafKdvMQz9g/articleshare-shrink_1280_800/articleshare-shrink_1280_800/0/1741989631269?e=1771286400&v=beta&t=oDrD5Od3wUsljcfLM-Q7tc2hMd8G7jDC8KkDPdKLrP4" alt="Cyber Defense Icon">
+          </div>
+          <h3 class="cert-name">Certitied in Cybersecurity</h3>
+          <p class="cert-issuer">ISC2</p>
+          <p class="cert-status"><span class="status-active">ACTIVE</span></p>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon">
+            <img src="https://media.licdn.com/dms/image/v2/D562DAQEY_VbZn665ag/profile-treasury-document-images_1280/B56Zu.U_RQGcAU-/1/1768424732846?e=1771459200&v=beta&t=HJEDG2E-WyB0biO-2Zy_UyRbZnEWvb5bp9PEMThTync" alt="Cyber Defense Icon">
+          </div>
+          <h3 class="cert-name">Open Source Licnese Compliance Management</h3>
+          <p class="cert-issuer">Linux Foundation</p>
+          <p class="cert-status"><span class="status-active">ACTIVE</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section class="section" id="projects">
+    <div class="container">
+      <h2 class="section-title"><span class="prompt">$</span> find ./projects -type f</h2>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-header">
+            <h3>Home Lab Environment</h3>
+            <span class="project-tag">Infrastructure</span>
+          </div>
+          <p class="project-desc">Built a comprehensive cybersecurity home lab with pfSense, Security Onion, and vulnerable VMs for hands-on penetration testing practice and security tool evaluation.</p>
+          <div class="project-tech">
+            <span>pfSense</span>
+            <span>Ubuntu</span>
+            <span>VMware</span>
+            <span>Kali Linux</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-header">
+            <h3>Cybersecurity Reporting Tool</h3>
+            <span class="project-tag">Reporting</span>
+          </div>
+          <p class="project-desc">Developed a web application that takes an excel sheet with IOCs and timestamps and runs it against MITRE ATT&CK and CVE database to create reports for Security audits, incident reports and Penetration Tests.</p>
+          <div class="project-tech">
+            <span>Claude Code</span>
+            <span>MITRE ATT&CK</span>
+            <span>CVE</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-header">
+            <h3>Vulnerability Scanner</h3>
+            <span class="project-tag">Tool Development</span>
+          </div>
+          <p class="project-desc">Developed a custom network vulnerability scanner using Python to automate reconnaissance and identify common misconfigurations across network services.</p>
+          <div class="project-tech">
+            <span>Python</span>
+            <span>Nmap</span>
+            <span>SQLite</span>
+            <span>REST API</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-header">
+            <h3>SIEM Dashboard</h3>
+            <span class="project-tag">Blue Team</span>
+          </div>
+          <p class="project-desc">Configured and customized a SIEM solution with custom detection rules, automated alerting, and visualization dashboards for security event monitoring.</p>
+          <div class="project-tech">
+            <span>Splunk</span>
+            <span>ELK Stack</span>
+            <span>Sigma Rules</span>
+            <span>MITRE ATT&CK</span>
+          </div>
         </div>
     </section>
 
-    <!-- SOC Widget -->
+  <!-- Contact Section -->
+  <section class="section" id="contact">
+    <div class="container">
+      <h2 class="section-title"><span class="prompt">$</span> ./contact.sh</h2>
+      <div class="contact-content">
+        <div class="terminal-block">
+          <div class="terminal-header">
+            <span class="terminal-dot red"></span>
+            <span class="terminal-dot yellow"></span>
+            <span class="terminal-dot green"></span>
+            <span class="terminal-title">contact.sh</span>
+          </div>
+          <div class="terminal-body">
+            <p class="terminal-line"><span class="comment"># Let's connect</span></p>
+            <p class="terminal-line">&nbsp;</p>
+            <p class="terminal-line">I'm always interested in discussing cybersecurity, new opportunities, and collaboration on security projects.</p>
+            <p class="terminal-line">&nbsp;</p>
+            <p class="terminal-line"><span class="highlight">Email:</span> <a href="mailto:marty.schneider@gmail.com" class="inline-link">marty.schneider@gmail.com</a></p>
+            <p class="terminal-line"><span class="highlight">GitHub:</span> <a href="https://github.com/marty-schneider" target="_blank" rel="noopener noreferrer" class="inline-link">github.com/marty-schneider</a></p>
+            <p class="terminal-line"><span class="highlight">LinkedIn:</span> <a href="https://linkedin.com/in/martyschneider" target="_blank" rel="noopener noreferrer" class="inline-link">linkedin.com/in/martyschneider</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <!-- SOC DASHBOARD WIDGET -->
     <div class="soc-widget">
-        <div style="color:var(--neon-cyan); font-size:1.1rem; margin-bottom:0.8rem;">🜂 NIGHT CITY SOC FEED</div>
-        <div id="alerts" style="font-family:monospace; font-size:0.95rem; line-height:1.5; color:#ffdddd;"></div>
+        <h3 style="margin:0 0 1rem 0; color:var(--neon-green);">🛡️ LIVE SOC MONITOR</h3>
+        <div style="margin-bottom:0.5rem;">Threat Level: <span id="threat" style="color:#ff4444; font-weight:bold;">MEDIUM</span> <span class="alert">●</span></div>
+        <div id="alerts" style="font-size:0.85rem; line-height:1.4;"></div>
     </div>
 
-    <!-- Contact -->
-    <section id="contact" class="section" style="text-align:center; background:rgba(26,0,51,0.4);">
-        <h2>TRANSMIT SIGNAL</h2>
-        <p style="font-size:1.4rem; margin:2rem 0;">Ready to join your crew.</p>
-        <a href="mailto:marty.schneider@gmail.com" style="font-size:1.6rem; color:var(--neon-cyan); text-decoration:none;">marty.schneider@gmail.com</a>
-    </section>
-
-    <footer style="text-align:center; padding:4rem; color:#555; font-size:0.9rem;">
-        © 2026 Marty Schneider • Built in the Grid with Grok 4.20
+    <footer style="text-align:center; padding:3rem; color:#555; font-size:0.9rem;">
+        Built with 🔥 &amp; Grok 4.20 • © 2026 Marty Schneider
     </footer>
 
     <script>
-        // Terminal commands (same logic as before, now with cyberpunk flavor)
+        // MATRIX RAIN
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth;
+        const chars = '01アイウエオカキクケコ0123456789ABCDEF';
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(10,10,10,0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#00ff9d';
+            ctx.font = `${fontSize}px monospace`;
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+        setInterval(drawMatrix, 50);
+
+        // INTERACTIVE TERMINAL
         const output = document.getElementById('output');
         const cmdInput = document.getElementById('cmd');
 
         const commands = {
-            help: "help | whoami | projects | status | matrix | clear | jackin",
-            whoami: () => { document.getElementById('about').scrollIntoView({behavior:'smooth'}); return "Marty Schneider — Netrunner | SOC Analyst | Threat Hunter"; },
-            projects: () => { document.getElementById('projects').scrollIntoView({behavior:'smooth'}); return "Loading project deck..."; },
-            status: () => "Threat Level: ELEVATED | Open to new contracts",
-            matrix: () => { document.querySelector('.scanline').style.opacity = document.querySelector('.scanline').style.opacity === '0.15' ? '0.35' : '0.15'; return "Scanline intensity adjusted."; },
+            help: "Available: whoami, experience, projects, certs, matrix, clear, hacktheplanet, sudo rm -rf /",
+            whoami: () => { document.getElementById('about').scrollIntoView({ behavior: 'smooth' }); return "Marty Schneider — Cybersecurity SOC Analyst in training"; },
+            experience: () => { document.getElementById('experience').scrollIntoView({ behavior: 'smooth' }); return "Experience log loaded..."; },
+            projects: () => { document.getElementById('projects').scrollIntoView({ behavior: 'smooth' }); return "Project directory opened."; },
+            certs: () => { document.getElementById('certs').scrollIntoView({ behavior: 'smooth' }); return "Certifications listed."; },
+            matrix: () => { canvas.style.opacity = canvas.style.opacity === '0.08' ? '0.3' : '0.08'; return "Matrix protocol engaged."; },
             clear: () => { output.innerHTML = ''; return ''; },
-            jackin: () => "Connection established. Welcome back, choom."
+            'hacktheplanet': () => "Access granted... just kidding, this is a portfolio 😎",
+            'sudo rm -rf /': () => "Permission denied. Nice try, hacker."
         };
 
-        cmdInput.addEventListener('keypress', e => {
+        cmdInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 const cmd = cmdInput.value.trim().toLowerCase();
-                output.innerHTML += `<div style="color:#00f5ff;">> ${cmdInput.value}</div>`;
-                const resp = commands[cmd] ? (typeof commands[cmd]==='function' ? commands[cmd]() : commands[cmd]) : "Command unknown. Type 'help'.";
-                output.innerHTML += `<div>${resp}</div>`;
+                output.innerHTML += `<div>$ ${cmdInput.value}</div>`;
+                const response = commands[cmd] ? (typeof commands[cmd] === 'function' ? commands[cmd]() : commands[cmd]) : "Command not found. Type 'help'";
+                output.innerHTML += `<div style="color:#00f0ff;">${response}</div>`;
                 output.scrollTop = output.scrollHeight;
                 cmdInput.value = '';
             }
         });
 
-        // Live SOC alerts (more cyberpunk flavor)
+        // SOC WIDGET — fake live alerts
         const alertsDiv = document.getElementById('alerts');
-        const alerts = [
-            "T1566 Phishing campaign detected — Night City sector 4",
-            "Brute-force on RDP (185.x.x.x) — blocked",
-            "MITRE T1021.002 Lateral movement attempt",
-            "High-severity CVE exploit in progress"
-        ];
-        let i = 0;
+        const threats = ["Brute force attempt on port 22", "Suspicious login from 185.XX.XX.XX", "MITRE T1566 Phishing detected", "High CPU on SIEM host"];
         setInterval(() => {
-            alertsDiv.innerHTML = `→ ${alerts[i % alerts.length]}<br><span style="color:#666; font-size:0.8rem;">just now</span>`;
-            i++;
-        }, 3800);
+            const random = threats[Math.floor(Math.random()*threats.length)];
+            alertsDiv.innerHTML = `→ ${random}<br><span style="color:#888; font-size:0.7rem;">just now</span>`;
+        }, 4500);
 
-        // Auto-focus
+        // Auto-focus terminal
         window.onload = () => cmdInput.focus();
     </script>
 </body>
