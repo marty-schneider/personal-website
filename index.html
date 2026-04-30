@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Cybersecurity SOC Analyst & Threat Intelligence Specialist | 15+ years ops experience | MITRE ATT&CK, Splunk, Python, Nmap. Actively seeking SOC / Threat roles in 2026.">
-    <title>Marty Schneider | Cybersecurity Operations</title>
-    <meta property="og:title" content="Marty Schneider | Cybersecurity SOC Analyst">
-    <meta property="og:description" content="Night City–ready threat hunter. Open to SOC Analyst and Threat Intelligence roles.">
+    <meta name="description" content="DevSecOps & pipeline security | Securing software in CI—SAST, SCA, secrets, IaC policy, containers, SBOM. 15+ years ops + security background. Open to DevSecOps and application security roles.">
+    <title>Marty Schneider | DevSecOps & Pipeline Security</title>
+    <meta property="og:title" content="Marty Schneider | DevSecOps & Secure CI/CD">
+    <meta property="og:description" content="Application security in the pipeline. Gates, policy-as-code, and supply chain hygiene—without blocking the business.">
     <meta property="og:url" content="https://martyschneider.com">
 
     <!-- JSON-LD for recruiters & AI agents -->
@@ -15,185 +15,311 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "Marty Schneider",
-      "jobTitle": "Cybersecurity SOC Analyst | Threat Intelligence Specialist",
-      "description": "Aspiring professional cybersecurity operator with 15+ years operations background specializing in vulnerability management, incident response, and GRC.",
+      "jobTitle": "DevSecOps | Application & Pipeline Security",
+      "description": "Security engineer focused on securing software in CI/CD: automated gates, developer-friendly guardrails, SAST/SCA, secrets scanning, container and supply chain controls, and policy-as-code. 15+ years operations background including SOC and incident response.",
       "url": "https://martyschneider.com",
-      "knowsAbout": ["MITRE ATT&CK", "Splunk", "Nmap", "Python", "SIEM", "DFIR", "Incident Response", "Vulnerability Management"],
+      "knowsAbout": ["DevSecOps", "GitHub Actions", "GitLab CI", "SAST", "SCA", "Secrets scanning", "Container security", "SBOM", "IaC policy", "Supply chain security", "MITRE ATT&CK", "Python", "CI/CD security"],
       "sameAs": ["https://linkedin.com/in/martyschneider", "https://github.com/marty-schneider"]
     }
     </script>
 
     <style>
         :root {
-            --neon-magenta: #ff00aa;
-            --neon-cyan: #00f5ff;
-            --neon-violet: #9d00ff;
-            --glass: rgba(15, 15, 25, 0.85);
+            --neon-magenta: #e0109a;
+            --neon-cyan: #00e8ec;
+            --neon-violet: #8b5cf6;
+            --glass: rgba(12, 14, 22, 0.88);
+            --border-subtle: rgba(0, 232, 236, 0.22);
+            --shadow-card: 0 12px 40px rgba(0, 0, 0, 0.45);
         }
         * { margin:0; padding:0; box-sizing:border-box; }
         body {
-            background: #0a0a12;
-            color: #e0e0ff;
+            background: #080810;
+            color: #e4e4f0;
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            line-height: 1.6;
+            line-height: 1.65;
             overflow-x: hidden;
         }
         .scanline {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(transparent 50%, rgba(255,255,255,0.03) 50%);
+            background: linear-gradient(transparent 50%, rgba(255,255,255,0.022) 50%);
             background-size: 100% 4px;
             pointer-events: none;
             z-index: 1;
-            animation: scan 8s linear infinite;
-            opacity: 0.15;
+            animation: scan 14s linear infinite;
+            opacity: 0.07;
         }
         @keyframes scan { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
 
+        @media (prefers-reduced-motion: reduce) {
+            .scanline { animation: none; opacity: 0.04; }
+            h1 { animation: none !important; }
+        }
+
         header {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             position: relative;
-            background: radial-gradient(circle at center, #1a0033 0%, #0a0a12 70%);
+            padding: 100px 20px 80px;
+            background: radial-gradient(ellipse 80% 60% at 50% 40%, #1a0f2e 0%, #080810 72%);
         }
         h1 {
-            font-size: 5.5rem;
-            font-weight: 900;
-            letter-spacing: -0.05em;
-            background: linear-gradient(90deg, #ff00aa, #00f5ff, #9d00ff);
+            font-size: clamp(2.25rem, 8vw, 5rem);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            background: linear-gradient(100deg, var(--neon-magenta), var(--neon-cyan), var(--neon-violet));
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 40px rgba(255,0,170,0.6);
-            animation: glitch-header 4s infinite alternate;
+            line-height: 1.05;
+        }
+        h1:hover {
+            animation: glitch-header 3.5s ease-in-out infinite alternate;
         }
         .subtitle {
-            font-size: 1.8rem;
+            font-size: clamp(1.05rem, 2.8vw, 1.65rem);
             color: var(--neon-cyan);
-            margin-top: 1rem;
-            text-shadow: 0 0 20px var(--neon-cyan);
+            margin-top: 1.25rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            text-shadow: 0 0 18px rgba(0, 232, 236, 0.25);
         }
+        .hero-tagline {
+            margin-top: 2rem;
+            font-size: clamp(1rem, 2.2vw, 1.2rem);
+            color: #9ca3b8;
+            max-width: 34rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .hero-actions {
+            margin-top: 2.75rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn {
+            display: inline-block;
+            padding: 14px 28px;
+            border-radius: 9999px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.2s, border-color 0.2s, background 0.2s, box-shadow 0.2s;
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+        }
+        .btn-outline:hover {
+            box-shadow: 0 0 0 1px rgba(0, 232, 236, 0.35);
+            background: rgba(0, 232, 236, 0.06);
+        }
+        .btn-solid {
+            background: var(--neon-magenta);
+            color: #fff;
+            border: 1px solid transparent;
+        }
+        .btn-solid:hover {
+            filter: brightness(1.08);
+            box-shadow: var(--shadow-card);
+        }
+        .btn:focus-visible {
+            outline: 2px solid var(--neon-cyan);
+            outline-offset: 3px;
+        }
+
         .nav {
             position: fixed;
-            top: 30px;
+            top: 22px;
             left: 50%;
             transform: translateX(-50%);
             background: var(--glass);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,0,170,0.3);
+            backdrop-filter: blur(14px);
+            border: 1px solid var(--border-subtle);
             border-radius: 9999px;
-            padding: 12px 30px;
+            padding: 10px 22px;
             z-index: 100;
             display: flex;
-            gap: 30px;
-            font-size: 1.05rem;
+            gap: clamp(16px, 4vw, 28px);
+            font-size: 0.95rem;
         }
         .nav a {
-            color: #e0e0ff;
+            color: #c8c8dc;
             text-decoration: none;
-            transition: color 0.3s;
+            transition: color 0.2s;
+            border-radius: 6px;
+            padding: 2px 4px;
         }
-        .nav a:hover { color: var(--neon-magenta); }
+        .nav a:hover { color: var(--neon-cyan); }
+        .nav a:focus-visible {
+            outline: 2px solid var(--neon-cyan);
+            outline-offset: 4px;
+        }
 
         .section {
             max-width: 1100px;
             margin: 0 auto;
-            padding: 120px 20px 80px;
+            padding: clamp(72px, 12vw, 120px) 20px 80px;
             position: relative;
             z-index: 2;
         }
         h2 {
-            font-size: 2.8rem;
-            margin-bottom: 2rem;
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            margin-bottom: 1.75rem;
             color: var(--neon-violet);
             position: relative;
             display: inline-block;
+            font-weight: 700;
         }
         h2::after {
             content: '';
             position: absolute;
             bottom: -8px;
             left: 0;
-            width: 60%;
-            height: 3px;
+            width: 55%;
+            height: 2px;
             background: linear-gradient(to right, var(--neon-magenta), transparent);
         }
 
         .glass-terminal {
             background: var(--glass);
             backdrop-filter: blur(16px);
-            border: 1px solid rgba(0,245,255,0.4);
-            border-radius: 16px;
-            padding: 2rem;
-            box-shadow: 0 0 60px rgba(0,245,255,0.25);
+            border: 1px solid var(--border-subtle);
+            border-radius: 14px;
+            padding: 1.75rem 2rem;
+            box-shadow: var(--shadow-card);
             max-width: 780px;
             margin: 4rem auto;
         }
         .terminal-header {
             color: var(--neon-cyan);
-            font-size: 1.1rem;
+            font-size: 0.8rem;
             margin-bottom: 1rem;
             display: flex;
             align-items: center;
             gap: 10px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            font-weight: 600;
         }
         .terminal-header::before {
             content: '● ● ●';
-            color: #ff5555;
+            color: #c94a6a;
+            letter-spacing: 0.15em;
+            font-size: 0.65rem;
+        }
+        #cmd:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 232, 236, 0.45);
+            border-radius: 4px;
         }
 
         .project-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+            gap: 1.75rem;
         }
         .card {
             background: var(--glass);
-            border: 1px solid rgba(255,0,170,0.3);
-            border-radius: 16px;
-            padding: 2rem;
-            transition: all 0.4s cubic-bezier(0.23,1,0.32,1);
+            border: 1px solid rgba(139, 92, 246, 0.22);
+            border-radius: 14px;
+            padding: 1.75rem;
+            transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.25s, box-shadow 0.25s;
+            box-shadow: var(--shadow-card);
         }
         .card:hover {
-            transform: translateY(-12px) scale(1.02);
-            border-color: var(--neon-cyan);
-            box-shadow: 0 0 50px rgba(0,245,255,0.4);
+            transform: translateY(-6px);
+            border-color: rgba(0, 232, 236, 0.35);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 232, 236, 0.12);
+        }
+        .card a:focus-visible {
+            outline: 2px solid var(--neon-cyan);
+            outline-offset: 3px;
+            border-radius: 2px;
         }
 
         .badge {
             display: inline-block;
-            background: rgba(157,0,255,0.15);
-            color: var(--neon-violet);
-            padding: 4px 14px;
+            background: rgba(139, 92, 246, 0.12);
+            color: #c4b5fd;
+            padding: 4px 12px;
             border-radius: 9999px;
-            font-size: 0.85rem;
-            margin: 4px 4px 0 0;
-            border: 1px solid rgba(157,0,255,0.3);
+            font-size: 0.8rem;
+            margin: 4px 6px 0 0;
+            border: 1px solid rgba(139, 92, 246, 0.28);
         }
 
-        .soc-widget {
+        .pipeline-widget {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
+            bottom: 24px;
+            right: 24px;
             background: var(--glass);
-            border: 1px solid var(--neon-magenta);
-            border-radius: 16px;
-            padding: 1.5rem;
-            width: 300px;
-            backdrop-filter: blur(12px);
+            border: 1px solid rgba(224, 16, 154, 0.35);
+            border-radius: 14px;
+            padding: 1.25rem 1.35rem;
+            width: min(300px, calc(100vw - 32px));
+            backdrop-filter: blur(14px);
             z-index: 200;
-            box-shadow: 0 0 40px rgba(255,0,170,0.3);
+            box-shadow: var(--shadow-card);
+        }
+        @media (max-width: 600px) {
+            .pipeline-widget {
+                bottom: 14px;
+                right: 14px;
+                left: 14px;
+                width: auto;
+            }
+        }
+
+        .pipeline-widget-title {
+            color: var(--neon-cyan);
+            font-size: 0.72rem;
+            margin-bottom: 0.65rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+        #pipeline-feed {
+            font-family: ui-monospace, "Cascadia Code", "Segoe UI Mono", monospace;
+            font-size: 0.82rem;
+            line-height: 1.55;
+            color: #d4d4e8;
+        }
+        .feed-ts {
+            color: #5c5c70;
+            font-size: 0.72rem;
+            margin-top: 0.35rem;
         }
 
         @keyframes glitch-header {
-            0% { transform: translate(0); }
-            20% { transform: translate(-2px, 2px); }
-            40% { transform: translate(-2px, -2px); }
-            60% { transform: translate(2px, 2px); }
-            80% { transform: translate(2px, -2px); }
-            100% { transform: translate(0); }
+            0% { transform: translate(0); filter: hue-rotate(0deg); }
+            25% { transform: translate(-1px, 1px); }
+            50% { transform: translate(1px, -1px); }
+            75% { transform: translate(-1px, -1px); }
+            100% { transform: translate(0); filter: hue-rotate(6deg); }
+        }
+
+        .contact-mail {
+            font-size: clamp(1.15rem, 3vw, 1.5rem);
+            color: var(--neon-cyan);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s, color 0.2s;
+        }
+        .contact-mail:hover {
+            border-bottom-color: rgba(0, 232, 236, 0.5);
+        }
+        .contact-mail:focus-visible {
+            outline: 2px solid var(--neon-cyan);
+            outline-offset: 6px;
+            border-radius: 4px;
         }
     </style>
 </head>
@@ -213,42 +339,43 @@
     <header>
         <div>
             <h1>MARTY SCHNEIDER</h1>
-            <p class="subtitle">Cybersecurity Operations • SOC Analyst • GRC</p>
-            <p style="margin-top: 2rem; font-size: 1.3rem; color: #aaa; max-width: 620px;">
-                15+ years turning chaos into order and intelligence.<br>
+            <p class="subtitle">DevSecOps · Secure CI/CD · Application security in the pipeline</p>
+            <p class="hero-tagline">
+                15+ years shipping under pressure—now focused on gates that catch risk before production: scanners, policy, and workflows developers can live with.
             </p>
-            <div style="margin-top: 3rem; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-                <a href="mailto:marty.schneider@gmail.com" style="background: transparent; border: 2px solid var(--neon-cyan); color: var(--neon-cyan); padding: 14px 32px; border-radius: 9999px; text-decoration: none; font-weight: 600; transition: all 0.3s;">Transmit Message</a>
-                <a href="https://linkedin.com/in/martyschneider" target="_blank" style="background: var(--neon-magenta); color: white; padding: 14px 32px; border-radius: 9999px; text-decoration: none; font-weight: 600;">Link to Corpo Profile</a>
+            <div class="hero-actions">
+                <a class="btn btn-outline" href="mailto:marty.schneider@gmail.com">Transmit message</a>
+                <a class="btn btn-solid" href="https://linkedin.com/in/martyschneider" target="_blank" rel="noopener noreferrer">Executive profile (LinkedIn)</a>
             </div>
         </div>
     </header>
 
     <!-- About -->
     <section id="about" class="section">
-        <h2>WHO AM I</h2>
-        <p style="max-width: 720px; font-size: 1.15rem;">
-            Former operations specialist now fully jacked into cybersecurity. I live for turning raw telemetry into actionable threat intel, mapping adversaries with MITRE ATT&CK, and building tools that make defenders faster than attackers.
+        <h2>CLEARANCE DOSSIER</h2>
+        <p style="max-width: 720px; font-size: 1.1rem; color: #b8b8cc;">
+            I work where code meets policy: embedding security in CI so bad commits fail fast—SAST, SCA, secrets, containers, IaC checks—without turning the pipeline into a paperweight. Policy-as-code, clear exemptions, and metrics leadership actually reads beat heroics after merge. Earlier depth in SOC and IR means I still speak fluent alert fatigue; today I prefer preventing the incident.
         </p>
     </section>
 
     <!-- Experience -->
-    <section id="experience" class="section" style="background: rgba(26,0,51,0.4);">
-        <h2>RUN HISTORY</h2>
-        <!-- Paste your full experience here exactly as you had before — just styled cleaner -->
-        <div style="margin: 2rem 0; padding-left: 2rem; border-left: 4px solid var(--neon-cyan);">
-            <h3 style="color: var(--neon-cyan);">Community Jr. SOC Analyst — Level Effect (2025–Present)</h3>
-            <ul style="margin-top: 1rem; padding-left: 1.2rem;">
-                <li>Real-time alert triage across 100+ student environments</li>
-                <li>Endpoint forensics and MITRE-mapped incident response</li>
+    <section id="experience" class="section" style="background: rgba(22, 12, 38, 0.35);">
+        <h2>CAREER PIPELINE</h2>
+        <p style="max-width: 720px; margin-bottom: 2rem; color: #9ca3b8; font-size: 1rem;">
+            Current focus: <strong style="color: #e4e4f0;">DevSecOps</strong>—securing builds, dependencies, and release paths. Prior roles built the detection-and-response muscle that informs what belongs in a gate versus what belongs in the SOC.
+        </p>
+        <div style="margin: 2rem 0; padding-left: 2rem; border-left: 3px solid var(--neon-cyan);">
+            <h3 style="color: var(--neon-cyan); font-size: 1.1rem;">Community Jr. SOC Analyst — Level Effect (2025–Present)</h3>
+            <ul style="margin-top: 1rem; padding-left: 1.2rem; color: #c4c4d8;">
+                <li>Real-time alert triage across 100+ student environments—pattern recognition for what “noisy but benign” looks like in automation</li>
+                <li>Endpoint forensics and MITRE-mapped incident response—feeds the same mental model used to tune severity in CI findings</li>
             </ul>
         </div>
-        <!-- Add the rest of your roles here — same content, new styling -->
     </section>
 
-    <!-- Neural Link Console (Interactive Terminal) -->
+    <!-- Secure SDLC Terminal -->
     <div class="glass-terminal">
-        <div class="terminal-header">NEURAL LINK CONSOLE v4.20 • CONNECTED TO NIGHT CITY GRID</div>
+        <div class="terminal-header">Secure SDLC Terminal v2.1 — authorized personnel · audit logged</div>
         <div id="output" style="font-family: monospace; min-height: 160px; color: #ddd; margin-bottom: 1rem;"></div>
         <div style="display:flex; align-items:center;">
             <span style="color:var(--neon-cyan); margin-right:8px;">▶</span>
@@ -259,81 +386,149 @@
 
     <!-- Projects -->
     <section id="projects" class="section">
-        <h2>PROJECTS / RUNS</h2>
+        <h2>SEC ENGINEERING / ARTIFACTS</h2>
         <div class="project-grid">
             <div class="card">
-                <h3 style="color:var(--neon-magenta);">Cybersecurity Report Generator</h3>
-                <p>Automated IOC → MITRE ATT&CK + CVE reporting engine (TypeScript)</p>
-                <div style="margin-top:1.5rem;">
+                <h3 style="color:var(--neon-magenta); font-size:1.15rem;">Cybersecurity Report Generator</h3>
+                <p style="color:#a8a8bc; margin-top:0.5rem;">TypeScript automation that turns IOCs and CVE context into structured reports—same “pipeline output” mindset as security tooling in CI.</p>
+                <div style="margin-top:1.25rem;">
                     <span class="badge">TypeScript</span>
                     <span class="badge">MITRE ATT&CK</span>
                     <span class="badge">OpenAI</span>
                 </div>
-                <a href="https://github.com/marty-schneider/cybersecurity-report-generator" target="_blank" style="display:block; margin-top:2rem; color:var(--neon-cyan); text-decoration:underline;">View on GitHub →</a>
+                <a href="https://github.com/marty-schneider/cybersecurity-report-generator" target="_blank" rel="noopener noreferrer" style="display:inline-block; margin-top:1.75rem; color:var(--neon-cyan); text-decoration:underline;">View on GitHub →</a>
             </div>
-            <!-- Add your other three projects in identical card style -->
         </div>
     </section>
 
-    <!-- SOC Widget -->
-    <div class="soc-widget">
-        <div style="color:var(--neon-cyan); font-size:1.1rem; margin-bottom:0.8rem;">🜂 NIGHT CITY SOC FEED</div>
-        <div id="alerts" style="font-family:monospace; font-size:0.95rem; line-height:1.5; color:#ffdddd;"></div>
+    <!-- Build integrity monitor -->
+    <div class="pipeline-widget" aria-live="polite">
+        <div class="pipeline-widget-title">Arasaka build integrity monitor</div>
+        <div id="pipeline-feed"></div>
     </div>
 
     <!-- Contact -->
-    <section id="contact" class="section" style="text-align:center; background:rgba(26,0,51,0.4);">
+    <section id="contact" class="section" style="text-align:center; background:rgba(22, 12, 38, 0.35);">
         <h2>TRANSMIT SIGNAL</h2>
-        <p style="font-size:1.4rem; margin:2rem 0;">Ready to join your crew.</p>
-        <a href="mailto:marty.schneider@gmail.com" style="font-size:1.6rem; color:var(--neon-cyan); text-decoration:none;">marty.schneider@gmail.com</a>
+        <p style="font-size:1.2rem; margin:2rem 0; color:#a8a8bc;">Open to DevSecOps and application security roles where CI is part of the product.</p>
+        <a class="contact-mail" href="mailto:marty.schneider@gmail.com">marty.schneider@gmail.com</a>
     </section>
 
-    <footer style="text-align:center; padding:4rem; color:#555; font-size:0.9rem;">
-        © 2026 Marty Schneider • Built in the Grid with Grok 4.20
+    <footer style="text-align:center; padding:3.5rem 1.5rem; color:#5c5c70; font-size:0.85rem;">
+        © 2026 Marty Schneider · Hand-maintained · No warranty expressed or implied
     </footer>
 
     <script>
-        // Terminal commands (same logic as before, now with cyberpunk flavor)
-        const output = document.getElementById('output');
-        const cmdInput = document.getElementById('cmd');
+        (function () {
+            const output = document.getElementById('output');
+            const cmdInput = document.getElementById('cmd');
+            const scanline = document.querySelector('.scanline');
+            const feedEl = document.getElementById('pipeline-feed');
+            if (!output || !cmdInput || !feedEl) return;
 
-        const commands = {
-            help: "help | whoami | projects | status | matrix | clear | jackin",
-            whoami: () => { document.getElementById('about').scrollIntoView({behavior:'smooth'}); return "Marty Schneider — Operations | SOC Analyst | GRC"; },
-            projects: () => { document.getElementById('projects').scrollIntoView({behavior:'smooth'}); return "Loading project deck..."; },
-            status: () => "Threat Level: ELEVATED | Open to new contracts",
-            matrix: () => { document.querySelector('.scanline').style.opacity = document.querySelector('.scanline').style.opacity === '0.15' ? '0.35' : '0.15'; return "Scanline intensity adjusted."; },
-            clear: () => { output.innerHTML = ''; return ''; },
-            jackin: () => "Connection established. Welcome back, choom."
-        };
-
-        cmdInput.addEventListener('keypress', e => {
-            if (e.key === 'Enter') {
-                const cmd = cmdInput.value.trim().toLowerCase();
-                output.innerHTML += `<div style="color:#00f5ff;">> ${cmdInput.value}</div>`;
-                const resp = commands[cmd] ? (typeof commands[cmd]==='function' ? commands[cmd]() : commands[cmd]) : "Command unknown. Type 'help'.";
-                output.innerHTML += `<div>${resp}</div>`;
-                output.scrollTop = output.scrollHeight;
-                cmdInput.value = '';
+            function ts() {
+                return new Date().toISOString().replace(/\.\d{3}Z$/, 'Z');
             }
-        });
 
-        // Live SOC alerts (more cyberpunk flavor)
-        const alertsDiv = document.getElementById('alerts');
-        const alerts = [
-            "T1566 Phishing campaign detected — Night City sector 4",
-            "Brute-force on RDP (185.x.x.x) — blocked",
-            "MITRE T1021.002 Lateral movement attempt",
-            "High-severity CVE exploit in progress"
-        ];
-        let i = 0;
-        setInterval(() => {
-            alertsDiv.innerHTML = `→ ${alerts[i % alerts.length]}<br><span style="color:#666; font-size:0.8rem;">just now</span>`;
-            i++;
-        }, 3800);
+            const commands = {
+                help: "Commands: help | whoami | projects | gates | pipeline | sbom | status | matrix | override | clear",
+                whoami: function () {
+                    document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
+                    return "Marty Schneider — DevSecOps | pipeline & application security | ex-operations / SOC foundation";
+                },
+                projects: function () {
+                    document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
+                    return "Artifact registry unlocked. Scrolling to SEC ENGINEERING.";
+                },
+                gates: function () {
+                    document.getElementById('experience').scrollIntoView({ behavior: 'smooth' });
+                    return "Policy gates: viewing CAREER PIPELINE.";
+                },
+                pipeline: function () {
+                    return commands.gates();
+                },
+                sbom: function () {
+                    document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
+                    return "SBOM / supply chain: see artifacts. Provenance is a feature.";
+                },
+                status: function () {
+                    return "Pipeline posture: GREEN (portfolio) | Hiring: open to DevSecOps / appsec roles with real CI ownership";
+                },
+                matrix: function () {
+                    if (!scanline) return "Display subsystem offline.";
+                    var low = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "0.04" : "0.07";
+                    var high = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "0.08" : "0.12";
+                    scanline.style.opacity = scanline.style.opacity === high ? low : high;
+                    return "CRT overlay intensity adjusted (accessibility-aware).";
+                },
+                override: function () {
+                    return "Denied. Segregation of duties enforced. File a CAB if you believe this is an error.";
+                },
+                clear: function () {
+                    output.innerHTML = "";
+                    return "";
+                },
+                jackin: function () {
+                    return "Executive session queued. Legal has been notified.";
+                }
+            };
 
-        // Auto-focus
-        window.onload = () => cmdInput.focus();
+            cmdInput.addEventListener("keydown", function (e) {
+                if (e.key !== "Enter") return;
+                var raw = cmdInput.value.trim();
+                var cmd = raw.toLowerCase();
+                var esc = function (s) {
+                    var d = document.createElement("div");
+                    d.textContent = s;
+                    return d.innerHTML;
+                };
+                output.innerHTML += '<div style="color:#00e8ec;">> ' + esc(raw || "(empty)") + "</div>";
+                var resp = "";
+                if (commands.hasOwnProperty(cmd)) {
+                    var fn = commands[cmd];
+                    resp = typeof fn === "function" ? fn() : fn;
+                } else {
+                    resp = "Unknown command. Type <code style=\"color:#c4b5fd\">help</code>.";
+                }
+                if (resp) output.innerHTML += "<div>" + resp + "</div>";
+                output.scrollTop = output.scrollHeight;
+                cmdInput.value = "";
+            });
+
+            var feedLines = [
+                { level: "BLOCK", text: "SAST gate: merge #1842 blocked — hardcoded secret in test/fixtures" },
+                { level: "WARN", text: "SCA: critical CVE in devDependency — auto-dismissed per org policy with ticket SDLC-991" },
+                { level: "OK", text: "Container policy: image cosign signature VERIFIED (registry.internal)" },
+                { level: "OK", text: "IaC scan (tfsec): 0 violations on env/staging" },
+                { level: "BLOCK", text: "Secret scan: HIGH — revoked key pattern in .env.example (commit amended)" },
+                { level: "OK", text: "SBOM attestation: SPDX 2.3 pushed to artifact store" },
+                { level: "WARN", text: "Branch protection: admin bypass used on hotfix/release — audit trail retained" }
+            ];
+            var fi = 0;
+            function renderFeed() {
+                var row = feedLines[fi % feedLines.length];
+                var color = row.level === "BLOCK" ? "#f0a0b8" : row.level === "WARN" ? "#fcd34d" : "#86efac";
+                feedEl.innerHTML =
+                    '<span style="color:' +
+                    color +
+                    ';">[' +
+                    row.level +
+                    "]</span> " +
+                    row.text +
+                    '<div class="feed-ts">' +
+                    ts() +
+                    "</div>";
+                fi++;
+            }
+            renderFeed();
+            if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+                setInterval(renderFeed, 4000);
+            }
+
+            window.addEventListener("load", function () {
+                cmdInput.focus();
+            });
+        })();
     </script>
 </body>
 </html>
