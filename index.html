@@ -9,6 +9,8 @@
     <meta property="og:description" content="Application security in the pipeline. Gates, policy-as-code, and supply chain hygiene—without blocking the business.">
     <meta property="og:url" content="https://martyschneider.com">
 
+    <link rel="preload" as="image" href="img/panel-hero.jpg">
+
     <!-- JSON-LD for recruiters & AI agents -->
     <script type="application/ld+json">
     {
@@ -31,22 +33,28 @@
             --glass: rgba(12, 14, 22, 0.88);
             --border-subtle: rgba(0, 232, 236, 0.22);
             --shadow-card: 0 12px 40px rgba(0, 0, 0, 0.45);
+            color-scheme: dark;
         }
-        * { margin:0; padding:0; box-sizing:border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
         body {
             background: #080810;
             color: #e4e4f0;
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             line-height: 1.65;
-            overflow-x: hidden;
         }
+
         .scanline {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(transparent 50%, rgba(255,255,255,0.022) 50%);
             background-size: 100% 4px;
             pointer-events: none;
-            z-index: 1;
+            z-index: 5;
             animation: scan 14s linear infinite;
             opacity: 0.07;
         }
@@ -55,29 +63,9 @@
         @media (prefers-reduced-motion: reduce) {
             .scanline { animation: none; opacity: 0.04; }
             h1 { animation: none !important; }
+            .deck { scroll-behavior: auto !important; }
         }
 
-        header {
-            min-height: min(88vh, 760px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            padding: 88px 20px 56px;
-            background: radial-gradient(ellipse 80% 60% at 50% 40%, #1a0f2e 0%, #080810 72%);
-        }
-
-        #about,
-        #experience,
-        #projects,
-        #contact {
-            scroll-margin-top: 88px;
-        }
-
-        #about.section {
-            padding-top: clamp(28px, 5vw, 52px);
-        }
         h1 {
             font-size: clamp(2.25rem, 8vw, 5rem);
             font-weight: 800;
@@ -88,24 +76,50 @@
             -webkit-text-fill-color: transparent;
             line-height: 1.05;
         }
-        h1:hover {
-            animation: glitch-header 3.5s ease-in-out infinite alternate;
+        h1:hover { animation: glitch-header 3.5s ease-in-out infinite alternate; }
+        @keyframes glitch-header {
+            0%   { transform: translate(0); filter: hue-rotate(0deg); }
+            25%  { transform: translate(-1px, 1px); }
+            50%  { transform: translate(1px, -1px); }
+            75%  { transform: translate(-1px, -1px); }
+            100% { transform: translate(0); filter: hue-rotate(6deg); }
         }
+
+        h2 {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            margin-bottom: 1.75rem;
+            color: var(--neon-violet);
+            position: relative;
+            display: inline-block;
+            font-weight: 700;
+            text-shadow: 0 2px 18px rgba(0, 0, 0, 0.6);
+        }
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 55%;
+            height: 2px;
+            background: linear-gradient(to right, var(--neon-magenta), transparent);
+        }
+
         .subtitle {
             font-size: clamp(1.05rem, 2.8vw, 1.65rem);
             color: var(--neon-cyan);
             margin-top: 1.25rem;
             font-weight: 500;
             letter-spacing: 0.02em;
-            text-shadow: 0 0 18px rgba(0, 232, 236, 0.25);
+            text-shadow: 0 0 18px rgba(0, 232, 236, 0.3), 0 2px 14px rgba(0, 0, 0, 0.7);
         }
         .hero-tagline {
             margin-top: 2rem;
             font-size: clamp(1rem, 2.2vw, 1.2rem);
-            color: #9ca3b8;
-            max-width: 34rem;
+            color: #c4c4d8;
+            max-width: 36rem;
             margin-left: auto;
             margin-right: auto;
+            text-shadow: 0 2px 14px rgba(0, 0, 0, 0.7);
         }
         .hero-actions {
             margin-top: 2.75rem;
@@ -114,6 +128,7 @@
             justify-content: center;
             flex-wrap: wrap;
         }
+
         .btn {
             display: inline-block;
             padding: 14px 28px;
@@ -146,6 +161,7 @@
             outline-offset: 3px;
         }
 
+        /* --- Top nav --- */
         .nav {
             position: fixed;
             top: 22px;
@@ -169,45 +185,196 @@
             padding: 2px 4px;
         }
         .nav a:hover { color: var(--neon-cyan); }
+        .nav a.nav-link-active {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px rgba(0, 232, 236, 0.55);
+        }
         .nav a:focus-visible {
             outline: 2px solid var(--neon-cyan);
             outline-offset: 4px;
         }
 
-        .section {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: clamp(72px, 12vw, 120px) 20px 80px;
-            position: relative;
-            z-index: 2;
+        /* --- Horizontal panel deck --- */
+        .deck {
+            display: flex;
+            flex-direction: row;
+            width: 100vw;
+            height: 100dvh;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            overscroll-behavior-x: contain;
         }
-        h2 {
-            font-size: clamp(1.75rem, 4vw, 2.5rem);
-            margin-bottom: 1.75rem;
-            color: var(--neon-violet);
+        .deck::-webkit-scrollbar { display: none; }
+
+        .panel {
             position: relative;
-            display: inline-block;
-            font-weight: 700;
+            flex: 0 0 100vw;
+            width: 100vw;
+            height: 100dvh;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            overflow: hidden;
         }
-        h2::after {
+        .panel-bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            user-select: none;
+            pointer-events: none;
+        }
+        .panel::after {
             content: '';
             position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 55%;
-            height: 2px;
-            background: linear-gradient(to right, var(--neon-magenta), transparent);
+            inset: 0;
+            background:
+                linear-gradient(95deg,
+                    rgba(8, 8, 16, 0.94) 0%,
+                    rgba(8, 8, 16, 0.78) 32%,
+                    rgba(8, 8, 16, 0.45) 62%,
+                    rgba(8, 8, 16, 0.20) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+        .panel-content {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: clamp(96px, 14vh, 140px) clamp(24px, 6vw, 72px) clamp(96px, 14vh, 140px);
+            overflow-y: auto;
+            overflow-x: hidden;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(0, 232, 236, 0.3) transparent;
+        }
+        .panel-content::-webkit-scrollbar { width: 6px; }
+        .panel-content::-webkit-scrollbar-track { background: transparent; }
+        .panel-content::-webkit-scrollbar-thumb {
+            background: rgba(0, 232, 236, 0.25);
+            border-radius: 4px;
         }
 
-        .glass-terminal {
+        .panel[data-panel="hero"] .panel-content,
+        .panel[data-panel="contact"] .panel-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .panel[data-panel="hero"] .panel-content > div,
+        .panel[data-panel="contact"] .panel-content > div {
+            width: 100%;
+            max-width: 720px;
+        }
+
+        /* --- Panel pager dots --- */
+        .panel-pager {
+            position: fixed;
+            bottom: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 110;
+            display: flex;
+            gap: 12px;
+            padding: 8px 14px;
+            background: rgba(12, 14, 22, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-subtle);
+            border-radius: 9999px;
+        }
+        .panel-pager button {
+            width: 9px; height: 9px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.22);
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+        }
+        .panel-pager button:hover { background: rgba(0, 232, 236, 0.55); }
+        .panel-pager button.active {
+            background: var(--neon-cyan);
+            transform: scale(1.4);
+            box-shadow: 0 0 10px rgba(0, 232, 236, 0.55);
+        }
+        .panel-pager button:focus-visible {
+            outline: 2px solid var(--neon-cyan);
+            outline-offset: 3px;
+        }
+
+        /* --- Cards / badges --- */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+            gap: 1.75rem;
+        }
+        .card {
             background: var(--glass);
+            border: 1px solid rgba(139, 92, 246, 0.28);
+            border-radius: 14px;
+            padding: 1.75rem;
+            transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.25s, box-shadow 0.25s;
+            box-shadow: var(--shadow-card);
+        }
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(0, 232, 236, 0.4);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(0, 232, 236, 0.14);
+        }
+        .card a:focus-visible {
+            outline: 2px solid var(--neon-cyan);
+            outline-offset: 3px;
+            border-radius: 2px;
+        }
+        .badge {
+            display: inline-block;
+            background: rgba(139, 92, 246, 0.18);
+            color: #c4b5fd;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            margin: 4px 6px 0 0;
+            border: 1px solid rgba(139, 92, 246, 0.34);
+        }
+
+        /* --- Timeline blocks --- */
+        .timeline-block {
+            margin: 1.75rem 0;
+            padding: 1.25rem 1.5rem 1.25rem 1.75rem;
+            border-left: 3px solid var(--neon-cyan);
+            background: rgba(12, 14, 22, 0.55);
+            backdrop-filter: blur(6px);
+            border-radius: 0 12px 12px 0;
+        }
+        .timeline-block h3 {
+            color: var(--neon-cyan);
+            font-size: 1.05rem;
+            margin: 0;
+        }
+        .timeline-block ul {
+            margin-top: 0.85rem;
+            padding-left: 1.2rem;
+            color: #d6d6e3;
+        }
+        .timeline-block li { margin-bottom: 0.35rem; }
+
+        /* --- Glass terminal block --- */
+        .glass-terminal {
+            background: rgba(8, 8, 14, 0.78);
             backdrop-filter: blur(16px);
             border: 1px solid var(--border-subtle);
             border-radius: 14px;
-            padding: 1.75rem 2rem;
+            padding: 1.5rem 1.75rem;
             box-shadow: var(--shadow-card);
             max-width: 780px;
-            margin: 4rem auto;
+            margin: 1rem auto 0;
         }
         .terminal-header {
             color: var(--neon-cyan);
@@ -232,41 +399,7 @@
             border-radius: 4px;
         }
 
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
-            gap: 1.75rem;
-        }
-        .card {
-            background: var(--glass);
-            border: 1px solid rgba(139, 92, 246, 0.22);
-            border-radius: 14px;
-            padding: 1.75rem;
-            transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.25s, box-shadow 0.25s;
-            box-shadow: var(--shadow-card);
-        }
-        .card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(0, 232, 236, 0.35);
-            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 232, 236, 0.12);
-        }
-        .card a:focus-visible {
-            outline: 2px solid var(--neon-cyan);
-            outline-offset: 3px;
-            border-radius: 2px;
-        }
-
-        .badge {
-            display: inline-block;
-            background: rgba(139, 92, 246, 0.12);
-            color: #c4b5fd;
-            padding: 4px 12px;
-            border-radius: 9999px;
-            font-size: 0.8rem;
-            margin: 4px 6px 0 0;
-            border: 1px solid rgba(139, 92, 246, 0.28);
-        }
-
+        /* --- CVE widget (fixed bottom-right across panels) --- */
         .cve-widget {
             position: fixed;
             bottom: 24px;
@@ -280,12 +413,18 @@
             z-index: 200;
             box-shadow: var(--shadow-card);
         }
-        @media (max-width: 600px) {
+        body[data-active="terminal"] .cve-widget {
+            bottom: 76px;
+        }
+        @media (max-width: 640px) {
             .cve-widget {
-                bottom: 14px;
+                bottom: 64px;
                 right: 14px;
                 left: 14px;
                 width: auto;
+            }
+            body[data-active="terminal"] .cve-widget {
+                bottom: 64px;
             }
         }
 
@@ -303,12 +442,8 @@
             margin-bottom: 0.75rem;
             line-height: 1.45;
         }
-        .cve-widget-meta a {
-            color: #94a3b8;
-        }
-        .cve-widget-meta a:hover {
-            color: var(--neon-cyan);
-        }
+        .cve-widget-meta a { color: #94a3b8; }
+        .cve-widget-meta a:hover { color: var(--neon-cyan); }
         .cve-widget-meta a:focus-visible {
             outline: 2px solid var(--neon-cyan);
             outline-offset: 3px;
@@ -325,9 +460,7 @@
             text-decoration: none;
             font-weight: 600;
         }
-        #cve-feed a.cve-link:hover {
-            text-decoration: underline;
-        }
+        #cve-feed a.cve-link:hover { text-decoration: underline; }
         #cve-feed a.cve-link:focus-visible {
             outline: 2px solid var(--neon-cyan);
             outline-offset: 3px;
@@ -339,14 +472,7 @@
             margin-top: 0.35rem;
         }
 
-        @keyframes glitch-header {
-            0% { transform: translate(0); filter: hue-rotate(0deg); }
-            25% { transform: translate(-1px, 1px); }
-            50% { transform: translate(1px, -1px); }
-            75% { transform: translate(-1px, -1px); }
-            100% { transform: translate(0); filter: hue-rotate(6deg); }
-        }
-
+        /* --- Contact / footer --- */
         .contact-mail {
             font-size: clamp(1.15rem, 3vw, 1.5rem);
             color: var(--neon-cyan);
@@ -355,12 +481,36 @@
             transition: border-color 0.2s, color 0.2s;
         }
         .contact-mail:hover {
-            border-bottom-color: rgba(0, 232, 236, 0.5);
+            border-bottom-color: rgba(0, 232, 236, 0.55);
         }
         .contact-mail:focus-visible {
             outline: 2px solid var(--neon-cyan);
             outline-offset: 6px;
             border-radius: 4px;
+        }
+        .panel-footer {
+            margin-top: 3rem;
+            color: #5c5c70;
+            font-size: 0.8rem;
+        }
+
+        /* --- Copy-readable surfaces over images --- */
+        .panel p,
+        .panel li {
+            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Ensure the experience "intro" copy still reads on the rooftop image */
+        .lede {
+            max-width: 720px;
+            margin-bottom: 1.75rem;
+            color: #c4c4d8;
+            font-size: 1rem;
+        }
+        .body-copy {
+            max-width: 720px;
+            font-size: 1.08rem;
+            color: #d6d6e3;
         }
     </style>
 </head>
@@ -369,135 +519,283 @@
     <div class="scanline"></div>
 
     <!-- Top Nav -->
-    <nav class="nav">
+    <nav class="nav" aria-label="Primary">
+        <a href="#hero">Home</a>
         <a href="#about">About</a>
         <a href="#experience">Experience</a>
         <a href="#projects">Projects</a>
+        <a href="#terminal">Terminal</a>
         <a href="#contact">Connect</a>
     </nav>
 
-    <!-- Hero -->
-    <header>
-        <div>
-            <h1>MARTY SCHNEIDER</h1>
-            <p class="subtitle">DevSecOps · Secure CI/CD · Application security in the pipeline</p>
-            <p class="hero-tagline">
-                15+ years shipping under pressure—now focused on gates that catch risk before production: scanners, policy, and workflows developers can live with.
-            </p>
-            <div class="hero-actions">
-                <a class="btn btn-outline" href="mailto:marty.schneider@gmail.com">Transmit message</a>
-                <a class="btn btn-solid" href="https://linkedin.com/in/martyschneider" target="_blank" rel="noopener noreferrer">Executive profile (LinkedIn)</a>
-            </div>
-        </div>
-    </header>
+    <main id="deck" class="deck" tabindex="-1" aria-label="Section deck">
 
-    <!-- About -->
-    <section id="about" class="section">
-        <h2>CLEARANCE DOSSIER</h2>
-        <p style="max-width: 720px; font-size: 1.1rem; color: #b8b8cc;">
-            I work where code meets policy: embedding security in CI so bad commits fail fast—SAST, SCA, secrets, containers, IaC checks—without turning the pipeline into a paperweight. Policy-as-code, clear exemptions, and metrics leadership actually reads beat heroics after merge. Earlier depth in SOC and IR means I still speak fluent alert fatigue; today I prefer preventing the incident.
-        </p>
-    </section>
-
-    <!-- Experience -->
-    <section id="experience" class="section" style="background: rgba(22, 12, 38, 0.35);">
-        <h2>CAREER PIPELINE</h2>
-        <p style="max-width: 720px; margin-bottom: 2rem; color: #9ca3b8; font-size: 1rem;">
-            Current focus: <strong style="color: #e4e4f0;">DevSecOps</strong>—securing builds, dependencies, and release paths. Prior roles built the detection-and-response muscle that informs what belongs in a gate versus what belongs in the SOC.
-        </p>
-        <div style="margin: 2rem 0; padding-left: 2rem; border-left: 3px solid var(--neon-cyan);">
-            <h3 style="color: var(--neon-cyan); font-size: 1.1rem;">Software Engineering Intern, Security and Compliance — Bear Robotics (2026–Present)</h3>
-            <ul style="margin-top: 1rem; padding-left: 1.2rem; color: #c4c4d8;">
-                <li>Maintain and improve open source compliance workflows built on FOSSlight—process hygiene and tooling fit for engineering scale</li>
-                <li>Research and evaluate alternative FOSS compliance tools; deliver recommendations to improve or replace the current stack</li>
-                <li>Reduce manual work through documentation, automation, and clearer process handoffs</li>
-                <li>Monitor output from the SAST toolchain; triage findings, escalate critical issues, and route ownership to the right teams</li>
-                <li>Track vulnerabilities from intake through remediation with visible accountability</li>
-                <li>Document findings and communicate status to both technical and non-technical stakeholders</li>
-            </ul>
-        </div>
-        <div style="margin: 2rem 0; padding-left: 2rem; border-left: 3px solid var(--neon-cyan);">
-            <h3 style="color: var(--neon-cyan); font-size: 1.1rem;">Community Jr. SOC Analyst — Level Effect (2025–Present)</h3>
-            <ul style="margin-top: 1rem; padding-left: 1.2rem; color: #c4c4d8;">
-                <li>Real-time alert triage across 100+ student environments—pattern recognition for what “noisy but benign” looks like in automation</li>
-                <li>Endpoint forensics and MITRE-mapped incident response—feeds the same mental model used to tune severity in CI findings</li>
-            </ul>
-        </div>
-    </section>
-
-    <!-- Secure SDLC Terminal -->
-    <div class="glass-terminal">
-        <div class="terminal-header">Secure SDLC Terminal v2.1 — authorized personnel · audit logged</div>
-        <div id="output" style="font-family: monospace; min-height: 160px; color: #ddd; margin-bottom: 1rem;"></div>
-        <div style="display:flex; align-items:center;">
-            <span style="color:var(--neon-cyan); margin-right:8px;">▶</span>
-            <input id="cmd" type="text" placeholder="enter command (type 'help')" 
-                   style="flex:1; background:transparent; border:none; color:#fff; font-family:monospace; font-size:1.1rem; outline:none;">
-        </div>
-    </div>
-
-    <!-- Projects -->
-    <section id="projects" class="section">
-        <h2>SEC ENGINEERING / ARTIFACTS</h2>
-        <div class="project-grid">
-            <div class="card">
-                <h3 style="color:var(--neon-magenta); font-size:1.15rem;">Cybersecurity Report Generator</h3>
-                <p style="color:#a8a8bc; margin-top:0.5rem;">TypeScript automation that turns IOCs and CVE context into structured reports—same “pipeline output” mindset as security tooling in CI.</p>
-                <div style="margin-top:1.25rem;">
-                    <span class="badge">TypeScript</span>
-                    <span class="badge">MITRE ATT&CK</span>
-                    <span class="badge">OpenAI</span>
+        <!-- 01 Hero -->
+        <section id="hero" class="panel" data-panel="hero" aria-label="Introduction">
+            <img class="panel-bg" src="img/panel-hero.jpg" alt="" decoding="async" fetchpriority="high">
+            <div class="panel-content">
+                <div>
+                    <h1>MARTY SCHNEIDER</h1>
+                    <p class="subtitle">DevSecOps · Secure CI/CD · Application security in the pipeline</p>
+                    <p class="hero-tagline">
+                        15+ years shipping under pressure—now focused on gates that catch risk before production: scanners, policy, and workflows developers can live with.
+                    </p>
+                    <div class="hero-actions">
+                        <a class="btn btn-outline" href="mailto:marty.schneider@gmail.com">Transmit message</a>
+                        <a class="btn btn-solid" href="https://linkedin.com/in/martyschneider" target="_blank" rel="noopener noreferrer">Executive profile (LinkedIn)</a>
+                    </div>
                 </div>
-                <a href="https://github.com/marty-schneider/cybersecurity-report-generator" target="_blank" rel="noopener noreferrer" style="display:inline-block; margin-top:1.75rem; color:var(--neon-cyan); text-decoration:underline;">View on GitHub →</a>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <!-- 02 About -->
+        <section id="about" class="panel" data-panel="about" aria-label="Clearance dossier">
+            <img class="panel-bg" src="img/panel-about.jpg" alt="" loading="lazy" decoding="async">
+            <div class="panel-content">
+                <h2>CLEARANCE DOSSIER</h2>
+                <p class="body-copy">
+                    I work where code meets policy: embedding security in CI so bad commits fail fast—SAST, SCA, secrets, containers, IaC checks—without turning the pipeline into a paperweight. Policy-as-code, clear exemptions, and metrics leadership actually reads beat heroics after merge. Earlier depth in SOC and IR means I still speak fluent alert fatigue; today I prefer preventing the incident.
+                </p>
+            </div>
+        </section>
+
+        <!-- 03 Experience -->
+        <section id="experience" class="panel" data-panel="experience" aria-label="Career pipeline">
+            <img class="panel-bg" src="img/panel-experience.jpg" alt="" loading="lazy" decoding="async">
+            <div class="panel-content">
+                <h2>CAREER PIPELINE</h2>
+                <p class="lede">
+                    Current focus: <strong style="color:#e4e4f0;">DevSecOps</strong>—securing builds, dependencies, and release paths. Prior roles built the detection-and-response muscle that informs what belongs in a gate versus what belongs in the SOC.
+                </p>
+                <div class="timeline-block">
+                    <h3>Software Engineering Intern, Security and Compliance — Bear Robotics (2026–Present)</h3>
+                    <ul>
+                        <li>Maintain and improve open source compliance workflows built on FOSSlight—process hygiene and tooling fit for engineering scale</li>
+                        <li>Research and evaluate alternative FOSS compliance tools; deliver recommendations to improve or replace the current stack</li>
+                        <li>Reduce manual work through documentation, automation, and clearer process handoffs</li>
+                        <li>Monitor output from the SAST toolchain; triage findings, escalate critical issues, and route ownership to the right teams</li>
+                        <li>Track vulnerabilities from intake through remediation with visible accountability</li>
+                        <li>Document findings and communicate status to both technical and non-technical stakeholders</li>
+                    </ul>
+                </div>
+                <div class="timeline-block">
+                    <h3>Community Jr. SOC Analyst — Level Effect (2025–Present)</h3>
+                    <ul>
+                        <li>Real-time alert triage across 100+ student environments—pattern recognition for what “noisy but benign” looks like in automation</li>
+                        <li>Endpoint forensics and MITRE-mapped incident response—feeds the same mental model used to tune severity in CI findings</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 04 Projects -->
+        <section id="projects" class="panel" data-panel="projects" aria-label="Sec engineering artifacts">
+            <img class="panel-bg" src="img/panel-projects.jpg" alt="" loading="lazy" decoding="async">
+            <div class="panel-content">
+                <h2>SEC ENGINEERING / ARTIFACTS</h2>
+                <div class="project-grid">
+                    <div class="card">
+                        <h3 style="color:var(--neon-magenta); font-size:1.15rem;">Cybersecurity Report Generator</h3>
+                        <p style="color:#c4c4d8; margin-top:0.5rem;">TypeScript automation that turns IOCs and CVE context into structured reports—same “pipeline output” mindset as security tooling in CI.</p>
+                        <div style="margin-top:1.25rem;">
+                            <span class="badge">TypeScript</span>
+                            <span class="badge">MITRE ATT&CK</span>
+                            <span class="badge">OpenAI</span>
+                        </div>
+                        <a href="https://github.com/marty-schneider/cybersecurity-report-generator" target="_blank" rel="noopener noreferrer" style="display:inline-block; margin-top:1.75rem; color:var(--neon-cyan); text-decoration:underline;">View on GitHub →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 05 Terminal -->
+        <section id="terminal" class="panel" data-panel="terminal" aria-label="Secure SDLC terminal">
+            <img class="panel-bg" src="img/panel-terminal.jpg" alt="" loading="lazy" decoding="async">
+            <div class="panel-content">
+                <h2>SECURE SDLC TERMINAL</h2>
+                <p class="lede">A small interactive shell. Type <code style="color:#c4b5fd;">help</code> for commands.</p>
+                <div class="glass-terminal">
+                    <div class="terminal-header">Secure SDLC Terminal v2.1 — authorized personnel · audit logged</div>
+                    <div id="output" style="font-family: ui-monospace, monospace; min-height: 160px; color: #ddd; margin-bottom: 1rem;"></div>
+                    <div style="display:flex; align-items:center;">
+                        <span style="color:var(--neon-cyan); margin-right:8px;">▶</span>
+                        <input id="cmd" type="text" placeholder="enter command (type 'help')"
+                               aria-label="Terminal command input"
+                               style="flex:1; background:transparent; border:none; color:#fff; font-family: ui-monospace, monospace; font-size:1rem; outline:none;">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 06 Contact -->
+        <section id="contact" class="panel" data-panel="contact" aria-label="Transmit signal">
+            <img class="panel-bg" src="img/panel-contact.jpg" alt="" loading="lazy" decoding="async">
+            <div class="panel-content">
+                <div>
+                    <h2 style="display:inline-block;">TRANSMIT SIGNAL</h2>
+                    <p style="font-size:1.2rem; margin:1.5rem 0; color:#c4c4d8;">Professional inquiries and collaboration welcome.</p>
+                    <a class="contact-mail" href="mailto:marty.schneider@gmail.com">marty.schneider@gmail.com</a>
+                    <p class="panel-footer">© 2026 Marty Schneider · Hand-maintained · No warranty expressed or implied</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Panel pager (dots) -->
+    <nav id="panel-pager" class="panel-pager" aria-label="Panel selector"></nav>
 
     <!-- NVD CVE snapshot (refreshed by GitHub Actions; see .github/workflows/update-nvd-feed.yml) -->
-    <div class="cve-widget" aria-live="polite">
+    <aside class="cve-widget" aria-live="polite" aria-label="Recent CVEs from NVD">
         <div class="cve-widget-title">Recent CVEs (NVD)</div>
         <p class="cve-widget-meta">Snapshot from NIST NVD, updated on a schedule. <a href="https://nvd.nist.gov/" target="_blank" rel="noopener noreferrer">nvd.nist.gov</a></p>
         <div id="cve-feed"></div>
-    </div>
-
-    <!-- Contact -->
-    <section id="contact" class="section" style="text-align:center; background:rgba(22, 12, 38, 0.35);">
-        <h2>TRANSMIT SIGNAL</h2>
-        <p style="font-size:1.2rem; margin:2rem 0; color:#a8a8bc;">Professional inquiries and collaboration welcome.</p>
-        <a class="contact-mail" href="mailto:marty.schneider@gmail.com">marty.schneider@gmail.com</a>
-    </section>
-
-    <footer style="text-align:center; padding:3.5rem 1.5rem; color:#5c5c70; font-size:0.85rem;">
-        © 2026 Marty Schneider · Hand-maintained · No warranty expressed or implied
-    </footer>
+    </aside>
 
     <script>
         (function () {
-            const output = document.getElementById('output');
-            const cmdInput = document.getElementById('cmd');
-            const scanline = document.querySelector('.scanline');
-            const feedEl = document.getElementById("cve-feed");
-            if (!output || !cmdInput || !feedEl) return;
+            var deck = document.getElementById("deck");
+            var panels = Array.prototype.slice.call(deck.querySelectorAll(".panel"));
+            var navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav a[href^="#"]'));
+            var pager = document.getElementById("panel-pager");
+            var output = document.getElementById("output");
+            var cmdInput = document.getElementById("cmd");
+            var scanline = document.querySelector(".scanline");
+            var feedEl = document.getElementById("cve-feed");
+            if (!deck || !panels.length || !pager || !output || !cmdInput || !feedEl) return;
 
-            const commands = {
+            var prefersReduced = function () {
+                return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            };
+
+            function panelById(id) {
+                for (var i = 0; i < panels.length; i++) {
+                    if (panels[i].id === id) return panels[i];
+                }
+                return null;
+            }
+
+            function activeIndex() {
+                var x = deck.scrollLeft;
+                var nearest = 0;
+                var minDist = Infinity;
+                for (var i = 0; i < panels.length; i++) {
+                    var d = Math.abs(panels[i].offsetLeft - x);
+                    if (d < minDist) { minDist = d; nearest = i; }
+                }
+                return nearest;
+            }
+
+            function scrollToPanel(panel) {
+                if (!panel) return;
+                deck.scrollTo({
+                    left: panel.offsetLeft,
+                    top: 0,
+                    behavior: prefersReduced() ? "auto" : "smooth"
+                });
+            }
+
+            // Build pager dots
+            panels.forEach(function (p, i) {
+                var btn = document.createElement("button");
+                btn.type = "button";
+                btn.setAttribute(
+                    "aria-label",
+                    "Go to panel " + (i + 1) + ": " + (p.getAttribute("data-panel") || "panel")
+                );
+                btn.addEventListener("click", function () { scrollToPanel(p); });
+                pager.appendChild(btn);
+            });
+
+            // Hijack nav clicks
+            navLinks.forEach(function (a) {
+                a.addEventListener("click", function (e) {
+                    var id = a.getAttribute("href").slice(1);
+                    var t = panelById(id);
+                    if (!t) return;
+                    e.preventDefault();
+                    scrollToPanel(t);
+                });
+            });
+
+            // Keyboard navigation
+            document.addEventListener("keydown", function (e) {
+                if (e.target === cmdInput) return;
+                if (e.metaKey || e.ctrlKey || e.altKey) return;
+                var idx = activeIndex();
+                if (e.key === "ArrowRight" || e.key === "PageDown") {
+                    if (idx < panels.length - 1) {
+                        e.preventDefault();
+                        scrollToPanel(panels[idx + 1]);
+                    }
+                } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
+                    if (idx > 0) {
+                        e.preventDefault();
+                        scrollToPanel(panels[idx - 1]);
+                    }
+                } else if (e.key === "Home") {
+                    e.preventDefault();
+                    scrollToPanel(panels[0]);
+                } else if (e.key === "End") {
+                    e.preventDefault();
+                    scrollToPanel(panels[panels.length - 1]);
+                }
+            });
+
+            // Active-panel observer (drives nav highlight, pager, body data-active)
+            function setActive(panel) {
+                var id = panel.id;
+                document.body.setAttribute("data-active", id);
+                navLinks.forEach(function (a) {
+                    a.classList.toggle("nav-link-active", a.getAttribute("href") === "#" + id);
+                });
+                var dots = pager.querySelectorAll("button");
+                for (var i = 0; i < dots.length; i++) {
+                    dots[i].classList.toggle("active", panels[i] === panel);
+                }
+            }
+
+            if ("IntersectionObserver" in window) {
+                var io = new IntersectionObserver(function (entries) {
+                    var best = null;
+                    var bestRatio = 0;
+                    entries.forEach(function (entry) {
+                        if (entry.intersectionRatio > bestRatio) {
+                            bestRatio = entry.intersectionRatio;
+                            best = entry.target;
+                        }
+                    });
+                    if (best && bestRatio > 0.5) setActive(best);
+                }, { root: deck, threshold: [0.5, 0.75, 0.95] });
+                panels.forEach(function (p) { io.observe(p); });
+            } else {
+                deck.addEventListener("scroll", function () {
+                    setActive(panels[activeIndex()]);
+                });
+            }
+
+            // Initial active state
+            setActive(panels[0]);
+
+            // ---- Terminal logic ----
+            var commands = {
                 help: "Commands: help | whoami | projects | gates | pipeline | sbom | status | matrix | override | clear",
                 whoami: function () {
-                    document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
+                    scrollToPanel(panelById("about"));
                     return "Marty Schneider — DevSecOps | pipeline & application security | ex-operations / SOC foundation";
                 },
                 projects: function () {
-                    document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
-                    return "Artifact registry unlocked. Scrolling to SEC ENGINEERING.";
+                    scrollToPanel(panelById("projects"));
+                    return "Artifact registry unlocked. Loading SEC ENGINEERING panel.";
                 },
                 gates: function () {
-                    document.getElementById('experience').scrollIntoView({ behavior: 'smooth' });
+                    scrollToPanel(panelById("experience"));
                     return "Policy gates: viewing CAREER PIPELINE.";
                 },
                 pipeline: function () {
                     return commands.gates();
                 },
                 sbom: function () {
-                    document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
+                    scrollToPanel(panelById("projects"));
                     return "SBOM / supply chain: see artifacts. Provenance is a feature.";
                 },
                 status: function () {
@@ -505,8 +803,8 @@
                 },
                 matrix: function () {
                     if (!scanline) return "Display subsystem offline.";
-                    var low = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "0.04" : "0.07";
-                    var high = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "0.08" : "0.12";
+                    var low = prefersReduced() ? "0.04" : "0.07";
+                    var high = prefersReduced() ? "0.08" : "0.12";
                     scanline.style.opacity = scanline.style.opacity === high ? low : high;
                     return "CRT overlay intensity adjusted (accessibility-aware).";
                 },
@@ -533,17 +831,18 @@
                 };
                 output.innerHTML += '<div style="color:#00e8ec;">> ' + esc(raw || "(empty)") + "</div>";
                 var resp = "";
-                if (commands.hasOwnProperty(cmd)) {
+                if (Object.prototype.hasOwnProperty.call(commands, cmd)) {
                     var fn = commands[cmd];
                     resp = typeof fn === "function" ? fn() : fn;
                 } else {
-                    resp = "Unknown command. Type <code style=\"color:#c4b5fd\">help</code>.";
+                    resp = 'Unknown command. Type <code style="color:#c4b5fd">help</code>.';
                 }
                 if (resp) output.innerHTML += "<div>" + resp + "</div>";
                 output.scrollTop = output.scrollHeight;
                 cmdInput.value = "";
             });
 
+            // ---- CVE feed ----
             function escHtml(s) {
                 if (s == null || s === "") return "";
                 var d = document.createElement("div");
@@ -577,21 +876,10 @@
                 var desc = escHtml(item.description);
                 var mod = escHtml(item.lastModified || "");
                 feedEl.innerHTML =
-                    '<div><span style="color:' +
-                    color +
-                    ';font-weight:600;">' +
-                    escHtml(sev) +
-                    '</span> <a class="cve-link" href="' +
-                    url +
-                    '" target="_blank" rel="noopener noreferrer">' +
-                    id +
-                    "</a></div>" +
-                    '<div style="margin-top:0.4rem;color:#c4c4d8;">' +
-                    desc +
-                    "</div>" +
-                    '<div class="feed-ts">NVD lastModified: ' +
-                    mod +
-                    "</div>";
+                    '<div><span style="color:' + color + ';font-weight:600;">' + escHtml(sev) + "</span> " +
+                    '<a class="cve-link" href="' + url + '" target="_blank" rel="noopener noreferrer">' + id + "</a></div>" +
+                    '<div style="margin-top:0.4rem;color:#c4c4d8;">' + desc + "</div>" +
+                    '<div class="feed-ts">NVD lastModified: ' + mod + "</div>";
             }
 
             var cveItems = [];
@@ -602,7 +890,7 @@
                 if (cveTimer) clearInterval(cveTimer);
                 cveTimer = null;
                 if (cveItems.length <= 1) return;
-                if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+                if (prefersReduced()) return;
                 cveTimer = setInterval(function () {
                     cveIdx = (cveIdx + 1) % cveItems.length;
                     renderCveItem(cveItems[cveIdx]);
@@ -623,11 +911,13 @@
                 })
                 .catch(function () {
                     feedEl.innerHTML =
-                        '<div style="color:#94a3b8;">Snapshot unavailable (offline or path). Official source: <a class="cve-link" href="https://nvd.nist.gov/" target="_blank" rel="noopener noreferrer">nvd.nist.gov</a></div>';
+                        '<div style="color:#94a3b8;">Snapshot unavailable (offline or path). Official source: ' +
+                        '<a class="cve-link" href="https://nvd.nist.gov/" target="_blank" rel="noopener noreferrer">nvd.nist.gov</a></div>';
                 });
 
-            window.addEventListener("load", function () {
-                cmdInput.focus();
+            // Re-evaluate active panel on resize (offsetLeft changes)
+            window.addEventListener("resize", function () {
+                setActive(panels[activeIndex()]);
             });
         })();
     </script>
