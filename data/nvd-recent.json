@@ -1,0 +1,19 @@
+{
+  "generatedAt": "2026-04-30T00:00:00Z",
+  "items": [
+    {
+      "cveId": "CVE-2024-21412",
+      "description": "Microsoft Outlook security feature bypass vulnerability; attacker may deliver malicious content. Patch per vendor guidance.",
+      "severity": "HIGH",
+      "lastModified": "2026-04-01T00:00:00.000",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-21412"
+    },
+    {
+      "cveId": "CVE-2023-44487",
+      "description": "HTTP/2 rapid reset attack enabling denial of service; mitigations include vendor updates and rate limits.",
+      "severity": "HIGH",
+      "lastModified": "2026-03-15T00:00:00.000",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-44487"
+    }
+  ]
+}

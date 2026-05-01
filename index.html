@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="DevSecOps & pipeline security | Securing software in CI—SAST, SCA, secrets, IaC policy, containers, SBOM. 15+ years ops + security background. Open to DevSecOps and application security roles.">
+    <meta name="description" content="DevSecOps & pipeline security | Securing software in CI—SAST, SCA, secrets, IaC policy, containers, SBOM. 15+ years ops + security engineering background.">
     <title>Marty Schneider | DevSecOps & Pipeline Security</title>
     <meta property="og:title" content="Marty Schneider | DevSecOps & Secure CI/CD">
     <meta property="og:description" content="Application security in the pipeline. Gates, policy-as-code, and supply chain hygiene—without blocking the business.">
@@ -16,7 +16,7 @@
       "@type": "Person",
       "name": "Marty Schneider",
       "jobTitle": "DevSecOps | Application & Pipeline Security",
-      "description": "Security engineer focused on securing software in CI/CD: automated gates, developer-friendly guardrails, SAST/SCA, secrets scanning, container and supply chain controls, and policy-as-code. 15+ years operations background including SOC and incident response.",
+      "description": "Security engineer focused on securing software in CI/CD: automated gates, developer-friendly guardrails, SAST/SCA, secrets scanning, container and supply chain controls, and policy-as-code. 15+ years operations background including SOC and incident response; currently in security and compliance engineering.",
       "url": "https://martyschneider.com",
       "knowsAbout": ["DevSecOps", "GitHub Actions", "GitLab CI", "SAST", "SCA", "Secrets scanning", "Container security", "SBOM", "IaC policy", "Supply chain security", "MITRE ATT&CK", "Python", "CI/CD security"],
       "sameAs": ["https://linkedin.com/in/martyschneider", "https://github.com/marty-schneider"]
@@ -58,14 +58,25 @@
         }
 
         header {
-            min-height: 100vh;
+            min-height: min(88vh, 760px);
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             position: relative;
-            padding: 100px 20px 80px;
+            padding: 88px 20px 56px;
             background: radial-gradient(ellipse 80% 60% at 50% 40%, #1a0f2e 0%, #080810 72%);
+        }
+
+        #about,
+        #experience,
+        #projects,
+        #contact {
+            scroll-margin-top: 88px;
+        }
+
+        #about.section {
+            padding-top: clamp(28px, 5vw, 52px);
         }
         h1 {
             font-size: clamp(2.25rem, 8vw, 5rem);
@@ -256,21 +267,21 @@
             border: 1px solid rgba(139, 92, 246, 0.28);
         }
 
-        .pipeline-widget {
+        .cve-widget {
             position: fixed;
             bottom: 24px;
             right: 24px;
             background: var(--glass);
-            border: 1px solid rgba(224, 16, 154, 0.35);
+            border: 1px solid var(--border-subtle);
             border-radius: 14px;
-            padding: 1.25rem 1.35rem;
-            width: min(300px, calc(100vw - 32px));
+            padding: 1.15rem 1.3rem;
+            width: min(320px, calc(100vw - 32px));
             backdrop-filter: blur(14px);
             z-index: 200;
             box-shadow: var(--shadow-card);
         }
         @media (max-width: 600px) {
-            .pipeline-widget {
+            .cve-widget {
                 bottom: 14px;
                 right: 14px;
                 left: 14px;
@@ -278,23 +289,53 @@
             }
         }
 
-        .pipeline-widget-title {
+        .cve-widget-title {
             color: var(--neon-cyan);
             font-size: 0.72rem;
-            margin-bottom: 0.65rem;
-            letter-spacing: 0.12em;
+            margin-bottom: 0.35rem;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
             font-weight: 700;
         }
-        #pipeline-feed {
+        .cve-widget-meta {
+            font-size: 0.68rem;
+            color: #6b7280;
+            margin-bottom: 0.75rem;
+            line-height: 1.45;
+        }
+        .cve-widget-meta a {
+            color: #94a3b8;
+        }
+        .cve-widget-meta a:hover {
+            color: var(--neon-cyan);
+        }
+        .cve-widget-meta a:focus-visible {
+            outline: 2px solid var(--neon-cyan);
+            outline-offset: 3px;
+            border-radius: 2px;
+        }
+        #cve-feed {
             font-family: ui-monospace, "Cascadia Code", "Segoe UI Mono", monospace;
-            font-size: 0.82rem;
-            line-height: 1.55;
+            font-size: 0.8rem;
+            line-height: 1.5;
             color: #d4d4e8;
+        }
+        #cve-feed a.cve-link {
+            color: #a5f3fc;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        #cve-feed a.cve-link:hover {
+            text-decoration: underline;
+        }
+        #cve-feed a.cve-link:focus-visible {
+            outline: 2px solid var(--neon-cyan);
+            outline-offset: 3px;
+            border-radius: 2px;
         }
         .feed-ts {
             color: #5c5c70;
-            font-size: 0.72rem;
+            font-size: 0.7rem;
             margin-top: 0.35rem;
         }
 
@@ -365,6 +406,17 @@
             Current focus: <strong style="color: #e4e4f0;">DevSecOps</strong>—securing builds, dependencies, and release paths. Prior roles built the detection-and-response muscle that informs what belongs in a gate versus what belongs in the SOC.
         </p>
         <div style="margin: 2rem 0; padding-left: 2rem; border-left: 3px solid var(--neon-cyan);">
+            <h3 style="color: var(--neon-cyan); font-size: 1.1rem;">Software Engineering Intern, Security and Compliance — Bear Robotics (2026–Present)</h3>
+            <ul style="margin-top: 1rem; padding-left: 1.2rem; color: #c4c4d8;">
+                <li>Maintain and improve open source compliance workflows built on FOSSlight—process hygiene and tooling fit for engineering scale</li>
+                <li>Research and evaluate alternative FOSS compliance tools; deliver recommendations to improve or replace the current stack</li>
+                <li>Reduce manual work through documentation, automation, and clearer process handoffs</li>
+                <li>Monitor output from the SAST toolchain; triage findings, escalate critical issues, and route ownership to the right teams</li>
+                <li>Track vulnerabilities from intake through remediation with visible accountability</li>
+                <li>Document findings and communicate status to both technical and non-technical stakeholders</li>
+            </ul>
+        </div>
+        <div style="margin: 2rem 0; padding-left: 2rem; border-left: 3px solid var(--neon-cyan);">
             <h3 style="color: var(--neon-cyan); font-size: 1.1rem;">Community Jr. SOC Analyst — Level Effect (2025–Present)</h3>
             <ul style="margin-top: 1rem; padding-left: 1.2rem; color: #c4c4d8;">
                 <li>Real-time alert triage across 100+ student environments—pattern recognition for what “noisy but benign” looks like in automation</li>
@@ -401,16 +453,17 @@
         </div>
     </section>
 
-    <!-- Build integrity monitor -->
-    <div class="pipeline-widget" aria-live="polite">
-        <div class="pipeline-widget-title">Arasaka build integrity monitor</div>
-        <div id="pipeline-feed"></div>
+    <!-- NVD CVE snapshot (refreshed by GitHub Actions; see .github/workflows/update-nvd-feed.yml) -->
+    <div class="cve-widget" aria-live="polite">
+        <div class="cve-widget-title">Recent CVEs (NVD)</div>
+        <p class="cve-widget-meta">Snapshot from NIST NVD, updated on a schedule. <a href="https://nvd.nist.gov/" target="_blank" rel="noopener noreferrer">nvd.nist.gov</a></p>
+        <div id="cve-feed"></div>
     </div>
 
     <!-- Contact -->
     <section id="contact" class="section" style="text-align:center; background:rgba(22, 12, 38, 0.35);">
         <h2>TRANSMIT SIGNAL</h2>
-        <p style="font-size:1.2rem; margin:2rem 0; color:#a8a8bc;">Open to DevSecOps and application security roles where CI is part of the product.</p>
+        <p style="font-size:1.2rem; margin:2rem 0; color:#a8a8bc;">Professional inquiries and collaboration welcome.</p>
         <a class="contact-mail" href="mailto:marty.schneider@gmail.com">marty.schneider@gmail.com</a>
     </section>
 
@@ -423,12 +476,8 @@
             const output = document.getElementById('output');
             const cmdInput = document.getElementById('cmd');
             const scanline = document.querySelector('.scanline');
-            const feedEl = document.getElementById('pipeline-feed');
+            const feedEl = document.getElementById("cve-feed");
             if (!output || !cmdInput || !feedEl) return;
-
-            function ts() {
-                return new Date().toISOString().replace(/\.\d{3}Z$/, 'Z');
-            }
 
             const commands = {
                 help: "Commands: help | whoami | projects | gates | pipeline | sbom | status | matrix | override | clear",
@@ -452,7 +501,7 @@
                     return "SBOM / supply chain: see artifacts. Provenance is a feature.";
                 },
                 status: function () {
-                    return "Pipeline posture: GREEN (portfolio) | Hiring: open to DevSecOps / appsec roles with real CI ownership";
+                    return "Portfolio build: static site on GitHub Pages | NVD snapshot widget refreshed via scheduled workflow.";
                 },
                 matrix: function () {
                     if (!scanline) return "Display subsystem offline.";
@@ -495,35 +544,87 @@
                 cmdInput.value = "";
             });
 
-            var feedLines = [
-                { level: "BLOCK", text: "SAST gate: merge #1842 blocked — hardcoded secret in test/fixtures" },
-                { level: "WARN", text: "SCA: critical CVE in devDependency — auto-dismissed per org policy with ticket SDLC-991" },
-                { level: "OK", text: "Container policy: image cosign signature VERIFIED (registry.internal)" },
-                { level: "OK", text: "IaC scan (tfsec): 0 violations on env/staging" },
-                { level: "BLOCK", text: "Secret scan: HIGH — revoked key pattern in .env.example (commit amended)" },
-                { level: "OK", text: "SBOM attestation: SPDX 2.3 pushed to artifact store" },
-                { level: "WARN", text: "Branch protection: admin bypass used on hotfix/release — audit trail retained" }
-            ];
-            var fi = 0;
-            function renderFeed() {
-                var row = feedLines[fi % feedLines.length];
-                var color = row.level === "BLOCK" ? "#f0a0b8" : row.level === "WARN" ? "#fcd34d" : "#86efac";
+            function escHtml(s) {
+                if (s == null || s === "") return "";
+                var d = document.createElement("div");
+                d.textContent = String(s);
+                return d.innerHTML;
+            }
+
+            function safeNvdUrl(u) {
+                try {
+                    var x = new URL(String(u || ""));
+                    if (x.protocol !== "https:" && x.protocol !== "http:") return "https://nvd.nist.gov/";
+                    return x.href;
+                } catch (e) {
+                    return "https://nvd.nist.gov/";
+                }
+            }
+
+            function severityColor(sev) {
+                var u = String(sev || "UNKNOWN").toUpperCase();
+                if (u === "CRITICAL" || u === "HIGH") return "#fda4af";
+                if (u === "MEDIUM") return "#fcd34d";
+                if (u === "LOW") return "#86efac";
+                return "#94a3b8";
+            }
+
+            function renderCveItem(item) {
+                var sev = String(item.severity || "UNKNOWN").toUpperCase();
+                var color = severityColor(sev);
+                var url = safeNvdUrl(item.url);
+                var id = escHtml(item.cveId);
+                var desc = escHtml(item.description);
+                var mod = escHtml(item.lastModified || "");
                 feedEl.innerHTML =
-                    '<span style="color:' +
+                    '<div><span style="color:' +
                     color +
-                    ';">[' +
-                    row.level +
-                    "]</span> " +
-                    row.text +
-                    '<div class="feed-ts">' +
-                    ts() +
+                    ';font-weight:600;">' +
+                    escHtml(sev) +
+                    '</span> <a class="cve-link" href="' +
+                    url +
+                    '" target="_blank" rel="noopener noreferrer">' +
+                    id +
+                    "</a></div>" +
+                    '<div style="margin-top:0.4rem;color:#c4c4d8;">' +
+                    desc +
+                    "</div>" +
+                    '<div class="feed-ts">NVD lastModified: ' +
+                    mod +
                     "</div>";
-                fi++;
             }
-            renderFeed();
-            if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-                setInterval(renderFeed, 4000);
+
+            var cveItems = [];
+            var cveIdx = 0;
+            var cveTimer = null;
+
+            function startCveRotation() {
+                if (cveTimer) clearInterval(cveTimer);
+                cveTimer = null;
+                if (cveItems.length <= 1) return;
+                if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+                cveTimer = setInterval(function () {
+                    cveIdx = (cveIdx + 1) % cveItems.length;
+                    renderCveItem(cveItems[cveIdx]);
+                }, 6500);
             }
+
+            fetch("data/nvd-recent.json", { cache: "no-store" })
+                .then(function (r) {
+                    if (!r.ok) throw new Error("bad status");
+                    return r.json();
+                })
+                .then(function (data) {
+                    cveItems = Array.isArray(data.items) ? data.items : [];
+                    if (!cveItems.length) throw new Error("empty");
+                    cveIdx = 0;
+                    renderCveItem(cveItems[0]);
+                    startCveRotation();
+                })
+                .catch(function () {
+                    feedEl.innerHTML =
+                        '<div style="color:#94a3b8;">Snapshot unavailable (offline or path). Official source: <a class="cve-link" href="https://nvd.nist.gov/" target="_blank" rel="noopener noreferrer">nvd.nist.gov</a></div>';
+                });
 
             window.addEventListener("load", function () {
                 cmdInput.focus();
