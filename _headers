@@ -1,0 +1,22 @@
+# Cloudflare Pages headers
+# Docs: https://developers.cloudflare.com/pages/configuration/headers/
+
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), camera=(), microphone=(), payment=(), interest-cohort=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+
+# Long cache for static assets. Filenames are not hashed today, so we keep
+# the max-age modest enough that a hard refresh fixes any stale copy fast.
+/img/*
+  Cache-Control: public, max-age=604800
+/css/*
+  Cache-Control: public, max-age=3600
+/js/*
+  Cache-Control: public, max-age=3600
+
+# CVE feed is rewritten daily, keep clients honest
+/data/*
+  Cache-Control: public, max-age=300, must-revalidate

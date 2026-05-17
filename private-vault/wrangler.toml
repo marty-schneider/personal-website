@@ -1,0 +1,16 @@
+name = "private-vault"
+main = "src/worker.ts"
+compatibility_date = "2026-05-01"
+
+# R2 bucket binding. The bucket must be created once via:
+#   wrangler r2 bucket create private-vault
+[[r2_buckets]]
+binding = "VAULT"
+bucket_name = "private-vault"
+
+# Route the Worker at the private hostname. The DNS record for `learning`
+# is created automatically by Cloudflare when the route is published,
+# provided the zone is already on your Cloudflare account.
+[[routes]]
+pattern = "learning.martyschneider.com/*"
+zone_name = "martyschneider.com"

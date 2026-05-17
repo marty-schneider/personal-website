@@ -1,0 +1,17 @@
+{
+  "name": "private-vault",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Cloudflare Worker that serves a private HTML file from R2 behind Cloudflare Access.",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "typecheck": "tsc --noEmit",
+    "upload": "wrangler r2 object put private-vault/index.html --file=./content/index.html"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260501.0",
+    "typescript": "^5.6.0",
+    "wrangler": "^4.92.0"
+  }
+}
