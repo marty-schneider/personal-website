@@ -512,6 +512,106 @@
             font-size: 1.08rem;
             color: #d6d6e3;
         }
+
+        /* --- Side arrow nav buttons --- */
+        .panel-arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 105;
+            width: 52px;
+            height: 64px;
+            background: rgba(12, 14, 22, 0.55);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-subtle);
+            color: var(--neon-cyan);
+            cursor: pointer;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.2s, background 0.2s, box-shadow 0.2s, transform 0.2s, opacity 0.2s, border-color 0.2s;
+        }
+        .panel-arrow svg { width: 22px; height: 22px; }
+        .panel-arrow:hover:not(:disabled) {
+            background: rgba(0, 232, 236, 0.10);
+            box-shadow: 0 0 24px rgba(0, 232, 236, 0.35), inset 0 0 12px rgba(0, 232, 236, 0.18);
+            border-color: rgba(0, 232, 236, 0.55);
+            transform: translateY(-50%) scale(1.05);
+            color: #a5f3fc;
+        }
+        .panel-arrow:focus-visible {
+            outline: 2px solid var(--neon-cyan);
+            outline-offset: 4px;
+        }
+        .panel-arrow:disabled {
+            opacity: 0.22;
+            cursor: default;
+            color: #6b7280;
+        }
+        .panel-arrow-prev {
+            left: 18px;
+            clip-path: polygon(0% 0%, 80% 0%, 100% 20%, 100% 100%, 20% 100%, 0% 80%);
+        }
+        .panel-arrow-next {
+            right: 18px;
+            clip-path: polygon(20% 0%, 100% 0%, 100% 80%, 80% 100%, 0% 100%, 0% 20%);
+        }
+        @media (max-width: 640px) {
+            .panel-arrow {
+                width: 40px;
+                height: 52px;
+            }
+            .panel-arrow-prev { left: 8px; }
+            .panel-arrow-next { right: 8px; }
+        }
+
+        /* --- Cyberpunk directional page-wipe overlay --- */
+        .page-wipe {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 80;
+            overflow: hidden;
+            opacity: 0;
+        }
+        .page-wipe.wipe-right,
+        .page-wipe.wipe-left { opacity: 1; }
+        .page-wipe::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 22vw;
+            transform: translateX(-30vw);
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(0, 232, 236, 0.55) 35%,
+                rgba(224, 16, 154, 0.35) 70%,
+                transparent 100%
+            );
+            mix-blend-mode: screen;
+            filter: blur(2px);
+            box-shadow: 0 0 80px rgba(0, 232, 236, 0.4);
+        }
+        .page-wipe.wipe-right::before {
+            animation: sweepRight 460ms cubic-bezier(0.42, 0, 0.18, 1);
+        }
+        .page-wipe.wipe-left::before {
+            animation: sweepLeft 460ms cubic-bezier(0.42, 0, 0.18, 1);
+        }
+        @keyframes sweepRight {
+            0%   { transform: translateX(-30vw); }
+            100% { transform: translateX(130vw); }
+        }
+        @keyframes sweepLeft {
+            0%   { transform: translateX(130vw); }
+            100% { transform: translateX(-30vw); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .page-wipe { display: none; }
+        }
     </style>
 </head>
 <body>
@@ -644,6 +744,21 @@
     <!-- Panel pager (dots) -->
     <nav id="panel-pager" class="panel-pager" aria-label="Panel selector"></nav>
 
+    <!-- Side arrow nav buttons -->
+    <button id="panel-nav-prev" class="panel-arrow panel-arrow-prev" type="button" aria-label="Previous panel">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M15 5 L8 12 L15 19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+    <button id="panel-nav-next" class="panel-arrow panel-arrow-next" type="button" aria-label="Next panel">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M9 5 L16 12 L9 19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+
+    <!-- Cyberpunk directional page-wipe overlay -->
+    <div id="page-wipe" class="page-wipe" aria-hidden="true"></div>
+
     <!-- NVD CVE snapshot (refreshed by GitHub Actions; see .github/workflows/update-nvd-feed.yml) -->
     <aside class="cve-widget" aria-live="polite" aria-label="Recent CVEs from NVD">
         <div class="cve-widget-title">Recent CVEs (NVD)</div>
@@ -661,6 +776,9 @@
             var cmdInput = document.getElementById("cmd");
             var scanline = document.querySelector(".scanline");
             var feedEl = document.getElementById("cve-feed");
+            var arrowPrev = document.getElementById("panel-nav-prev");
+            var arrowNext = document.getElementById("panel-nav-next");
+            var wipe = document.getElementById("page-wipe");
             if (!deck || !panels.length || !pager || !output || !cmdInput || !feedEl) return;
 
             var prefersReduced = function () {
@@ -685,8 +803,26 @@
                 return nearest;
             }
 
+            var wipeTimer = null;
+            function triggerWipe(direction) {
+                if (!wipe || prefersReduced()) return;
+                wipe.classList.remove("wipe-right", "wipe-left");
+                // Force reflow so the animation restarts when re-applied quickly
+                void wipe.offsetWidth;
+                wipe.classList.add("wipe-" + direction);
+                if (wipeTimer) clearTimeout(wipeTimer);
+                wipeTimer = setTimeout(function () {
+                    wipe.classList.remove("wipe-right", "wipe-left");
+                }, 500);
+            }
+
             function scrollToPanel(panel) {
                 if (!panel) return;
+                var curIdx = activeIndex();
+                var targetIdx = panels.indexOf(panel);
+                if (targetIdx >= 0 && targetIdx !== curIdx) {
+                    triggerWipe(targetIdx > curIdx ? "right" : "left");
+                }
                 deck.scrollTo({
                     left: panel.offsetLeft,
                     top: 0,
@@ -741,7 +877,21 @@
                 }
             });
 
-            // Active-panel observer (drives nav highlight, pager, body data-active)
+            // Arrow nav buttons
+            if (arrowPrev) {
+                arrowPrev.addEventListener("click", function () {
+                    var idx = activeIndex();
+                    if (idx > 0) scrollToPanel(panels[idx - 1]);
+                });
+            }
+            if (arrowNext) {
+                arrowNext.addEventListener("click", function () {
+                    var idx = activeIndex();
+                    if (idx < panels.length - 1) scrollToPanel(panels[idx + 1]);
+                });
+            }
+
+            // Active-panel observer (drives nav highlight, pager, arrows, body data-active)
             function setActive(panel) {
                 var id = panel.id;
                 document.body.setAttribute("data-active", id);
@@ -749,9 +899,14 @@
                     a.classList.toggle("nav-link-active", a.getAttribute("href") === "#" + id);
                 });
                 var dots = pager.querySelectorAll("button");
+                var activeIdx = -1;
                 for (var i = 0; i < dots.length; i++) {
-                    dots[i].classList.toggle("active", panels[i] === panel);
+                    var isActive = panels[i] === panel;
+                    dots[i].classList.toggle("active", isActive);
+                    if (isActive) activeIdx = i;
                 }
+                if (arrowPrev) arrowPrev.disabled = activeIdx <= 0;
+                if (arrowNext) arrowNext.disabled = activeIdx >= panels.length - 1;
             }
 
             if ("IntersectionObserver" in window) {
