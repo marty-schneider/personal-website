@@ -12,6 +12,8 @@
 # the max-age modest enough that a hard refresh fixes any stale copy fast.
 /img/*
   Cache-Control: public, max-age=604800
+/fonts/*
+  Cache-Control: public, max-age=604800
 /css/*
   Cache-Control: public, max-age=3600
 /js/*

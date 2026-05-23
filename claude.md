@@ -5,29 +5,37 @@ A terminal/hacker-themed cybersecurity portfolio website for Marty Schneider,
 hosted on a custom domain (`martyschneider.com`).
 
 ## Design System
-- **Background**: Near black (#0a0e17)
-- **Primary accent**: Electric blue (#00d9ff)
-- **Secondary accent**: Sky blue (#0ea5e9)
-- **Text**: Light gray/white (#e2e8f0, #94a3b8)
-- **Font**: JetBrains Mono / Courier New (monospace)
-- **Navigation**: Terminal-style with `~/` and `>` symbols
+"Sector 7, Neo-CI" — a cyberpunk rooftop theme. Five panels arranged on a
+compass (home center; about up, experience right, projects down, connect left)
+that slide into view as the "world" translates.
+
+- **Background / ink**: Near black (#05060f, #0a0d1f)
+- **Hot accent**: Neon magenta (#ff2bd6, #ff5cc8)
+- **Cyan accent**: (#00f0ff, #a5f3ff)
+- **Violet / amber accents**: (#b066ff, #ffae3d)
+- **Text**: Off-white (#e9eaf5), muted (#7d8aa8)
+- **Fonts** (self-hosted woff2 in `fonts/`): Rajdhani (UI/body), JetBrains Mono
+  (terminal/mono), Major Mono Display (display), Noto Sans JP (decorative kana)
+- **Navigation**: On-screen neon signs + compass HUD + arrow keys
 
 ## Pages/Sections
-- [x] Hero (name, title, typing animation, social links)
-- [x] whoami (about/intro - career transition to cybersecurity)
-- [x] experience (work history)
-- [x] certifications (security certs)
-- [x] projects (security projects, CTF writeups)
-- [x] contact (contact form / info)
-- [x] terminal (CVE widget pulling from local NVD snapshot)
+- [x] home (rooftop hero, neon directional signs)
+- [x] about (dossier: career, stack tags, subject profile card)
+- [x] experience (career timeline)
+- [x] projects (security engineering artifacts)
+- [x] connect (email / X / GitHub channel cards)
+- [~] terminal (SDLC shell — markup commented out; JS retained behind a guard)
+- [x] cyber news ticker (static curated CVE/news list)
 - [ ] blog (future addition)
 
 ## Tech Stack
 - Static HTML/CSS/JavaScript
 - No frameworks or build tools required
 - Responsive design (mobile-first)
-- Nightly GitHub Actions workflow refreshes `data/nvd-recent.json` from the
-  NIST NVD API for the terminal CVE widget
+- Fonts self-hosted as woff2 under `fonts/` (no external CDN requests)
+- The on-page cyber news ticker is a static curated list baked into the page.
+  The nightly NVD workflow and `data/nvd-recent.json` are retained in the repo
+  but are not currently wired into the live page.
 
 ## Hosting
 
@@ -43,15 +51,15 @@ email one-time PIN auth restricted to the owner. See
 ## File Structure
 ```
 /
-├── index.html                       # Main single-page site
+├── index.html                       # Main single-page site (inline CSS + JS)
 ├── _headers                         # Cloudflare Pages security/cache headers
 ├── CNAME                            # GitHub Pages custom domain marker
 ├── .nojekyll                        # Disable Jekyll on GitHub Pages
-├── css/
-│   └── styles.css                   # All styles
-├── js/
-│   └── main.js                      # Typing effect, mobile nav, fade-ins
-├── img/                             # Profile photo + section panel images
+├── fonts/                           # Self-hosted woff2 subsets (4 families)
+├── css/                             # Legacy styles (not referenced by index.html)
+├── js/                              # Legacy scripts (not referenced by index.html)
+├── img/
+│   └── rooftop.jpg                  # Cyberpunk rooftop hero / panel background
 ├── data/
 │   └── nvd-recent.json              # CVE snapshot, refreshed nightly
 ├── scripts/
