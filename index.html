@@ -5189,22 +5189,54 @@ a{color:inherit;text-decoration:none}
 
   const track = document.getElementById('ticker-track');
   const latestCve = { html: 'feed loading' };
-  function buildTicker(){
-    const html = NEWS.map(n => {
-      const sevLabel = n.sev === 'crit' ? 'CRIT' : n.sev === 'high' ? 'HIGH' : n.sev === 'med' ? 'MED' : n.sev === 'low' ? 'LOW' : 'NEWS';
-      const idTag = n.id ? `<span class="ticker-id">${n.id}</span>` : '';
+
+  function esc(s){ const d=document.createElement('div'); d.textContent=(s==null?'':String(s)); return d.innerHTML; }
+  const SEV_LABEL = { crit:'CRIT', high:'HIGH', med:'MED', low:'LOW', news:'NEWS' };
+
+  function buildTicker(items){
+    if(!track || !items || !items.length) return;
+    const html = items.map(n => {
+      const sevLabel = SEV_LABEL[n.sev] || 'NEWS';
+      const idTag = n.id ? `<span class="ticker-id">${esc(n.id)}</span>` : '';
+      // n.txt is trusted HTML for the static fallback and escaped plain text for NVD items.
       return `<div class="ticker-item">
         <span class="ticker-sev ${n.sev}">${sevLabel}</span>
         ${idTag}
         <span class="ticker-text">${n.txt}</span>
-        <span class="ticker-src">// ${n.src}</span>
+        <span class="ticker-src">// ${esc(n.src)}</span>
       </div>`;
     }).join('');
     // Duplicate for seamless loop
     track.innerHTML = html + html;
-    latestCve.html = `<span style="color:#ff5876;font-weight:700">CRIT</span> · ${NEWS[0].id} — ${NEWS[0].txt.replace(/<[^>]+>/g,'')}`;
+    const first = items[0];
+    latestCve.html = `<span style="color:#ff5876;font-weight:700">${SEV_LABEL[first.sev] || 'NEWS'}</span> · ${esc(first.id)} — ${esc(String(first.txt).replace(/<[^>]+>/g,''))}`;
   }
-  buildTicker();
+
+  // Live NVD snapshot (refreshed by .github/workflows/update-nvd-feed.yml).
+  // Falls back to the curated NEWS list when the feed is missing or offline.
+  function sevClass(s){
+    switch(String(s||'').toUpperCase()){
+      case 'CRITICAL': return 'crit';
+      case 'HIGH':     return 'high';
+      case 'MEDIUM':   return 'med';
+      case 'LOW':      return 'low';
+      default:         return 'news';
+    }
+  }
+
+  fetch('data/nvd-recent.json', { cache: 'no-store' })
+    .then(r => { if(!r.ok) throw new Error('bad status'); return r.json(); })
+    .then(data => {
+      const items = (Array.isArray(data && data.items) ? data.items : []).map(it => ({
+        sev: sevClass(it.severity),
+        id: it.cveId || '',
+        txt: esc(it.description || ''),
+        src: 'NVD'
+      }));
+      if(!items.length) throw new Error('empty');
+      buildTicker(items);
+    })
+    .catch(() => buildTicker(NEWS));
 
 })();
 </script>
