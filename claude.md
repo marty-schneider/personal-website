@@ -25,7 +25,7 @@ that slide into view as the "world" translates.
 - [x] projects (security engineering artifacts)
 - [x] connect (email / X / GitHub channel cards)
 - [~] terminal (SDLC shell — markup commented out; JS retained behind a guard)
-- [x] cyber news ticker (static curated CVE/news list)
+- [x] cyber news ticker (live NVD feed, curated fallback)
 - [ ] blog (future addition)
 
 ## Tech Stack
@@ -33,9 +33,9 @@ that slide into view as the "world" translates.
 - No frameworks or build tools required
 - Responsive design (mobile-first)
 - Fonts self-hosted as woff2 under `fonts/` (no external CDN requests)
-- The on-page cyber news ticker is a static curated list baked into the page.
-  The nightly NVD workflow and `data/nvd-recent.json` are retained in the repo
-  but are not currently wired into the live page.
+- The cyber news ticker fetches `data/nvd-recent.json` (refreshed nightly by the
+  GitHub Actions workflow) and falls back to a curated list when the feed is
+  missing or the page is opened offline / via `file://`.
 
 ## Hosting
 
