@@ -3656,51 +3656,51 @@ a{color:inherit;text-decoration:none}
 .sign:focus-visible{outline:0}
 .sign:focus-visible .sign-inner{box-shadow:0 0 0 2px #fff, 0 0 40px currentColor}
 
-/* The inner panel: thin neon border, subtle dark backing for legibility */
+/* The inner panel: thin neon border, dark backing for legibility */
 .sign-inner{
   position:relative;
-  padding:6px 14px 8px;
+  padding:8px 16px 10px;
   border:1.5px solid currentColor;
   border-radius:2px;
-  background:rgba(4,3,14,.5);
-  backdrop-filter:blur(2px);
+  background:rgba(2,3,10,.86);
+  backdrop-filter:blur(4px);
   display:flex;
   flex-direction:column;
   align-items:center;
   line-height:1;
   box-shadow:
-    0 0 6px color-mix(in oklab, currentColor, transparent 55%),
-    0 0 22px color-mix(in oklab, currentColor, transparent 75%),
-    inset 0 0 8px color-mix(in oklab, currentColor, transparent 70%);
+    0 0 8px color-mix(in oklab, currentColor, transparent 55%),
+    0 0 26px color-mix(in oklab, currentColor, transparent 78%),
+    inset 0 0 10px color-mix(in oklab, currentColor, transparent 80%);
 }
 
+/* Text: bright white letters with a TIGHT colored halo. The crisp white
+   strokes give legibility; the halo carries the neon color. */
 .sign-en{
   font-family:"Major Mono Display","Rajdhani",monospace;
   font-size:18px;
   letter-spacing:.16em;
   text-transform:uppercase;
   font-weight:700;
-  color:currentColor;
+  color:#fff;
   text-shadow:
-    0 0 2px currentColor,
-    0 0 6px currentColor,
-    0 0 14px currentColor,
-    0 0 26px currentColor,
-    0 0 42px currentColor;
+    0 0 1px var(--neon, currentColor),
+    0 0 4px var(--neon, currentColor),
+    0 0 12px var(--neon, currentColor),
+    0 0 22px color-mix(in oklab, var(--neon, currentColor), transparent 40%);
 }
 .sign-jp{
   font-family:"Noto Sans JP",sans-serif;
   font-weight:900;
   font-size:10px;
   letter-spacing:.32em;
-  color:currentColor;
-  opacity:1;
-  margin-top:4px;
+  color:#fff;
+  opacity:.95;
+  margin-top:5px;
   text-shadow:
-    0 0 2px currentColor,
-    0 0 6px currentColor,
-    0 0 12px currentColor,
-    0 0 22px currentColor;
+    0 0 1px var(--neon, currentColor),
+    0 0 4px var(--neon, currentColor),
+    0 0 10px var(--neon, currentColor);
 }
 
 /* Tiny attachment tick on the side pointing toward the panel direction */
@@ -3721,12 +3721,14 @@ a{color:inherit;text-decoration:none}
 .sign-bracket::before{top:-4px;left:-4px;border-right:0;border-bottom:0}
 .sign-bracket::after {bottom:-4px;right:-4px;border-left:0;border-top:0}
 
-/* Sign color modifiers */
-.sign.is-hot   {color:var(--hot)}
-.sign.is-cy    {color:var(--cy)}
-.sign.is-vi    {color:var(--vi)}
-.sign.is-amber {color:var(--amber)}
-.sign.is-green {color:#7cffb2}
+/* Sign color modifiers — set BOTH `color` (for borders/box-shadow that use
+   currentColor) and `--neon` (used by text-shadow so glow stays colored even
+   when the text fill is pure white). */
+.sign.is-hot   {color:var(--hot);    --neon:var(--hot)}
+.sign.is-cy    {color:var(--cy);     --neon:var(--cy)}
+.sign.is-vi    {color:var(--vi);     --neon:var(--vi)}
+.sign.is-amber {color:var(--amber);  --neon:var(--amber)}
+.sign.is-green {color:#7cffb2;       --neon:#7cffb2}
 
 /* Vertical (Tokyo billboard) signs */
 .sign-vert .sign-inner{
@@ -3748,36 +3750,90 @@ a{color:inherit;text-decoration:none}
   letter-spacing:.06em;
 }
 
-/* === Sign placements on the image === */
+/* === Sign placements on the image ===
+   Each sign lives in the half/quadrant matching its direction of travel:
+   north → top, south → bottom, west → left, east → right. */
 
-/* M·SCHNEIDER — vertical pink on the central tall building */
+/* MARTY SCHNEIDER — horizontal pink banner across the top (decorative nameplate, not interactive).
+   top:72px clears the session-bar HUD (top:18 + height ~35) with breathing room. */
 .sign-name{
-  top:7%;
-  left:28%;
-  transform:rotate(-1deg);
+  top:72px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:6;
+  cursor:default;
+  pointer-events:none;
 }
+.sign-name:hover{transform:translateX(-50%)} /* no scale on hover */
+.sign-name::before{display:none} /* no hover halo */
 .sign-name .sign-inner{
-  padding:18px 8px 20px;
-  border-width:2px;
+  flex-direction:row;
+  align-items:center;
+  gap:18px;
+  padding:14px 28px 16px;
+  border-width:2.5px;
+  background:rgba(2,3,10,.88);
+  box-shadow:
+    0 0 14px color-mix(in oklab, currentColor, transparent 45%),
+    0 0 40px color-mix(in oklab, currentColor, transparent 70%),
+    inset 0 0 14px color-mix(in oklab, currentColor, transparent 75%);
 }
-.sign-name .sign-en{font-size:22px;letter-spacing:.04em;font-weight:700}
-.sign-name .sign-jp{font-size:13px}
-.sign-name:hover{transform:rotate(-1deg) scale(1.04)}
+.sign-name .sign-en{
+  font-size:32px;
+  letter-spacing:.18em;
+  font-weight:700;
+  white-space:nowrap;
+}
+.sign-name .sign-jp{
+  margin-top:0;
+  margin-left:4px;
+  font-size:13px;
+  letter-spacing:.34em;
+  padding-left:18px;
+  border-left:1px solid color-mix(in oklab, currentColor, transparent 55%);
+  align-self:stretch;
+  display:flex;
+  align-items:center;
+  white-space:nowrap;
+}
+/* Decorative end caps to look like a hanging sign */
+.sign-name .sign-inner::before,
+.sign-name .sign-inner::after{
+  content:"";
+  position:absolute;
+  top:-10px;
+  width:2px;
+  height:10px;
+  background:currentColor;
+  box-shadow:0 0 8px currentColor;
+}
+.sign-name .sign-inner::before{left:18%}
+.sign-name .sign-inner::after {right:18%}
+.sign-name:hover .sign-inner{box-shadow:
+    0 0 14px color-mix(in oklab, currentColor, transparent 45%),
+    0 0 40px color-mix(in oklab, currentColor, transparent 70%),
+    inset 0 0 14px color-mix(in oklab, currentColor, transparent 75%);
+}
 
-/* ABOUT — upper-left building face */
-.sign-about{ top:12%; left:5%; }
+/* ABOUT — north zone (top center, below the nameplate) */
+.sign-about{ top:180px; left:50%; transform:translateX(-50%); }
+.sign-about:hover{ transform:translateX(-50%) scale(1.06); }
 
-/* TERMINAL — far-left vertical */
-.sign-terminal{ top:36%; left:2%; }
+/* TERMINAL — far-left vertical (kept for future re-enable) */
+.sign-terminal{ top:50%; left:5%; transform:translateY(-50%); }
+.sign-terminal:hover{ transform:translateY(-50%) scale(1.06); }
 
-/* CAREER — right side, on a building */
-.sign-experience{ top:24%; left:46%; }
+/* CAREER — east zone (right side, vertically centered) */
+.sign-experience{ top:50%; right:5%; transform:translateY(-50%); }
+.sign-experience:hover{ transform:translateY(-50%) scale(1.06); }
 
-/* PROJECTS — lower middle, on the building face */
-.sign-projects{ top:40%; left:14%; }
+/* PROJECTS — west zone (left side, vertically centered) */
+.sign-projects{ top:50%; left:5%; transform:translateY(-50%); }
+.sign-projects:hover{ transform:translateY(-50%) scale(1.06); }
 
-/* TRANSMIT — right interior wall */
-.sign-contact{ top:24%; right:5%; }
+/* CONNECT — south zone (bottom center, above news ticker) */
+.sign-contact{ bottom:90px; left:50%; transform:translateX(-50%); top:auto; right:auto; }
+.sign-contact:hover{ transform:translateX(-50%) scale(1.06); }
 
 /* Flicker animations */
 @keyframes flicker{
@@ -3803,6 +3859,108 @@ a{color:inherit;text-decoration:none}
   z-index:-1;
 }
 .sign:hover::before{opacity:1}
+
+/* ===== Return-to-home arrow buttons on each side panel =====
+   In-theme neon chip; the arrow points toward home (the direction
+   the user must swipe back). Anchored to the panel viewport so it
+   stays put regardless of scroll. */
+.panel-return{
+  position:absolute;
+  z-index:12;
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  padding:11px 18px 12px;
+  font-family:"JetBrains Mono",monospace;
+  font-size:11px;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:var(--cy);
+  --neon:var(--cy);
+  background:rgba(2,3,10,.86);
+  border:1.5px solid currentColor;
+  border-radius:2px;
+  cursor:pointer;
+  backdrop-filter:blur(6px);
+  text-shadow:0 0 6px var(--neon);
+  box-shadow:
+    0 0 10px color-mix(in oklab, currentColor, transparent 65%),
+    0 0 28px color-mix(in oklab, currentColor, transparent 80%),
+    inset 0 0 10px color-mix(in oklab, currentColor, transparent 80%);
+  transition:background .25s ease, box-shadow .25s ease, color .2s ease;
+}
+.panel-return:hover{
+  color:#fff;
+  background:rgba(2,3,10,.95);
+  box-shadow:
+    0 0 16px currentColor,
+    0 0 38px color-mix(in oklab, var(--neon), transparent 60%),
+    inset 0 0 12px color-mix(in oklab, var(--neon), transparent 75%);
+}
+.panel-return:focus-visible{outline:0;box-shadow:0 0 0 2px #fff, 0 0 26px currentColor}
+
+/* Decorative bracket corners (match dossier-card / projects aesthetic) */
+.panel-return::before,
+.panel-return::after{
+  content:"";
+  position:absolute;
+  width:8px;height:8px;
+  border:1.5px solid currentColor;
+  pointer-events:none;
+}
+.panel-return::before{top:-4px;left:-4px;border-right:0;border-bottom:0}
+.panel-return::after {bottom:-4px;right:-4px;border-left:0;border-top:0}
+
+.panel-return .ret-arr{
+  font-family:"Major Mono Display","Rajdhani",monospace;
+  font-size:18px;
+  line-height:1;
+  letter-spacing:0;
+  color:#fff;
+  text-shadow:
+    0 0 2px var(--neon),
+    0 0 8px var(--neon),
+    0 0 18px var(--neon);
+  transition:transform .25s ease;
+}
+.panel-return .ret-label{
+  color:#fff;
+  text-shadow:0 0 6px var(--neon), 0 0 14px color-mix(in oklab, var(--neon), transparent 50%);
+}
+.panel-return .ret-jp{
+  font-family:"Noto Sans JP",sans-serif;
+  font-weight:900;
+  font-size:9px;
+  letter-spacing:.24em;
+  color:#fff;
+  opacity:.9;
+  padding-left:10px;
+  border-left:1px solid color-mix(in oklab, var(--neon), transparent 55%);
+  text-shadow:0 0 6px var(--neon);
+}
+
+/* Per-panel color tint + placement (arrow points back toward home) */
+.panel.up    .panel-return{ --neon:var(--hot); color:var(--hot); bottom:90px; left:50%; transform:translateX(-50%) }
+.panel.up    .panel-return:hover .ret-arr{ transform:translateY(3px) }
+
+.panel.down  .panel-return{ --neon:#7cffb2;    color:#7cffb2;    top:96px;    left:50%; transform:translateX(-50%) }
+.panel.down  .panel-return:hover .ret-arr{ transform:translateY(-3px) }
+
+.panel.left  .panel-return{ --neon:var(--cy);  color:var(--cy);  top:50%;    right:84px; transform:translateY(-50%) }
+.panel.left  .panel-return:hover .ret-arr{ transform:translateX(3px) }
+
+.panel.right .panel-return{ --neon:var(--vi);  color:var(--vi);  top:50%;    left:84px;  transform:translateY(-50%) }
+.panel.right .panel-return:hover .ret-arr{ transform:translateX(-3px) }
+
+@media (max-width:760px){
+  .panel-return{font-size:10px;letter-spacing:.22em;padding:9px 14px}
+  .panel.up    .panel-return,
+  .panel.down  .panel-return{ bottom:auto; top:auto }
+  .panel.up    .panel-return{ bottom:70px }
+  .panel.down  .panel-return{ top:74px }
+  .panel.left  .panel-return{ right:32px }
+  .panel.right .panel-return{ left:32px }
+}
 
 /* Direction hint on hover */
 .sign-dir{
@@ -4481,25 +4639,152 @@ a{color:inherit;text-decoration:none}
 @keyframes hintIn{to{opacity:1}}
 @keyframes hintOut{to{opacity:0;visibility:hidden}}
 
-/* Contact panel-specific: contact is wired as a sign on home that opens a mailto, plus a footer in the dossier */
-/* Mobile */
+/* ===================================================================
+   ===== Mobile (tablet portrait & phones) ===========================
+   =================================================================== */
 @media (max-width:760px){
-  .panel-content{padding:80px 32px;inset:24px}
-  .panel-frame{inset:24px}
-  .panel-label{top:14px;left:32px}
-  .panel-id{top:14px;right:32px}
-  .sign-en{font-size:14px}
-  .sign-name .sign-en{font-size:18px}
-  .about-grid{grid-template-columns:1fr;gap:28px}
-  .project-rail{grid-template-columns:1fr;gap:14px}
-  .heading{font-size:42px}
+  /* Panel chrome — tighter insets, smaller labels */
+  .panel-content{padding:78px 22px 64px;inset:18px;display:block}
+  .panel-body{max-width:none}
+  .panel-frame{inset:18px}
+  .panel-label{top:14px;left:24px;font-size:10px;letter-spacing:.22em}
+  .panel-id{top:14px;right:24px;font-size:10px;letter-spacing:.14em}
+
+  /* Hide top HUD on phones — save vertical space */
   .session-bar{display:none}
-  .news-ticker{height:32px;font-size:13px}
-  .ticker-label{padding:0 12px;font-size:9px;letter-spacing:.2em}
+
+  /* Compact compass */
+  .compass{width:78px;height:78px;bottom:44px;right:14px}
+  .compass button{font-size:9px}
+
+  /* News ticker shrink */
+  .news-ticker{height:30px;font-size:12px}
+  .ticker-label{padding:0 11px;font-size:9px;letter-spacing:.2em}
   .ticker-label .jp{display:none}
-  .compass{width:84px;height:84px;bottom:48px}
+  .ticker-text{font-size:13px}
+  .ticker-item{padding:0 18px;gap:9px}
+
+  /* ===== Headings ===== */
+  .heading{font-size:38px}
+  .heading-jp{font-size:11px;letter-spacing:.32em;margin-bottom:24px}
+  .body-copy{font-size:16px;line-height:1.5}
+  .eyebrow{font-size:10px;letter-spacing:.32em}
+
+  /* ===== Home: nameplate ===== */
+  .sign-name{top:50px}
+  .sign-name .sign-inner{padding:9px 16px 10px;gap:10px}
+  .sign-name .sign-en{font-size:16px;letter-spacing:.16em}
+  .sign-name .sign-jp{font-size:9px;letter-spacing:.22em;padding-left:10px}
+  .sign-name .sign-inner::before{left:14%}
+  .sign-name .sign-inner::after{right:14%}
+
+  /* ===== Home: nav signs — smaller chips, positioned for portrait viewport ===== */
+  .sign-en{font-size:14px;letter-spacing:.14em}
+  .sign-jp{font-size:9px;letter-spacing:.24em;margin-top:3px}
+  .sign-inner{padding:7px 12px 8px}
+
+  .sign-about     { top:120px; }
+  .sign-projects  { top:48%; left:14px;  }     /* west: snug to left edge */
+  .sign-projects:hover{ transform:translateY(-50%) scale(1.06); }
+  .sign-experience{ top:48%; right:14px; }    /* east: snug to right edge */
+  .sign-experience:hover{ transform:translateY(-50%) scale(1.06); }
+  .sign-contact   { bottom:78px; }            /* south: above ticker + ample clear */
+
+  /* Vertical sign on mobile shouldn't be so tall */
+  .sign-vert .sign-en{font-size:13px}
+  .sign-vert .sign-inner{padding:10px 6px 12px}
+
+  /* Hover dir-hints clutter touch UI — hide */
+  .sign-dir{display:none}
+
+  /* ===== About panel ===== */
+  .about-grid{grid-template-columns:1fr;gap:22px}
+  .dossier-card{padding:20px 18px 16px;font-size:12px}
+
+  /* ===== Career timeline — stack the date column above the role on phones ===== */
+  .timeline{max-height:none;padding-right:0;gap:14px;margin-top:14px}
+  .tl-item{grid-template-columns:1fr;gap:8px;padding:14px 16px}
+  .tl-when{font-size:10px;letter-spacing:.14em;display:flex;align-items:baseline;gap:10px;padding-top:0}
+  .tl-when .yr{display:inline;font-size:18px;margin-top:0}
+  .tl-role{font-size:17px;line-height:1.2}
+  .tl-co{font-size:10px;letter-spacing:.16em;margin-bottom:8px}
+  .tl-bullets li{font-size:13px;padding:2px 0 2px 14px}
+
+  /* ===== Projects ===== */
+  .project-rail{grid-template-columns:1fr;gap:14px;margin-top:8px}
+  .proj{padding:18px 18px 16px;min-height:0}
+  .proj-name{font-size:21px}
+  .proj-desc{font-size:13px}
+
+  /* ===== Connect ===== */
+  .connect-grid{grid-template-columns:1fr;gap:14px;margin-top:8px}
+  .conn-card{min-height:auto;padding:22px 20px;flex-direction:row;flex-wrap:wrap;align-items:center;gap:14px}
+  .conn-no{order:1;flex:1 0 100%;margin-bottom:0}
+  .conn-icon{width:48px;height:48px;margin:0;order:2;flex-shrink:0}
+  .conn-card .conn-name{font-size:24px;margin-bottom:2px;order:3;flex:1}
+  .conn-card .conn-jp{font-size:9px;margin-bottom:0;order:4;flex:1 0 100%}
+  .conn-card .conn-handle{font-size:11px;margin-bottom:0;order:5;flex:1 0 100%;word-break:break-all}
+  .conn-card .conn-meta{display:none}
+  .conn-card .conn-cta{order:6;flex:1 0 100%;padding-top:12px;font-size:10px;letter-spacing:.24em}
+
+  /* ===== Return-home chips — compact + safer placement ===== */
+  .panel-return{font-size:10px;letter-spacing:.22em;padding:8px 13px;gap:9px}
+  .panel-return .ret-arr{font-size:15px}
+  .panel-return .ret-label{display:none}     /* arrow + JP only on phones */
+  .panel-return .ret-jp{padding-left:8px;font-size:8.5px}
+  .panel.up    .panel-return{bottom:60px;top:auto}
+  .panel.down  .panel-return{top:62px;bottom:auto}
+  .panel.left  .panel-return{right:22px;top:50%;left:auto}
+  .panel.right .panel-return{left:22px;top:50%;right:auto}
+
+  /* Hint chip + boot smaller */
+  .hint{font-size:9px;letter-spacing:.18em;padding:7px 12px;bottom:54px}
+  .boot{font-size:11px;letter-spacing:.14em;padding:0 22px;text-align:center}
+
+  /* Home image — favour the most interesting region in portrait crop */
+  .home-img{object-position:62% center}
+}
+
+/* Extra-narrow phones (≤ 420px) — go one step smaller again */
+@media (max-width:420px){
+  .heading{font-size:30px}
+  .body-copy{font-size:15px}
+  .sign-name{top:42px}
+  .sign-name .sign-en{font-size:13px;letter-spacing:.14em}
+  .sign-name .sign-jp{font-size:8px;padding-left:8px}
+  .sign-name .sign-inner{padding:7px 12px 8px;gap:7px}
+  .sign-en{font-size:12px}
+  .sign-jp{font-size:8.5px}
+  .sign-about    { top:110px; }
+  .sign-contact  { bottom:70px; }
+  .panel-content{padding:74px 16px 60px}
+  .panel-frame{inset:14px}
+  .panel-label,.panel-id{font-size:9px;letter-spacing:.18em}
+  .panel-label .jp{display:none}
+  .conn-card .conn-name{font-size:21px}
+  .compass{width:70px;height:70px;bottom:40px;right:10px}
+  .news-ticker{height:28px}
+  .ticker-text{font-size:12px}
+}
+
+/* Landscape phones — short height: compress vertical zones */
+@media (max-height:560px) and (orientation:landscape){
+  .session-bar{display:none}                 /* free the top zone for the banner — fixes overlap on wide-landscape phones */
+  .sign-name{top:14px}
+  .sign-name .sign-inner{padding:6px 14px 7px;gap:9px}
+  .sign-name .sign-en{font-size:14px}
+  .sign-about{top:74px}
+  .sign-contact{bottom:54px}
+  .news-ticker{height:26px}
+  .compass{width:68px;height:68px;bottom:36px}
+  .panel-content{padding:54px 32px 50px}
+  .heading{font-size:30px}
+  .heading-jp{margin-bottom:14px}
 }
 </style>
+<!-- Splash thumbnail shown while the bundled file unpacks (and as the no-JS fallback) -->
+
+
 </head>
 <body>
 
@@ -4526,10 +4811,10 @@ a{color:inherit;text-decoration:none}
 
   <div class="compass" role="navigation" aria-label="Directional navigation">
     <button data-go="up" title="About (↑)">↑</button>
-    <button data-go="left" title="Terminal (←)">←</button>
+    <button data-go="left" title="Projects (←)">←</button>
     <button data-go="home" title="Home">◉</button>
-    <button data-go="right" title="Experience (→)">→</button>
-    <button data-go="down" title="Projects (↓)">↓</button>
+    <button data-go="right" title="Career (→)">→</button>
+    <button data-go="down" title="Connect (↓)">↓</button>
   </div>
 </div>
 
@@ -4560,13 +4845,13 @@ a{color:inherit;text-decoration:none}
       <div class="home-rain"></div>
       <div class="home-vignette"></div>
 
-      <!-- M·SCHNEIDER vertical neon sign -->
-      <a class="sign sign-name is-hot sign-vert flicker" data-go="home-noop" href="#" onclick="event.preventDefault()" aria-label="M. Schneider">
+      <!-- MARTY SCHNEIDER — horizontal pink banner across the top (decorative nameplate, not clickable) -->
+      <div class="sign sign-name is-hot flicker" aria-hidden="true">
         <div class="sign-inner">
-          <div class="sign-en">SCHNEIDER</div>
-          <div class="sign-jp">シュナイダー</div>
+          <div class="sign-en">MARTY SCHNEIDER</div>
+          <div class="sign-jp">マーティ シュナイダー</div>
         </div>
-      </a>
+      </div>
 
       <!-- ABOUT — shift up -->
       <button class="sign sign-about is-cy flicker-2" data-go="up" aria-label="About — shift up">
@@ -4599,23 +4884,24 @@ a{color:inherit;text-decoration:none}
         <span class="sign-dir right">EAST →</span>
       </button>
 
-      <!-- PROJECTS — shift down -->
-      <button class="sign sign-projects is-green flicker-2" data-go="down" aria-label="Projects — shift down">
+      <!-- PROJECTS — shift LEFT (west) -->
+      <button class="sign sign-projects is-green flicker-2" data-go="left" aria-label="Projects — shift left">
         <div class="sign-inner">
           <div class="sign-en">Projects</div>
           <div class="sign-jp">仕 事</div>
-          <div class="sign-tick"></div>
+          <div class="sign-tick left"></div>
         </div>
-        <span class="sign-dir down">↓ SOUTH</span>
+        <span class="sign-dir left">← WEST</span>
       </button>
 
-      <!-- CONNECT — shift left to the Connect panel -->
-      <button class="sign sign-contact is-cy flicker-3" data-go="left" aria-label="Connect — shift left">
+      <!-- CONNECT — shift DOWN (south) -->
+      <button class="sign sign-contact is-cy flicker-3" data-go="down" aria-label="Connect — shift down">
         <div class="sign-inner sign-bracket">
           <div class="sign-en">Connect</div>
           <div class="sign-jp">接 続</div>
+          <div class="sign-tick"></div>
         </div>
-        <span class="sign-dir left">← WEST</span>
+        <span class="sign-dir down">↓ SOUTH</span>
       </button>
     </section>
 
@@ -4629,6 +4915,12 @@ a{color:inherit;text-decoration:none}
       <div class="panel-frame"><span class="frame-tr"></span><span class="frame-bl"></span></div>
       <div class="panel-label"><span class="bar"></span><span>Dossier · 01</span><span class="jp">経 歴</span></div>
       <div class="panel-id">N 41.7° / 90.0°</div>
+
+      <button class="panel-return" data-go="home" aria-label="Return to home (south)">
+        <span class="ret-arr" aria-hidden="true">↓</span>
+        <span class="ret-label">Return · South</span>
+        <span class="ret-jp">帰 還</span>
+      </button>
 
       <div class="panel-content">
         <div class="panel-body">
@@ -4676,6 +4968,12 @@ a{color:inherit;text-decoration:none}
       <div class="panel-frame"><span class="frame-tr"></span><span class="frame-bl"></span></div>
       <div class="panel-label"><span class="bar"></span><span>Career · 02</span><span class="jp">職 務 歴</span></div>
       <div class="panel-id">E 89.7° / 41.2°</div>
+
+      <button class="panel-return" data-go="home" aria-label="Return to home (west)">
+        <span class="ret-arr" aria-hidden="true">←</span>
+        <span class="ret-label">Return · West</span>
+        <span class="ret-jp">帰 還</span>
+      </button>
 
       <div class="panel-content">
         <div class="panel-body">
@@ -4729,8 +5027,8 @@ a{color:inherit;text-decoration:none}
       </div>
     </section>
 
-    <!-- ============ PROJECTS (down) ============ -->
-    <section class="panel down" data-panel="down" aria-label="Projects">
+    <!-- ============ PROJECTS (left) ============ -->
+    <section class="panel left" data-panel="left" aria-label="Projects">
       <div class="panel-bg" style="background-position:center 85%"></div>
       <div class="panel-tint" style="background:linear-gradient(180deg, rgba(5,4,30,.85), rgba(120,20,80,.55))"></div>
       <div class="panel-grid"></div>
@@ -4738,7 +5036,13 @@ a{color:inherit;text-decoration:none}
 
       <div class="panel-frame"><span class="frame-tr"></span><span class="frame-bl"></span></div>
       <div class="panel-label"><span class="bar"></span><span>Artifacts · 03</span><span class="jp">仕 事</span></div>
-      <div class="panel-id">S 41.7° / 87.3°</div>
+      <div class="panel-id">W 41.7° / 87.3°</div>
+
+      <button class="panel-return" data-go="home" aria-label="Return to home (east)">
+        <span class="ret-arr" aria-hidden="true">→</span>
+        <span class="ret-label">Return · East</span>
+        <span class="ret-jp">帰 還</span>
+      </button>
 
       <div class="panel-content">
         <div class="panel-body">
@@ -4792,8 +5096,8 @@ a{color:inherit;text-decoration:none}
       </div>
     </section>
 
-    <!-- ============ CONNECT (left) ============ -->
-    <section class="panel left" data-panel="left" aria-label="Connect">
+    <!-- ============ CONNECT (down) ============ -->
+    <section class="panel down" data-panel="down" aria-label="Connect">
       <div class="panel-bg" style="background-position:25% center"></div>
       <div class="panel-tint" style="background:linear-gradient(225deg, rgba(0,80,140,.35), rgba(5,4,30,.92))"></div>
       <div class="panel-grid"></div>
@@ -4801,7 +5105,13 @@ a{color:inherit;text-decoration:none}
 
       <div class="panel-frame"><span class="frame-tr"></span><span class="frame-bl"></span></div>
       <div class="panel-label"><span class="bar"></span><span>Connect · 04</span><span class="jp">接 続</span></div>
-      <div class="panel-id">W 41.7° / 92.5°</div>
+      <div class="panel-id">S 41.7° / 92.5°</div>
+
+      <button class="panel-return" data-go="home" aria-label="Return to home (north)">
+        <span class="ret-arr" aria-hidden="true">↑</span>
+        <span class="ret-label">Return · North</span>
+        <span class="ret-jp">帰 還</span>
+      </button>
 
       <div class="panel-content">
         <div class="panel-body">
@@ -4898,8 +5208,8 @@ a{color:inherit;text-decoration:none}
   const DIRS = {
     home:  {x:0,    y:0,    label:'SECTOR 7 · ROOFTOP'},
     up:    {x:0,    y:100,  label:'NORTH · DOSSIER'},      // panel above → translate world DOWN
-    down:  {x:0,    y:-100, label:'SOUTH · ARTIFACTS'},     // panel below → translate world UP
-    left:  {x:100,  y:0,    label:'WEST · CONNECT'},       // panel left → translate world RIGHT
+    down:  {x:0,    y:-100, label:'SOUTH · CONNECT'},      // panel below → translate world UP
+    left:  {x:100,  y:0,    label:'WEST · ARTIFACTS'},    // panel left → translate world RIGHT
     right: {x:-100, y:0,    label:'EAST · CAREER'}
   };
   let current = 'home';
@@ -4994,6 +5304,49 @@ a{color:inherit;text-decoration:none}
   setTimeout(()=>{ boot.classList.add('gone'); setTimeout(()=>boot.remove(), 700); }, 1500);
 
   updateCompass();
+
+  // ===== Touch swipe navigation =====
+  // Lets phone users drag the world to shift panels without arrow keys.
+  (function(){
+    let sx=0, sy=0, st=0, tracking=false;
+    const stageEl = stage;
+    stageEl.addEventListener('touchstart', e=>{
+      if(e.touches.length !== 1) return;
+      const t = e.touches[0];
+      // Ignore touches that begin on something interactive — we don't want to hijack button taps
+      const tag = (e.target && e.target.closest) ? e.target.closest('a,button,input,textarea,.proj,.conn-card,.tl-item,.dossier-card') : null;
+      if(tag) return;
+      sx = t.clientX; sy = t.clientY; st = Date.now(); tracking = true;
+    }, {passive:true});
+
+    stageEl.addEventListener('touchend', e=>{
+      if(!tracking) return;
+      tracking = false;
+      const t = (e.changedTouches && e.changedTouches[0]); if(!t) return;
+      const dx = t.clientX - sx, dy = t.clientY - sy, dt = Date.now() - st;
+      if(dt > 700) return;                       // too slow — not a swipe
+      const ax = Math.abs(dx), ay = Math.abs(dy);
+      if(Math.max(ax,ay) < 50) return;           // too short
+      // Determine dominant axis
+      let go;
+      if(ax > ay){
+        go = dx < 0 ? 'right' : 'left';          // swipe left → shift world left → enter right panel
+      } else {
+        go = dy < 0 ? 'down'  : 'up';            // swipe up → shift down → enter bottom panel
+      }
+      // From any non-home panel, the only neighbour is home — always go home on swipe.
+      if(current !== 'home') go = 'home';
+      shift(go);
+    }, {passive:true});
+  })();
+
+  // Touch-aware hint copy
+  (function(){
+    const hint = document.getElementById('hint');
+    if(!hint) return;
+    const isTouch = window.matchMedia('(pointer:coarse)').matches || ('ontouchstart' in window);
+    if(isTouch) hint.textContent = 'TAP SIGNS OR SWIPE TO NAVIGATE';
+  })();
 
   // ===== Populate procedural city windows + ambient neon signs =====
   (function buildCity(){
@@ -5144,7 +5497,7 @@ a{color:inherit;text-decoration:none}
       whoami: () => `M. Schneider · DevSecOps Engineer · Pipeline & Application Security · 15+ yrs ops/IR foundation`,
       stack: () => `CI: <span class="ok">GitHub Actions, GitLab CI</span> · SAST/SCA · Secrets · IaC policy · Containers · SBOM · OPA · Python · TypeScript`,
       gates: () => `Policy gates fail commits early: <span class="hot">SAST</span>, <span class="hot">SCA</span>, <span class="hot">secrets</span>, IaC, container scan, SBOM diff. Devs get fast feedback; sec gets visibility. Exemptions are policy-as-code, not back-channel.`,
-      projects: () => { setTimeout(()=>shift('down'), 200); return 'shifting south → artifacts panel...'; },
+      projects: () => { setTimeout(()=>shift('left'), 200); return 'shifting west → artifacts panel...'; },
       status: () => `<span class="ok">▮ ONLINE</span> · NEO-CI sector 7 · pipeline OK · 0 secrets in HEAD · last build green`,
       cve: () => `latest CVE: ${(latestCve.html || 'feed offline')}`,
       contact: () => `transmit signal → <a href="mailto:marty.schneider@gmail.com" style="color:var(--cy)">marty.schneider@gmail.com</a> · <a href="https://linkedin.com/in/martyschneider" target="_blank" rel="noopener" style="color:var(--cy)">linkedin.com/in/martyschneider</a>`,
