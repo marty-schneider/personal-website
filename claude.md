@@ -14,8 +14,9 @@ that slide into view as the "world" translates.
 - **Cyan accent**: (#00f0ff, #a5f3ff)
 - **Violet / amber accents**: (#b066ff, #ffae3d)
 - **Text**: Off-white (#e9eaf5), muted (#7d8aa8)
-- **Fonts** (self-hosted woff2 in `fonts/`): Rajdhani (UI/body), JetBrains Mono
-  (terminal/mono), Major Mono Display (display), Noto Sans JP (decorative kana)
+- **Fonts** (self-hosted in `fonts/`, woff2/woff): Rajdhani (UI/body), JetBrains
+  Mono (terminal/mono), Major Mono Display + Audiowide (display / nameplate),
+  Aurebesh + Aurebesh Condensed (decorative captions — Star Wars script)
 - **Navigation**: On-screen neon signs + compass HUD + arrow keys
 
 ## Pages/Sections
