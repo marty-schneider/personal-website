@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-05-26T04:25:00Z",
-  "lastSuccessfulRun": "aeb9bf1528dc68b6153f846061a60dd8d5f74ccd",
+  "generatedAt": "2026-05-26T04:36:05Z",
+  "lastSuccessfulRun": "bdbd1ec356f5213093eac9b4d43200ea83abb96b",
   "status": "yellow",
   "checks": {
     "validate-site": "failure",
