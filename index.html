@@ -342,6 +342,79 @@
   src: url("fonts/rajdhani-012.woff2") format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
+
+/* --- Side arrow nav buttons (from nav-arrows) --- */
+.panel-arrow {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 105;
+  width: 52px;
+  height: 64px;
+  background: rgba(12, 14, 22, 0.55);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-subtle);
+  color: var(--neon-cyan);
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s, background 0.2s, box-shadow 0.2s, transform 0.2s, opacity 0.2s, border-color 0.2s;
+}
+.panel-arrow svg { width: 22px; height: 22px; }
+.panel-arrow:hover:not(:disabled) {
+  background: rgba(0, 232, 236, 0.10);
+  box-shadow: 0 0 24px rgba(0, 232, 236, 0.35), inset 0 0 12px rgba(0, 232, 236, 0.18);
+  border-color: rgba(0, 232, 236, 0.55);
+  transform: translateY(-50%) scale(1.05);
+  color: #a5f3fc;
+}
+.panel-arrow:focus-visible {
+  outline: 2px solid var(--neon-cyan);
+  outline-offset: 4px;
+}
+.panel-arrow:disabled {
+  opacity: 0.22;
+  cursor: default;
+  color: #6b7280;
+}
+.panel-arrow-prev { left: 18px; clip-path: polygon(0% 0%, 80% 0%, 100% 20%, 100% 100%, 20% 100%, 0% 80%); }
+.panel-arrow-next { right: 18px; clip-path: polygon(20% 0%, 100% 0%, 100% 80%, 80% 100%, 0% 100%, 0% 20%); }
+@media (max-width: 640px) {
+  .panel-arrow { width: 40px; height: 52px; }
+  .panel-arrow-prev { left: 8px; }
+  .panel-arrow-next { right: 8px; }
+}
+
+/* --- Cyberpunk directional page-wipe overlay --- */
+.page-wipe {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 80;
+  overflow: hidden;
+  opacity: 0;
+}
+.page-wipe.wipe-right,
+.page-wipe.wipe-left { opacity: 1; }
+.page-wipe::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 22vw;
+  transform: translateX(-30vw);
+  background: linear-gradient(90deg, transparent 0%, rgba(0, 232, 236, 0.55) 35%, rgba(224, 16, 154, 0.35) 70%, transparent 100%);
+  mix-blend-mode: screen;
+  filter: blur(2px);
+  box-shadow: 0 0 80px rgba(0, 232, 236, 0.4);
+}
+.page-wipe.wipe-right::before { animation: sweepRight 460ms cubic-bezier(0.42, 0, 0.18, 1); }
+.page-wipe.wipe-left::before { animation: sweepLeft 460ms cubic-bezier(0.42, 0, 0.18, 1); }
+@keyframes sweepRight { 0% { transform: translateX(-30vw); } 100% { transform: translateX(130vw); } }
+@keyframes sweepLeft { 0% { transform: translateX(130vw); } 100% { transform: translateX(-30vw); } }
+@media (prefers-reduced-motion: reduce) { .page-wipe { display: none; } }
 </style>
 <!-- Aurebesh — Star Wars writing system, replaces all katakana/kanji captions on the site -->
 <style>@font-face {
