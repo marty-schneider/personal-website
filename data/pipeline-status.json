@@ -1,15 +1,14 @@
 {
-  "generatedAt": "2026-05-26T04:10:00Z",
-  "lastSuccessfulRun": "initial",
+  "generatedAt": "2026-05-26T04:25:00Z",
+  "lastSuccessfulRun": "aeb9bf1528dc68b6153f846061a60dd8d5f74ccd",
   "status": "yellow",
   "checks": {
-    "validate-site": "pending",
-    "security": "pending",
-    "private-vault": "pending"
+    "validate-site": "failure",
+    "security": "failure",
+    "private-vault": "failure"
   },
   "links": {
     "actions": "https://github.com/marty-schneider/personal-website/actions",
     "security": "https://github.com/marty-schneider/personal-website/security"
-  },
-  "note": "This file is automatically updated by the CI pipeline. Green = all gates passing."
+  }
 }
