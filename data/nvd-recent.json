@@ -1,19 +1,734 @@
 {
-  "generatedAt": "2026-04-30T00:00:00Z",
+  "generatedAt": "2026-05-26T03:52:29Z",
+  "window": {
+    "start": "2026-05-12T03:52:29.000",
+    "end": "2026-05-26T03:52:29.000",
+    "days": 14
+  },
+  "sources": {
+    "nvd": {
+      "resultsRequested": 25,
+      "resultsReturned": 25
+    },
+    "epss": {
+      "date": "2026-05-26"
+    },
+    "cisaKev": {
+      "totalInCatalog": 1602
+    }
+  },
+  "stats": {
+    "total": 25,
+    "critical": 3,
+    "high": 11,
+    "kevCount": 5,
+    "highEpssCount": 7
+  },
   "items": [
     {
-      "cveId": "CVE-2024-21412",
-      "description": "Microsoft Outlook security feature bypass vulnerability; attacker may deliver malicious content. Patch per vendor guidance.",
-      "severity": "HIGH",
-      "lastModified": "2026-04-01T00:00:00.000",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-21412"
+      "cveId": "CVE-2008-4250",
+      "description": "The Server service in Microsoft Windows 2000 SP4, XP SP2 and SP3, Server 2003 SP1 and SP2, Vista Gold and SP1, Server 2008, and 7 Pre-Beta allows remote attackers to execute arbit\u2026",
+      "fullDescription": "The Server service in Microsoft Windows 2000 SP4, XP SP2 and SP3, Server 2003 SP1 and SP2, Vista Gold and SP1, Server 2008, and 7 Pre-Beta allows remote attackers to execute arbit\u2026",
+      "severity": "CRITICAL",
+      "lastModified": "2026-05-21T12:57:17.353",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2008-4250",
+      "cvssScore": 9.8,
+      "cvssVersion": "CVSS:V31",
+      "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "cwes": [
+        "CWE-94",
+        "CWE-119"
+      ],
+      "products": [
+        "microsoft:windows_2000",
+        "microsoft:windows_server_2003",
+        "microsoft:windows_server_2008"
+      ],
+      "exploitEvidenceCount": 28,
+      "published": "2008-10-23T22:00:01.357",
+      "isKev": true,
+      "kev": {
+        "dateAdded": "2026-05-20",
+        "dueDate": "2026-06-03",
+        "requiredAction": "Apply mitigations per vendor instructions, follow applicable BOD 22-01 guidance for cloud services, or discontinue use of the product if mitigations are unavailable.",
+        "knownRansomwareCampaignUse": "Unknown",
+        "notes": "https://learn.microsoft.com/en-us/security-updates/securitybulletins/2008/ms08-067 ; https://nvd.nist.gov/vuln/detail/CVE-2008-4250"
+      },
+      "epss": 0.92078,
+      "epssPercentile": 99,
+      "relevance": 1.0,
+      "tags": [
+        "high-epss",
+        "high-severity",
+        "kev"
+      ]
     },
     {
-      "cveId": "CVE-2023-44487",
-      "description": "HTTP/2 rapid reset attack enabling denial of service; mitigations include vendor updates and rate limits.",
+      "cveId": "CVE-2010-0249",
+      "description": "Use-after-free vulnerability in Microsoft Internet Explorer 6, 6 SP1, 7, and 8 on Windows 2000 SP4; Windows XP SP2 and SP3; Windows Server 2003 SP2; Windows Vista Gold, SP1, and S\u2026",
+      "fullDescription": "Use-after-free vulnerability in Microsoft Internet Explorer 6, 6 SP1, 7, and 8 on Windows 2000 SP4; Windows XP SP2 and SP3; Windows Server 2003 SP2; Windows Vista Gold, SP1, and S\u2026",
       "severity": "HIGH",
-      "lastModified": "2026-03-15T00:00:00.000",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-44487"
+      "lastModified": "2026-05-21T12:57:01.463",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2010-0249",
+      "cvssScore": 8.8,
+      "cvssVersion": "CVSS:V31",
+      "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+      "cwes": [
+        "CWE-416",
+        "CWE-416"
+      ],
+      "products": [
+        "microsoft:internet_explorer",
+        "microsoft:windows_2000",
+        "microsoft:windows_7"
+      ],
+      "exploitEvidenceCount": 12,
+      "published": "2010-01-15T17:30:00.533",
+      "isKev": true,
+      "kev": {
+        "dateAdded": "2026-05-20",
+        "dueDate": "2026-06-03",
+        "requiredAction": "Apply mitigations per vendor instructions, follow applicable BOD 22-01 guidance for cloud services, or discontinue use of the product if mitigations are unavailable.",
+        "knownRansomwareCampaignUse": "Unknown",
+        "notes": "https://learn.microsoft.com/en-us/security-updates/SecurityAdvisories/2010/979352 ; https://nvd.nist.gov/vuln/detail/CVE-2010-0249"
+      },
+      "epss": 0.88677,
+      "epssPercentile": 99,
+      "relevance": 0.9,
+      "tags": [
+        "high-epss",
+        "high-severity",
+        "kev"
+      ]
+    },
+    {
+      "cveId": "CVE-2009-3459",
+      "description": "Heap-based buffer overflow in Adobe Reader and Acrobat 7.x before 7.1.4, 8.x before 8.1.7, and 9.x before 9.2 allows remote attackers to execute arbitrary code via a crafted PDF f\u2026",
+      "fullDescription": "Heap-based buffer overflow in Adobe Reader and Acrobat 7.x before 7.1.4, 8.x before 8.1.7, and 9.x before 9.2 allows remote attackers to execute arbitrary code via a crafted PDF f\u2026",
+      "severity": "HIGH",
+      "lastModified": "2026-05-21T12:56:49.133",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2009-3459",
+      "cvssScore": 8.8,
+      "cvssVersion": "CVSS:V31",
+      "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+      "cwes": [
+        "CWE-119",
+        "CWE-122"
+      ],
+      "products": [
+        "adobe:acrobat",
+        "adobe:acrobat_reader"
+      ],
+      "exploitEvidenceCount": 2,
+      "published": "2009-10-13T10:30:00.577",
+      "isKev": true,
+      "kev": {
+        "dateAdded": "2026-05-20",
+        "dueDate": "2026-06-03",
+        "requiredAction": "Apply mitigations per vendor instructions, follow applicable BOD 22-01 guidance for cloud services, or discontinue use of the product if mitigations are unavailable.",
+        "knownRansomwareCampaignUse": "Unknown",
+        "notes": "https://www.cisa.gov/news-events/alerts/2009/10/13/adobe-reader-and-acrobat-vulnerabilities ; https://web.archive.org/web/20120324170253/http://www.adobe.com/support/security/bulletins/apsb09-15.html#:~:text=CVE%2D2009%2D3459).-,NOTE%3A,-There%20are%20reports ; https://nvd.nist.gov/vuln/detail/CVE-2009-3459"
+      },
+      "epss": 0.88073,
+      "epssPercentile": 99,
+      "relevance": 0.9,
+      "tags": [
+        "high-epss",
+        "high-severity",
+        "kev"
+      ]
+    },
+    {
+      "cveId": "CVE-2010-0806",
+      "description": "Use-after-free vulnerability in the Peer Objects component (aka iepeers.dll) in Microsoft Internet Explorer 6, 6 SP1, and 7 allows remote attackers to execute arbitrary code via v\u2026",
+      "fullDescription": "Use-after-free vulnerability in the Peer Objects component (aka iepeers.dll) in Microsoft Internet Explorer 6, 6 SP1, and 7 allows remote attackers to execute arbitrary code via v\u2026",
+      "severity": "HIGH",
+      "lastModified": "2026-05-21T12:57:10.303",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2010-0806",
+      "cvssScore": 8.8,
+      "cvssVersion": "CVSS:V31",
+      "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+      "cwes": [
+        "CWE-399",
+        "CWE-416"
+      ],
+      "products": [
+        "microsoft:internet_explorer",
+        "microsoft:windows_2000",
+        "microsoft:windows_7"
+      ],
+      "exploitEvidenceCount": 2,
+      "published": "2010-03-10T22:30:01.323",
+      "isKev": true,
+      "kev": {
+        "dateAdded": "2026-05-20",
+        "dueDate": "2026-06-03",
+        "requiredAction": "Apply mitigations per vendor instructions, follow applicable BOD 22-01 guidance for cloud services, or discontinue use of the product if mitigations are unavailable.",
+        "knownRansomwareCampaignUse": "Unknown",
+        "notes": "https://learn.microsoft.com/en-us/security-updates/securityadvisories/2010/981374 ; https://nvd.nist.gov/vuln/detail/CVE-2010-0806"
+      },
+      "epss": 0.87253,
+      "epssPercentile": 99,
+      "relevance": 0.9,
+      "tags": [
+        "high-epss",
+        "high-severity",
+        "kev"
+      ]
+    },
+    {
+      "cveId": "CVE-2009-1537",
+      "description": "Unspecified vulnerability in the QuickTime Movie Parser Filter in quartz.dll in DirectShow in Microsoft DirectX 7.0 through 9.0c on Windows 2000 SP4, Windows XP SP2 and SP3, and W\u2026",
+      "fullDescription": "Unspecified vulnerability in the QuickTime Movie Parser Filter in quartz.dll in DirectShow in Microsoft DirectX 7.0 through 9.0c on Windows 2000 SP4, Windows XP SP2 and SP3, and W\u2026",
+      "severity": "HIGH",
+      "lastModified": "2026-05-21T12:57:12.850",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2009-1537",
+      "cvssScore": 8.8,
+      "cvssVersion": "CVSS:V31",
+      "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+      "cwes": [
+        "NVD-CWE-noinfo",
+        "CWE-158"
+      ],
+      "products": [
+        "microsoft:directx",
+        "microsoft:windows_2000",
+        "microsoft:windows_2003_server"
+      ],
+      "exploitEvidenceCount": 0,
+      "published": "2009-05-29T18:30:00.187",
+      "isKev": true,
+      "kev": {
+        "dateAdded": "2026-05-20",
+        "dueDate": "2026-06-03",
+        "requiredAction": "Apply mitigations per vendor instructions, follow applicable BOD 22-01 guidance for cloud services, or discontinue use of the product if mitigations are unavailable.",
+        "knownRansomwareCampaignUse": "Unknown",
+        "notes": "https://learn.microsoft.com/en-us/security-updates/securitybulletins/2009/ms09-028 ; https://nvd.nist.gov/vuln/detail/CVE-2009-1537"
+      },
+      "epss": 0.53016,
+      "epssPercentile": 97,
+      "relevance": 0.9,
+      "tags": [
+        "high-epss",
+        "high-severity",
+        "kev"
+      ]
+    },
+    {
+      "cveId": "CVE-2016-9299",
+      "description": "The remoting module in Jenkins before 2.32 and LTS before 2.19.3 allows remote attackers to execute arbitrary code via a crafted serialized Java object, which triggers an LDAP que\u2026",
+      "fullDescription": "The remoting module in Jenkins before 2.32 and LTS before 2.19.3 allows remote attackers to execute arbitrary code via a crafted serialized Java object, which triggers an LDAP que\u2026",
+      "severity": "CRITICAL",
+      "lastModified": "2026-05-13T00:24:29.033",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2016-9299",
+      "cvssScore": 9.8,
+      "cvssVersion": "CVSS:V30",
+      "cvssVector": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "cwes": [
+        "CWE-90"
+      ],
+      "products": [
+        "fedoraproject:fedora",
+        "jenkins:jenkins"
+      ],
+      "exploitEvidenceCount": 10,
+      "published": "2017-01-12T23:59:00.527",
+      "isKev": false,
+      "epss": 0.8925,
+      "epssPercentile": 99,
+      "relevance": 0.65,
+      "tags": [
+        "high-epss",
+        "high-severity"
+      ]
+    },
+    {
+      "cveId": "CVE-2013-2566",
+      "description": "The RC4 algorithm, as used in the TLS protocol and SSL protocol, has many single-byte biases, which makes it easier for remote attackers to conduct plaintext-recovery attacks via\u2026",
+      "fullDescription": "The RC4 algorithm, as used in the TLS protocol and SSL protocol, has many single-byte biases, which makes it easier for remote attackers to conduct plaintext-recovery attacks via\u2026",
+      "severity": "MEDIUM",
+      "lastModified": "2026-04-29T01:13:23.040",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2013-2566",
+      "cvssScore": 5.9,
+      "cvssVersion": "CVSS:V30",
+      "cvssVector": "CVSS:3.0/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "cwes": [
+        "CWE-326"
+      ],
+      "products": [
+        "canonical:ubuntu_linux",
+        "fujitsu:m10-1",
+        "fujitsu:m10-1_firmware"
+      ],
+      "exploitEvidenceCount": 42,
+      "published": "2013-03-15T21:55:01.047",
+      "isKev": false,
+      "epss": 0.93163,
+      "epssPercentile": 99,
+      "relevance": 0.42,
+      "tags": [
+        "high-epss"
+      ]
+    },
+    {
+      "cveId": "CVE-2016-3152",
+      "description": "Barco ClickShare CSC-1 devices with firmware before 01.09.03 allow remote attackers to obtain the root password by downloading and extracting the firmware image.",
+      "fullDescription": "Barco ClickShare CSC-1 devices with firmware before 01.09.03 allow remote attackers to obtain the root password by downloading and extracting the firmware image.",
+      "severity": "CRITICAL",
+      "lastModified": "2026-05-13T00:24:29.033",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2016-3152",
+      "cvssScore": 9.8,
+      "cvssVersion": "CVSS:V30",
+      "cvssVector": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "cwes": [
+        "CWE-200"
+      ],
+      "products": [
+        "barco:clickshare_csc-1",
+        "barco:clickshare_csc-1_firmware"
+      ],
+      "exploitEvidenceCount": 4,
+      "published": "2017-01-12T23:59:00.387",
+      "isKev": false,
+      "epss": 0.0061,
+      "epssPercentile": 69,
+      "relevance": 0.35,
+      "tags": [
+        "high-severity"
+      ]
+    },
+    {
+      "cveId": "CVE-2016-3151",
+      "description": "Directory traversal vulnerability in the wallpaper parsing functionality in Barco ClickShare CSC-1 devices with firmware before 01.09.03, CSM-1 devices with firmware before 01.06.\u2026",
+      "fullDescription": "Directory traversal vulnerability in the wallpaper parsing functionality in Barco ClickShare CSC-1 devices with firmware before 01.09.03, CSM-1 devices with firmware before 01.06.\u2026",
+      "severity": "HIGH",
+      "lastModified": "2026-05-13T00:24:29.033",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2016-3151",
+      "cvssScore": 7.5,
+      "cvssVersion": "CVSS:V30",
+      "cvssVector": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "cwes": [
+        "CWE-22"
+      ],
+      "products": [
+        "barco:clickshare_csc-1",
+        "barco:clickshare_csc-1_firmware",
+        "barco:clickshare_cse-200"
+      ],
+      "exploitEvidenceCount": 4,
+      "published": "2017-01-12T23:59:00.353",
+      "isKev": false,
+      "epss": 0.00903,
+      "epssPercentile": 75,
+      "relevance": 0.25,
+      "tags": [
+        "high-severity"
+      ]
+    },
+    {
+      "cveId": "CVE-2016-10136",
+      "description": "An issue was discovered on BLU R1 HD devices with Shanghai Adups software. The content provider named com.adups.fota.sysoper.provider.InfoProvider in the app with a package name o\u2026",
+      "fullDescription": "An issue was discovered on BLU R1 HD devices with Shanghai Adups software. The content provider named com.adups.fota.sysoper.provider.InfoProvider in the app with a package name o\u2026",
+      "severity": "HIGH",
+      "lastModified": "2026-05-13T00:24:29.033",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2016-10136",
+      "cvssScore": 7.8,
+      "cvssVersion": "CVSS:V30",
+      "cvssVector": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+      "cwes": [
+        "CWE-310"
+      ],
+      "products": [
+        "adups:adups_fota"
+      ],
+      "exploitEvidenceCount": 2,
+      "published": "2017-01-13T09:59:00.217",
+      "isKev": false,
+      "epss": 0.00066,
+      "epssPercentile": 20,
+      "relevance": 0.25,
+      "tags": [
+        "high-severity"
+      ]
+    },
+    {
+      "cveId": "CVE-2016-6492",
+      "description": "The MT6573FDVT_SetRegHW function in camera_fdvt.c in the MediaTek driver for Linux allows local users to gain privileges via a crafted application that makes an MT6573FDVTIOC_T_SE\u2026",
+      "fullDescription": "The MT6573FDVT_SetRegHW function in camera_fdvt.c in the MediaTek driver for Linux allows local users to gain privileges via a crafted application that makes an MT6573FDVTIOC_T_SE\u2026",
+      "severity": "HIGH",
+      "lastModified": "2026-05-13T00:24:29.033",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2016-6492",
+      "cvssScore": 7.8,
+      "cvssVersion": "CVSS:V30",
+      "cvssVector": "CVSS:3.0/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+      "cwes": [
+        "CWE-264"
+      ],
+      "products": [
+        "google:android"
+      ],
+      "exploitEvidenceCount": 4,
+      "published": "2017-01-12T23:59:00.493",
+      "isKev": false,
+      "epss": 0.00058,
+      "epssPercentile": 18,
+      "relevance": 0.25,
+      "tags": [
+        "high-severity"
+      ]
+    },
+    {
+      "cveId": "CVE-2015-8325",
+      "description": "The do_setup_env function in session.c in sshd in OpenSSH through 7.2p2, when the UseLogin feature is enabled and PAM is configured to read .pam_environment files in user home dir\u2026",
+      "fullDescription": "The do_setup_env function in session.c in sshd in OpenSSH through 7.2p2, when the UseLogin feature is enabled and PAM is configured to read .pam_environment files in user home dir\u2026",
+      "severity": "HIGH",
+      "lastModified": "2026-05-06T22:30:45.220",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2015-8325",
+      "cvssScore": 7.8,
+      "cvssVersion": "CVSS:V30",
+      "cvssVector": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+      "cwes": [
+        "CWE-264"
+      ],
+      "products": [
+        "canonical:ubuntu_core",
+        "canonical:ubuntu_linux",
+        "canonical:ubuntu_touch"
+      ],
+      "exploitEvidenceCount": 0,
+      "published": "2016-05-01T01:59:00.143",
+      "isKev": false,
+      "epss": 0.00055,
+      "epssPercentile": 17,
+      "relevance": 0.25,
+      "tags": [
+        "high-severity"
+      ]
+    },
+    {
+      "cveId": "CVE-2016-10138",
+      "description": "An issue was discovered on BLU Advance 5.0 and BLU R1 HD devices with Shanghai Adups software. The com.adups.fota.sysoper app is installed as a system app and cannot be disabled b\u2026",
+      "fullDescription": "An issue was discovered on BLU Advance 5.0 and BLU R1 HD devices with Shanghai Adups software. The com.adups.fota.sysoper app is installed as a system app and cannot be disabled b\u2026",
+      "severity": "HIGH",
+      "lastModified": "2026-05-13T00:24:29.033",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2016-10138",
+      "cvssScore": 7.8,
+      "cvssVersion": "CVSS:V30",
+      "cvssVector": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+      "cwes": [
+        "CWE-310"
+      ],
+      "products": [
+        "adups:adups_fota"
+      ],
+      "exploitEvidenceCount": 2,
+      "published": "2017-01-13T09:59:00.263",
+      "isKev": false,
+      "epss": 0.00054,
+      "epssPercentile": 16,
+      "relevance": 0.25,
+      "tags": [
+        "high-severity"
+      ]
+    },
+    {
+      "cveId": "CVE-2016-10137",
+      "description": "An issue was discovered on BLU R1 HD devices with Shanghai Adups software. The content provider named com.adups.fota.sysoper.provider.InfoProvider in the app with a package name o\u2026",
+      "fullDescription": "An issue was discovered on BLU R1 HD devices with Shanghai Adups software. The content provider named com.adups.fota.sysoper.provider.InfoProvider in the app with a package name o\u2026",
+      "severity": "HIGH",
+      "lastModified": "2026-05-13T00:24:29.033",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2016-10137",
+      "cvssScore": 7.8,
+      "cvssVersion": "CVSS:V30",
+      "cvssVector": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+      "cwes": [
+        "CWE-310"
+      ],
+      "products": [
+        "adups:adups_fota"
+      ],
+      "exploitEvidenceCount": 2,
+      "published": "2017-01-13T09:59:00.233",
+      "isKev": false,
+      "epss": 0.00052,
+      "epssPercentile": 16,
+      "relevance": 0.25,
+      "tags": [
+        "high-severity"
+      ]
+    },
+    {
+      "cveId": "CVE-2016-10139",
+      "description": "An issue was discovered on BLU R1 HD devices with Shanghai Adups software. The two package names involved in the exfiltration are com.adups.fota and com.adups.fota.sysoper. In the\u2026",
+      "fullDescription": "An issue was discovered on BLU R1 HD devices with Shanghai Adups software. The two package names involved in the exfiltration are com.adups.fota and com.adups.fota.sysoper. In the\u2026",
+      "severity": "HIGH",
+      "lastModified": "2026-05-13T00:24:29.033",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2016-10139",
+      "cvssScore": 7.8,
+      "cvssVersion": "CVSS:V30",
+      "cvssVector": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+      "cwes": [
+        "CWE-310"
+      ],
+      "products": [
+        "adups:adups_fota"
+      ],
+      "exploitEvidenceCount": 2,
+      "published": "2017-01-13T09:59:00.310",
+      "isKev": false,
+      "epss": 0.00048,
+      "epssPercentile": 14,
+      "relevance": 0.25,
+      "tags": [
+        "high-severity"
+      ]
+    },
+    {
+      "cveId": "CVE-2005-1794",
+      "description": "Microsoft Terminal Server using Remote Desktop Protocol (RDP) 5.2 stores an RSA private key in mstlsapi.dll and uses it to sign a certificate, which allows remote attackers to spo\u2026",
+      "fullDescription": "Microsoft Terminal Server using Remote Desktop Protocol (RDP) 5.2 stores an RSA private key in mstlsapi.dll and uses it to sign a certificate, which allows remote attackers to spo\u2026",
+      "severity": "MEDIUM",
+      "lastModified": "2026-04-16T00:27:16.627",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2005-1794",
+      "cvssScore": 6.4,
+      "cvssVersion": "CVSS:V2",
+      "cvssVector": "AV:N/AC:L/Au:N/C:P/I:P/A:N",
+      "cwes": [
+        "NVD-CWE-Other"
+      ],
+      "products": [
+        "microsoft:remote_desktop_connection",
+        "microsoft:windows_terminal_services_using_rdp"
+      ],
+      "exploitEvidenceCount": 0,
+      "published": "2005-06-01T04:00:00.000",
+      "isKev": false,
+      "epss": 0.0597,
+      "epssPercentile": 90,
+      "relevance": 0.2,
+      "tags": []
+    },
+    {
+      "cveId": "CVE-2013-1609",
+      "description": "Multiple unquoted Windows search path vulnerabilities in the (1) File Collector and (2) File PlaceHolder services in Symantec Enterprise Vault (EV) for File System Archiving befor\u2026",
+      "fullDescription": "Multiple unquoted Windows search path vulnerabilities in the (1) File Collector and (2) File PlaceHolder services in Symantec Enterprise Vault (EV) for File System Archiving befor\u2026",
+      "severity": "MEDIUM",
+      "lastModified": "2026-04-29T01:13:23.040",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2013-1609",
+      "cvssScore": 6.8,
+      "cvssVersion": "CVSS:V2",
+      "cvssVector": "AV:L/AC:L/Au:S/C:C/I:C/A:C",
+      "cwes": [
+        "NVD-CWE-Other"
+      ],
+      "products": [
+        "symantec:enterprise_vault_for_file_system_archiving"
+      ],
+      "exploitEvidenceCount": 0,
+      "published": "2013-03-26T14:07:27.770",
+      "isKev": false,
+      "epss": 0.00273,
+      "epssPercentile": 50,
+      "relevance": 0.175,
+      "tags": [
+        "vault"
+      ]
+    },
+    {
+      "cveId": "CVE-2016-5715",
+      "description": "Open redirect vulnerability in the Console in Puppet Enterprise 2015.x and 2016.x before 2016.4.0 allows remote attackers to redirect users to arbitrary web sites and conduct phis\u2026",
+      "fullDescription": "Open redirect vulnerability in the Console in Puppet Enterprise 2015.x and 2016.x before 2016.4.0 allows remote attackers to redirect users to arbitrary web sites and conduct phis\u2026",
+      "severity": "MEDIUM",
+      "lastModified": "2026-05-13T00:24:29.033",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2016-5715",
+      "cvssScore": 6.1,
+      "cvssVersion": "CVSS:V30",
+      "cvssVector": "CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+      "cwes": [
+        "CWE-601"
+      ],
+      "products": [
+        "puppet:puppet_enterprise"
+      ],
+      "exploitEvidenceCount": 6,
+      "published": "2017-01-12T23:59:00.417",
+      "isKev": false,
+      "epss": 0.0069,
+      "epssPercentile": 72,
+      "relevance": 0.12,
+      "tags": []
+    },
+    {
+      "cveId": "CVE-2016-5737",
+      "description": "The Gerrit configuration in the Openstack Puppet module for Gerrit (aka puppet-gerrit) improperly marks text/html as a safe mimetype, which might allow remote attackers to conduct\u2026",
+      "fullDescription": "The Gerrit configuration in the Openstack Puppet module for Gerrit (aka puppet-gerrit) improperly marks text/html as a safe mimetype, which might allow remote attackers to conduct\u2026",
+      "severity": "MEDIUM",
+      "lastModified": "2026-05-13T00:24:29.033",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2016-5737",
+      "cvssScore": 6.1,
+      "cvssVersion": "CVSS:V30",
+      "cvssVector": "CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+      "cwes": [
+        "CWE-79"
+      ],
+      "products": [
+        "openstack:puppet-gerrit"
+      ],
+      "exploitEvidenceCount": 6,
+      "published": "2017-01-12T23:59:00.463",
+      "isKev": false,
+      "epss": 0.00309,
+      "epssPercentile": 54,
+      "relevance": 0.12,
+      "tags": []
+    },
+    {
+      "cveId": "CVE-2016-3150",
+      "description": "Cross-site scripting (XSS) vulnerability in wallpaper.php in the Base Unit in Barco ClickShare CSC-1 devices with firmware before 01.09.03, CSM-1 devices with firmware before 01.0\u2026",
+      "fullDescription": "Cross-site scripting (XSS) vulnerability in wallpaper.php in the Base Unit in Barco ClickShare CSC-1 devices with firmware before 01.09.03, CSM-1 devices with firmware before 01.0\u2026",
+      "severity": "MEDIUM",
+      "lastModified": "2026-05-13T00:24:29.033",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2016-3150",
+      "cvssScore": 6.1,
+      "cvssVersion": "CVSS:V30",
+      "cvssVector": "CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+      "cwes": [
+        "CWE-79"
+      ],
+      "products": [
+        "barco:clickshare_csc-1",
+        "barco:clickshare_csc-1_firmware",
+        "barco:clickshare_cse-200"
+      ],
+      "exploitEvidenceCount": 4,
+      "published": "2017-01-12T23:59:00.307",
+      "isKev": false,
+      "epss": 0.00278,
+      "epssPercentile": 51,
+      "relevance": 0.12,
+      "tags": []
+    },
+    {
+      "cveId": "CVE-2016-10135",
+      "description": "An issue was discovered on LG devices using the MTK chipset with L(5.0/5.1), M(6.0/6.0.1), and N(7.0) software, and RCA Voyager Tablet, BLU Advance 5.0, and BLU R1 HD devices. The\u2026",
+      "fullDescription": "An issue was discovered on LG devices using the MTK chipset with L(5.0/5.1), M(6.0/6.0.1), and N(7.0) software, and RCA Voyager Tablet, BLU Advance 5.0, and BLU R1 HD devices. The\u2026",
+      "severity": "MEDIUM",
+      "lastModified": "2026-05-13T00:24:29.033",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2016-10135",
+      "cvssScore": 5.5,
+      "cvssVersion": "CVSS:V30",
+      "cvssVector": "CVSS:3.0/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N",
+      "cwes": [
+        "CWE-200"
+      ],
+      "products": [
+        "lg:lg_mobile"
+      ],
+      "exploitEvidenceCount": 0,
+      "published": "2017-01-13T09:59:00.140",
+      "isKev": false,
+      "epss": 0.00226,
+      "epssPercentile": 45,
+      "relevance": 0.12,
+      "tags": []
+    },
+    {
+      "cveId": "CVE-2012-4550",
+      "description": "A flaw was found in JBoss Enterprise Application Platform. When role-based authorization is used for Enterprise Java Beans (EJB) access, the system does not correctly call the nec\u2026",
+      "fullDescription": "A flaw was found in JBoss Enterprise Application Platform. When role-based authorization is used for Enterprise Java Beans (EJB) access, the system does not correctly call the nec\u2026",
+      "severity": "MEDIUM",
+      "lastModified": "2026-05-14T23:16:34.130",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2012-4550",
+      "cvssScore": 5.3,
+      "cvssVersion": "CVSS:V31",
+      "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+      "cwes": [
+        "CWE-280",
+        "CWE-264"
+      ],
+      "products": [
+        "redhat:jboss_enterprise_application_platform"
+      ],
+      "exploitEvidenceCount": 0,
+      "published": "2013-01-05T00:55:02.993",
+      "isKev": false,
+      "epss": 0.00202,
+      "epssPercentile": 42,
+      "relevance": 0.12,
+      "tags": []
+    },
+    {
+      "cveId": "CVE-2005-4900",
+      "description": "SHA-1 is not collision resistant, which makes it easier for context-dependent attackers to conduct spoofing attacks, as demonstrated by attacks on the use of SHA-1 in TLS 1.2.  NO\u2026",
+      "fullDescription": "SHA-1 is not collision resistant, which makes it easier for context-dependent attackers to conduct spoofing attacks, as demonstrated by attacks on the use of SHA-1 in TLS 1.2.  NO\u2026",
+      "severity": "MEDIUM",
+      "lastModified": "2026-05-06T22:30:45.220",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2005-4900",
+      "cvssScore": 5.9,
+      "cvssVersion": "CVSS:V30",
+      "cvssVector": "CVSS:3.0/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "cwes": [
+        "CWE-326"
+      ],
+      "products": [
+        "google:chrome"
+      ],
+      "exploitEvidenceCount": 10,
+      "published": "2016-10-14T16:59:00.187",
+      "isKev": false,
+      "epss": 0.00198,
+      "epssPercentile": 41,
+      "relevance": 0.12,
+      "tags": []
+    },
+    {
+      "cveId": "CVE-2012-4549",
+      "description": "A flaw was found in JBoss Enterprise Application Platform. The `processInvocation` function within the `org.jboss.as.ejb3.security.AuthorizationInterceptor` component incorrectly\u2026",
+      "fullDescription": "A flaw was found in JBoss Enterprise Application Platform. The `processInvocation` function within the `org.jboss.as.ejb3.security.AuthorizationInterceptor` component incorrectly\u2026",
+      "severity": "MEDIUM",
+      "lastModified": "2026-05-14T23:16:32.133",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2012-4549",
+      "cvssScore": 6.5,
+      "cvssVersion": "CVSS:V31",
+      "cvssVector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
+      "cwes": [
+        "CWE-266",
+        "CWE-264"
+      ],
+      "products": [
+        "redhat:jboss_enterprise_application_platform"
+      ],
+      "exploitEvidenceCount": 0,
+      "published": "2013-01-05T00:55:02.947",
+      "isKev": false,
+      "epss": 0.00131,
+      "epssPercentile": 32,
+      "relevance": 0.12,
+      "tags": []
+    },
+    {
+      "cveId": "CVE-2012-0814",
+      "description": "The auth_parse_options function in auth-options.c in sshd in OpenSSH before 5.7 provides debug messages containing authorized_keys command options, which allows remote authenticat\u2026",
+      "fullDescription": "The auth_parse_options function in auth-options.c in sshd in OpenSSH before 5.7 provides debug messages containing authorized_keys command options, which allows remote authenticat\u2026",
+      "severity": "LOW",
+      "lastModified": "2026-04-29T01:13:23.040",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2012-0814",
+      "cvssScore": 3.5,
+      "cvssVersion": "CVSS:V2",
+      "cvssVector": "AV:N/AC:M/Au:S/C:P/I:N/A:N",
+      "cwes": [
+        "CWE-255"
+      ],
+      "products": [
+        "openbsd:openssh"
+      ],
+      "exploitEvidenceCount": 0,
+      "published": "2012-01-27T19:55:01.063",
+      "isKev": false,
+      "epss": 0.00268,
+      "epssPercentile": 50,
+      "relevance": 0.0,
+      "tags": []
     }
   ]
 }

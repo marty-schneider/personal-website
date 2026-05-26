@@ -18,10 +18,12 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Fetch NVD and write data/nvd-recent.json
+      - name: Fetch NVD + enrich (EPSS + CISA KEV + relevance)
         env:
           NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
-        run: python scripts/update_nvd_feed.py
+        run: |
+          set -euo pipefail
+          python scripts/update_nvd_feed.py
 
       - name: Commit and push if changed
         run: |

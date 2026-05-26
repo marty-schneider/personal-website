@@ -1,0 +1,160 @@
+name: CI — Quality & Security Gates
+
+on:
+  push:
+    branches: [main, "claude/*"]
+  pull_request:
+    branches: [main, "claude/*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  security-events: write   # for CodeQL
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # 1. Basic site + content validation
+  # ---------------------------------------------------------------------------
+  validate-site:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check for broken links (lychee)
+        uses: lycheeverse/lychee-action@v1
+        with:
+          args: --verbose --no-progress --exclude-all-private './**/*.html' './**/*.md'
+          fail: true
+
+      - name: Verify security headers (static check)
+        run: |
+          python3 - << 'EOF'
+          import re, sys
+          headers = open("_headers").read()
+          required = [
+              "Strict-Transport-Security",
+              "X-Content-Type-Options: nosniff",
+              "X-Frame-Options: DENY",
+              "Referrer-Policy",
+          ]
+          missing = [r for r in required if r not in headers]
+          if missing:
+              print("Missing required headers in _headers:", missing)
+              sys.exit(1)
+          print("Header baseline OK")
+          EOF
+
+  # ---------------------------------------------------------------------------
+  # 2. Workflow & repo security (high signal for DevSecOps)
+  # ---------------------------------------------------------------------------
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run zizmor (workflow security linter)
+        uses: zizmorcore/zizmor-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Gitleaks (secrets scanning)
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript, python
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+
+      - name: OSV-Scanner (dependency vulnerabilities)
+        uses: google/osv-scanner-action@v1
+        with:
+          scan-args: |-
+            --lockfile=private-vault/package-lock.json
+            --lockfile=package-lock.json
+            --skip-git
+
+  # ---------------------------------------------------------------------------
+  # 3. Private vault (Cloudflare Worker) checks
+  # ---------------------------------------------------------------------------
+  private-vault:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: private-vault/package-lock.json
+
+      - name: Install + type check + dry-run deploy
+        working-directory: private-vault
+        run: |
+          npm ci
+          npx tsc --noEmit
+          npx wrangler deploy --dry-run --outdir=dist
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN || '' }}
+
+  # ---------------------------------------------------------------------------
+  # 4. Generate pipeline status artifact (feeds the Security Case Study page)
+  # ---------------------------------------------------------------------------
+  pipeline-status:
+    runs-on: ubuntu-latest
+    needs: [validate-site, security, private-vault]
+    if: always()
+    permissions:
+      contents: write   # only needed on main pushes to update the status file
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate pipeline-status.json
+        run: |
+          cat > data/pipeline-status.json << EOF
+          {
+            "generatedAt": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "lastSuccessfulRun": "${{ github.sha }}",
+            "status": "${{ needs.validate-site.result == 'success' && needs.security.result == 'success' && needs.private-vault.result == 'success' && 'green' || 'yellow' }}",
+            "checks": {
+              "validate-site": "${{ needs.validate-site.result }}",
+              "security": "${{ needs.security.result }}",
+              "private-vault": "${{ needs.private-vault.result }}"
+            },
+            "links": {
+              "actions": "https://github.com/marty-schneider/personal-website/actions",
+              "security": "https://github.com/marty-schneider/personal-website/security"
+            }
+          }
+          EOF
+
+      - name: Commit status artifact (only on main)
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/pipeline-status.json
+          if git diff --staged --quiet; then
+            echo "No pipeline status change"
+          else
+            git commit -m "chore: update pipeline status [skip ci]"
+            git push
+          fi
+
+  # ---------------------------------------------------------------------------
+  # 5. Dependency review (PR only)
+  # ---------------------------------------------------------------------------
+  dependency-review:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/dependency-review-action@v4
+        with:
+          fail-on-severity: high

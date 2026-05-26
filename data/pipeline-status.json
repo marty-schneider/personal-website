@@ -1,0 +1,15 @@
+{
+  "generatedAt": "2026-05-26T04:10:00Z",
+  "lastSuccessfulRun": "initial",
+  "status": "yellow",
+  "checks": {
+    "validate-site": "pending",
+    "security": "pending",
+    "private-vault": "pending"
+  },
+  "links": {
+    "actions": "https://github.com/marty-schneider/personal-website/actions",
+    "security": "https://github.com/marty-schneider/personal-website/security"
+  },
+  "note": "This file is automatically updated by the CI pipeline. Green = all gates passing."
+}

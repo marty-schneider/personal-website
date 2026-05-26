@@ -1660,6 +1660,57 @@ a{color:inherit;text-decoration:none}
 .ticker-text strong{color:#fff;font-weight:600}
 .ticker-src{font-family:"JetBrains Mono",monospace;font-size:10px;color:rgba(255,255,255,.4);letter-spacing:.14em;text-transform:uppercase}
 
+/* New intelligence badges for enriched NVD feed (cyberpunk style) */
+.ticker-epss,.ticker-kev{font-family:"JetBrains Mono",monospace;font-size:9px;font-weight:600;padding:1px 6px;border-radius:2px;margin-right:6px;letter-spacing:.5px;white-space:nowrap}
+.ticker-epss{background:rgba(0,240,255,.12);color:#00f0ff;border:1px solid rgba(0,240,255,.3)}
+.ticker-kev{background:rgba(255,43,214,.18);color:#ff2bd6;border:1px solid rgba(255,43,214,.4);text-shadow:0 0 6px #ff2bd6}
+
+/* CVE Modal - Cyberpunk terminal style */
+.cve-modal{position:fixed;inset:0;z-index:999;display:none;align-items:center;justify-content:center}
+.cve-modal[aria-hidden="false"]{display:flex}
+.cve-modal-backdrop{position:absolute;inset:0;background:rgba(5,6,15,.92);backdrop-filter:blur(4px)}
+.cve-modal-panel{
+  position:relative;z-index:1;width:92%;max-width:720px;
+  background:var(--bg-primary);border:1px solid var(--border);
+  box-shadow:0 0 0 1px rgba(0,240,255,.1), 0 20px 60px rgba(0,0,0,.8);
+  font-family:"JetBrains Mono",monospace;font-size:13px;color:#dfe7f5;
+}
+.cve-modal-header{
+  display:flex;align-items:center;gap:12px;
+  padding:10px 14px;border-bottom:1px solid var(--border);
+  background:rgba(0,240,255,.03);
+}
+.cve-modal-dots{display:flex;gap:6px}
+.cve-modal-title{flex:1;font-weight:600;letter-spacing:.08em;color:#fff}
+.cve-modal-close{
+  background:none;border:none;color:#fff;font-size:22px;line-height:1;
+  cursor:pointer;padding:0 6px;opacity:.7
+}
+.cve-modal-close:hover{opacity:1;color:var(--hot)}
+.cve-modal-body{padding:18px 20px 22px}
+.cve-modal-meta{display:flex;gap:10px;align-items:center;margin-bottom:14px}
+.cve-sev-badge{
+  font-size:10px;font-weight:700;padding:2px 8px;border-radius:2px;
+  text-transform:uppercase;letter-spacing:.08em
+}
+.cve-sev-badge.crit{background:#ff2bd6;color:#000}
+.cve-sev-badge.high{background:#f59e0b;color:#000}
+.cve-sev-badge.med{background:#eab308;color:#000}
+.cve-sev-badge.low{background:#22c55e;color:#000}
+.cve-intel{display:flex;gap:8px;font-size:11px}
+.cve-section{margin-bottom:14px}
+.cve-label{
+  font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(0,240,255,.6);margin-bottom:4px
+}
+.cve-value{line-height:1.45}
+.cve-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.cve-link{
+  display:inline-block;margin-top:8px;color:#00f0ff;text-decoration:none;
+  border-bottom:1px solid rgba(0,240,255,.3)
+}
+.cve-link:hover{color:#fff;border-color:#fff}
+
 /* Scanlines (very subtle, full viewport) */
 .scanlines{
   position:fixed;inset:0;pointer-events:none;z-index:90;
@@ -2589,13 +2640,22 @@ a{color:inherit;text-decoration:none}
     write('audit-logged · segregation of duties enforced · type <span class="hot">help</span>', '');
 
     const COMMANDS = {
-      help: () => `available: <span class="hot">help</span> · whoami · stack · gates · projects · status · cve · contact · sudo · matrix · clear`,
+      help: () => `available: <span class="hot">help</span> · whoami · stack · gates · projects · status · cve · security · harden · contact · sudo · matrix · clear`,
       whoami: () => `M. Schneider · DevSecOps Engineer · Pipeline & Application Security · 15+ yrs ops/IR foundation`,
       stack: () => `CI: <span class="ok">GitHub Actions, GitLab CI</span> · SAST/SCA · Secrets · IaC policy · Containers · SBOM · OPA · Python · TypeScript`,
       gates: () => `Policy gates fail commits early: <span class="hot">SAST</span>, <span class="hot">SCA</span>, <span class="hot">secrets</span>, IaC, container scan, SBOM diff. Devs get fast feedback; sec gets visibility. Exemptions are policy-as-code, not back-channel.`,
       projects: () => { setTimeout(()=>shift('left'), 200); return 'shifting west → artifacts panel...'; },
-      status: () => `<span class="ok">▮ ONLINE</span> · NEO-CI sector 7 · pipeline OK · 0 secrets in HEAD · last build green`,
+      status: () => {
+        if (!pipelineStatus) {
+          return `<span class="ok">▮ ONLINE</span> · NEO-CI sector 7 · pipeline status loading...`;
+        }
+        const s = pipelineStatus.status || 'unknown';
+        const color = s === 'green' ? 'ok' : (s === 'yellow' ? 'warn' : 'hot');
+        return `<span class="${color}">▮ ${s.toUpperCase()}</span> · last CI: ${pipelineStatus.lastSuccessfulRun?.slice(0,7) || 'n/a'} · <a href="${pipelineStatus.links?.actions || '#'}" target="_blank" style="color:var(--cy)">view runs</a>`;
+      },
       cve: () => `latest CVE: ${(latestCve.html || 'feed offline')}`,
+      security: () => { window.open('/security.html', '_blank'); return 'opening security dossier in new tab...'; },
+      harden: () => { window.open('/security.html', '_blank'); return 'opening security & hardening dossier...'; },
       contact: () => `transmit signal → <a href="mailto:marty.schneider@gmail.com" style="color:var(--cy)">marty.schneider@gmail.com</a> · <a href="https://linkedin.com/in/martyschneider" target="_blank" rel="noopener" style="color:var(--cy)">linkedin.com/in/martyschneider</a>`,
       sudo: () => `<span class="warn">denied.</span> segregation of duties enforced. file a CAB request.`,
       matrix: () => `<span class="ok">crt overlay: cycled.</span>`,
@@ -2647,10 +2707,21 @@ a{color:inherit;text-decoration:none}
     const html = items.map(n => {
       const sevLabel = SEV_LABEL[n.sev] || 'NEWS';
       const idTag = n.id ? `<span class="ticker-id">${esc(n.id)}</span>` : '';
-      // n.txt is trusted HTML for the static fallback and escaped plain text for NVD items.
+
+      // New intelligence badges (only show when we have real data)
+      let intel = '';
+      if (n.epss != null) {
+        const epssPct = n.epssPercentile != null ? ` ${n.epssPercentile}%` : '';
+        intel += `<span class="ticker-epss" title="EPSS">${(n.epss*100).toFixed(0)}%${epssPct}</span>`;
+      }
+      if (n.isKev) {
+        intel += `<span class="ticker-kev" title="CISA KEV${n.kevDue ? ' — due ' + n.kevDue : ''}">KEV</span>`;
+      }
+
       return `<div class="ticker-item">
         <span class="ticker-sev ${n.sev}">${sevLabel}</span>
         ${idTag}
+        ${intel}
         <span class="ticker-text">${n.txt}</span>
         <span class="ticker-src">// ${esc(n.src)}</span>
       </div>`;
@@ -2673,23 +2744,185 @@ a{color:inherit;text-decoration:none}
     }
   }
 
+  // Store full enriched items for the modal
+  let nvdFullItems = [];
+  let pipelineStatus = null;
+
   fetch('data/nvd-recent.json', { cache: 'no-store' })
     .then(r => { if(!r.ok) throw new Error('bad status'); return r.json(); })
     .then(data => {
-      const items = (Array.isArray(data && data.items) ? data.items : []).map(it => ({
-        sev: sevClass(it.severity),
-        id: it.cveId || '',
-        txt: esc(it.description || ''),
-        src: 'NVD'
-      }));
+      nvdFullItems = (Array.isArray(data && data.items) ? data.items : []);
+      const items = nvdFullItems.map(it => {
+        const base = {
+          sev: sevClass(it.severity),
+          id: it.cveId || '',
+          txt: esc(it.description || ''),
+          src: 'NVD',
+          epss: it.epss,
+          epssPercentile: it.epssPercentile,
+          isKev: !!it.isKev,
+          relevance: it.relevance,
+          kevDue: it.kev && it.kev.dueDate ? it.kev.dueDate : null,
+        };
+        return base;
+      });
       if(!items.length) throw new Error('empty');
       buildTicker(items);
+      attachTickerClickHandlers();
     })
     .catch(() => buildTicker(NEWS));
+
+  // Fetch pipeline status (for terminal + future Security page)
+  fetch('data/pipeline-status.json', { cache: 'no-store' })
+    .then(r => r.ok ? r.json() : null)
+    .then(data => { pipelineStatus = data; })
+    .catch(() => {});
+
+  // ===== CVE Modal Logic =====
+  const modal = document.getElementById('cve-modal');
+  const backdrop = modal.querySelector('.cve-modal-backdrop');
+  const closeBtn = modal.querySelector('.cve-modal-close');
+
+  function openCveModal(item) {
+    if (!modal || !item) return;
+
+    document.getElementById('cve-modal-title').textContent = item.cveId || 'CVE';
+
+    const sevEl = document.getElementById('cve-modal-sev');
+    sevEl.textContent = (item.severity || 'UNKNOWN').toUpperCase();
+    sevEl.className = 'cve-sev-badge ' + (item.severity || 'news').toLowerCase();
+
+    // Intelligence line
+    let intelHtml = '';
+    if (item.epss != null) {
+      intelHtml += `<span>EPSS <strong>${(item.epss * 100).toFixed(1)}%</strong> (p${item.epssPercentile || '?'})</span>`;
+    }
+    if (item.isKev) {
+      intelHtml += `<span style="color:#ff2bd6">KEV</span>`;
+    }
+    document.getElementById('cve-modal-intel').innerHTML = intelHtml || '<span style="opacity:.5">—</span>';
+
+    document.getElementById('cve-modal-desc').textContent = item.fullDescription || item.description || '';
+
+    const cvssEl = document.getElementById('cve-modal-cvss');
+    if (item.cvssScore) {
+      cvssEl.innerHTML = `<strong>${item.cvssScore}</strong> ${item.cvssVersion || ''} <span style="opacity:.6">${item.cvssVector || ''}</span>`;
+    } else {
+      cvssEl.textContent = '—';
+    }
+
+    // KEV section
+    const kevSection = document.getElementById('cve-modal-kev-section');
+    if (item.isKev && item.kev) {
+      kevSection.style.display = '';
+      let kevText = item.kev.requiredAction || 'See CISA advisory';
+      if (item.kev.dueDate) kevText += ` (Due: ${item.kev.dueDate})`;
+      document.getElementById('cve-modal-kev').textContent = kevText;
+    } else {
+      kevSection.style.display = 'none';
+    }
+
+    const prodEl = document.getElementById('cve-modal-products');
+    prodEl.textContent = (item.products && item.products.length) ? item.products.join(', ') : '—';
+
+    const tagsEl = document.getElementById('cve-modal-tags');
+    tagsEl.innerHTML = (item.tags && item.tags.length)
+      ? item.tags.map(t => `<span style="background:rgba(255,43,214,.1);padding:1px 6px;border-radius:2px;margin-right:4px">${t}</span>`).join('')
+      : '<span style="opacity:.5">—</span>';
+
+    const nvdLink = document.getElementById('cve-modal-nvd');
+    nvdLink.href = item.url || `https://nvd.nist.gov/vuln/detail/${item.cveId}`;
+
+    modal.setAttribute('aria-hidden', 'false');
+
+    // Close handlers
+    function close() {
+      modal.setAttribute('aria-hidden', 'true');
+      backdrop.removeEventListener('click', close);
+      closeBtn.removeEventListener('click', close);
+      document.removeEventListener('keydown', onKey);
+    }
+    function onKey(e) { if (e.key === 'Escape') close(); }
+
+    backdrop.onclick = close;
+    closeBtn.onclick = close;
+    document.addEventListener('keydown', onKey, { once: true });
+  }
+
+  function attachTickerClickHandlers() {
+    if (!track) return;
+    track.addEventListener('click', (e) => {
+      const itemEl = e.target.closest('.ticker-item');
+      if (!itemEl || !nvdFullItems.length) return;
+
+      // Find matching CVE from the enriched data
+      const idEl = itemEl.querySelector('.ticker-id');
+      if (!idEl) return;
+      const cveId = idEl.textContent.trim();
+      const fullItem = nvdFullItems.find(x => x.cveId === cveId);
+      if (fullItem) openCveModal(fullItem);
+    });
+  }
 
 })();
 </script>
 
+<!-- CVE Intelligence Modal (added for enriched NVD feed) -->
+<div id="cve-modal" class="cve-modal" aria-hidden="true">
+  <div class="cve-modal-backdrop"></div>
+  <div class="cve-modal-panel" role="dialog" aria-modal="true">
+    <div class="cve-modal-header">
+      <div class="cve-modal-dots">
+        <span class="terminal-dot red"></span>
+        <span class="terminal-dot yellow"></span>
+        <span class="terminal-dot green"></span>
+      </div>
+      <div class="cve-modal-title" id="cve-modal-title">CVE-XXXX-XXXX</div>
+      <button class="cve-modal-close" aria-label="Close">×</button>
+    </div>
 
+    <div class="cve-modal-body">
+      <div class="cve-modal-meta">
+        <span class="cve-sev-badge" id="cve-modal-sev"></span>
+        <span class="cve-intel" id="cve-modal-intel"></span>
+      </div>
+
+      <div class="cve-section">
+        <div class="cve-label">DESCRIPTION</div>
+        <div class="cve-value" id="cve-modal-desc"></div>
+      </div>
+
+      <div class="cve-grid">
+        <div class="cve-section">
+          <div class="cve-label">CVSS</div>
+          <div class="cve-value" id="cve-modal-cvss"></div>
+        </div>
+        <div class="cve-section">
+          <div class="cve-label">EPSS</div>
+          <div class="cve-value" id="cve-modal-epss"></div>
+        </div>
+      </div>
+
+      <div class="cve-section" id="cve-modal-kev-section" style="display:none">
+        <div class="cve-label">CISA KEV — KNOWN EXPLOITED</div>
+        <div class="cve-value" id="cve-modal-kev"></div>
+      </div>
+
+      <div class="cve-section">
+        <div class="cve-label">PRODUCTS / AFFECTED</div>
+        <div class="cve-value" id="cve-modal-products"></div>
+      </div>
+
+      <div class="cve-section">
+        <div class="cve-label">TAGS &amp; RELEVANCE</div>
+        <div class="cve-value" id="cve-modal-tags"></div>
+      </div>
+
+      <div class="cve-modal-actions">
+        <a id="cve-modal-nvd" href="#" target="_blank" rel="noopener" class="cve-link">VIEW ON NVD →</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body></html>

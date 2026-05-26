@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SECURITY &amp; HARDENING — martyschneider.com</title>
+  <meta name="description" content="Transparent security posture and hardening case study for Marty Schneider's personal portfolio.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #05060f;
+      --bg2: #0a0d1f;
+      --text: #e9eaf5;
+      --muted: #7d8aa8;
+      --hot: #ff2bd6;
+      --cy: #00f0ff;
+      --border: #1f253f;
+    }
+    body { margin:0; background:var(--bg); color:var(--text); font-family:"JetBrains Mono", monospace; font-size:14px; line-height:1.5; }
+    .header { padding:20px 24px; border-bottom:1px solid var(--border); background:rgba(0,240,255,.02); }
+    .header-inner { max-width:960px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; }
+    .logo { color:var(--cy); font-weight:700; letter-spacing:.1em; text-decoration:none; }
+    .container { max-width:960px; margin:0 auto; padding:40px 24px; }
+    h1 { font-size:28px; margin:0 0 8px; letter-spacing:.06em; }
+    .subtitle { color:var(--muted); font-size:13px; }
+    .section { margin:42px 0; }
+    .section-title { font-size:13px; text-transform:uppercase; letter-spacing:.14em; color:var(--cy); margin-bottom:12px; border-bottom:1px solid var(--border); padding-bottom:6px; }
+    table { width:100%; border-collapse:collapse; margin:12px 0; }
+    th, td { text-align:left; padding:8px 10px; border-bottom:1px solid var(--border); vertical-align:top; }
+    th { color:var(--muted); font-weight:400; font-size:12px; }
+    .mono { font-family:"JetBrains Mono", monospace; }
+    .good { color:#22c55e; }
+    .note { color:var(--muted); font-size:13px; }
+    .file-ref { color:var(--cy); }
+    .footer { margin-top:60px; padding-top:20px; border-top:1px solid var(--border); font-size:12px; color:var(--muted); }
+    .back { display:inline-block; margin-bottom:20px; color:var(--cy); text-decoration:none; font-size:13px; }
+    .back:hover { text-decoration:underline; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-inner">
+      <a href="/" class="logo">~/</a>
+      <div style="font-size:12px; color:var(--muted);">SECTOR 7 • SECURITY DOSSIER</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <a href="/" class="back">← RETURN TO PORTFOLIO</a>
+
+    <h1>SECURITY &amp; HARDENING</h1>
+    <div class="subtitle">Living case study of applied defensive engineering on a personal public system • Last reviewed: 2026-05-25</div>
+
+    <div class="section">
+      <div class="section-title">OVERVIEW</div>
+      <p>This document provides a transparent, technical view of the security posture and hardening decisions applied to <strong>martyschneider.com</strong> (and the associated private learning vault at <strong>learning.martyschneider.com</strong>).</p>
+      <p>The goal is not to claim the site is "secure" in any absolute sense, but to demonstrate how DevSecOps and defensive engineering practices are applied to a low-value, high-visibility personal system that I actually control and expose publicly.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">SYSTEMS IN SCOPE</div>
+      <ul>
+        <li>Public static portfolio (<code>index.html</code> + assets) — currently GitHub Pages fronted by Cloudflare</li>
+        <li>Planned migration to native Cloudflare Pages (where <code>_headers</code> becomes authoritative)</li>
+        <li>Nightly CVE intelligence pipeline (<code>.github/workflows/</code> + <code>scripts/update_nvd_feed.py</code>)</li>
+        <li>Private learning vault (<code>private-vault/</code> — Cloudflare Worker + R2 behind Cloudflare Access)</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <div class="section-title">KEY HARDENING CONTROLS (AS OF 2026-05)</div>
+      <table>
+        <tr><th>Control</th><th>Implementation</th><th>Evidence</th></tr>
+        <tr>
+          <td>Transport Security</td>
+          <td>HSTS (max-age 1 year + subdomains), Cloudflare proxy + SSL</td>
+          <td class="file-ref">_headers, live curl responses</td>
+        </tr>
+        <tr>
+          <td>Clickjacking / Framing</td>
+          <td><code>X-Frame-Options: DENY</code></td>
+          <td class="file-ref">_headers:7</td>
+        </tr>
+        <tr>
+          <td>MIME Sniffing</td>
+          <td><code>X-Content-Type-Options: nosniff</code></td>
+          <td class="file-ref">_headers:6</td>
+        </tr>
+        <tr>
+          <td>Supply Chain (Fonts)</td>
+          <td>31 self-hosted WOFF2/WOFF files. Zero external font CDNs.</td>
+          <td class="file-ref">fonts/ directory + @font-face in index.html</td>
+        </tr>
+        <tr>
+          <td>Private Vault Access Control</td>
+          <td>Cloudflare Access (email OTP) + Worker path traversal protection + strict privacy headers</td>
+          <td class="file-ref">private-vault/src/worker.ts:12-17, wrangler.toml</td>
+        </tr>
+        <tr>
+          <td>Automation Least Privilege</td>
+          <td>NVD workflow uses <code>contents: write</code> only; no other permissions</td>
+          <td class="file-ref">.github/workflows/update-nvd-feed.yml:8</td>
+        </tr>
+        <tr>
+          <td>Data Freshness Sensor</td>
+          <td>Nightly NVD + EPSS + CISA KEV enrichment pipeline with observable output</td>
+          <td class="file-ref">scripts/update_nvd_feed.py, data/nvd-recent.json</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-title">THREAT MODEL (SIMPLIFIED)</div>
+      <p><strong>Assets:</strong> Public professional reputation, contact email, private learning content (low volume, low sensitivity).</p>
+      <p><strong>Primary threats considered:</strong></p>
+      <ul>
+        <li>Supply chain compromise of third-party resources</li>
+        <li>Clickjacking / UI redress</li>
+        <li>Information disclosure via misconfigured headers or caching</li>
+        <li>Abuse of the private vault (unauthorized access to learning materials)</li>
+        <li>Abuse of the public NVD feed pipeline (repo write via compromised workflow)</li>
+      </ul>
+      <p class="note">This is a personal portfolio, not a high-value target. Controls are proportionate.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">RESIDUAL RISKS &amp; ACCEPTANCE</div>
+      <ul>
+        <li>Monolithic <code>index.html</code> with heavy inline styles/scripts → CSP is difficult without breaking the current experience. <strong>Accepted for now</strong>.</li>
+        <li>GitHub Actions still has repository write via the NVD workflow. <strong>Mitigated</strong> by minimal permissions + only touching one file.</li>
+        <li>GitHub Pages origin still serves some traffic. <strong>Being removed</strong> during Cloudflare Pages migration.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <div class="section-title">ONGOING PRACTICES</div>
+      <ul>
+        <li>Automated CVE intelligence feed (EPSS + CISA KEV + relevance) as a living security sensor.</li>
+        <li>Private vault content never committed to this public repo.</li>
+        <li>CI pipeline with workflow security (zizmor), secret scanning, dependency review, and header validation — results published to <code>data/pipeline-status.json</code> and visible in the terminal.</li>
+        <li>Regular review of this document (target: quarterly or on significant changes).</li>
+      </ul>
+    </div>
+
+    <div class="footer">
+      This page is intentionally lightweight and self-contained. It will be updated as the Cloudflare Pages migration and additional hardening work (see Initiatives #1–3) progresses.<br>
+      Source: <a href="https://github.com/marty-schneider/personal-website" target="_blank" style="color:#00f0ff">github.com/marty-schneider/personal-website</a>
+    </div>
+  </div>
+</body>
+</html>
