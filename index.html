@@ -3147,3 +3147,35 @@ a{color:inherit;text-decoration:none}
 </div>
 
 </body></html>
+<script>
+// Side arrow nav + page wipe (added after main script)
+(function() {
+  const arrowPrev = document.getElementById('panel-nav-prev');
+  const arrowNext = document.getElementById('panel-nav-next');
+  const wipe = document.getElementById('page-wipe');
+  const signs = Array.from(document.querySelectorAll('.sign-hit'));
+  let currentSignIndex = 0;
+
+  function triggerWipe(direction) {
+    if (!wipe || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    wipe.classList.remove('wipe-right', 'wipe-left');
+    void wipe.offsetWidth;
+    wipe.classList.add('wipe-' + direction);
+    setTimeout(() => wipe.classList.remove('wipe-right', 'wipe-left'), 500);
+  }
+
+  function goToSign(index) {
+    if (!signs[index]) return;
+    const direction = index > currentSignIndex ? 'right' : 'left';
+    triggerWipe(direction);
+    currentSignIndex = index;
+    signs[index].click();
+  }
+
+  if (arrowPrev) arrowPrev.addEventListener('click', () => { if (currentSignIndex > 0) goToSign(currentSignIndex - 1); });
+  if (arrowNext) arrowNext.addEventListener('click', () => { if (currentSignIndex < signs.length - 1) goToSign(currentSignIndex + 1); });
+
+  const active = document.querySelector('.sign-hit.is-hot, .sign-hit[aria-current="true"]');
+  if (active) currentSignIndex = signs.indexOf(active);
+})();
+</script>
