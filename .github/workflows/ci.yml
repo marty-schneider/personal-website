@@ -109,19 +109,26 @@ jobs:
     needs: [validate-site, security, private-vault]
     if: always()
     permissions:
-      contents: write   # only needed on main pushes to update the status file
+      contents: write   # needed to push the status artifact on main
     steps:
       - uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Generate pipeline-status.json
+      - name: Generate pipeline-status.json (visible on site + Security page)
         run: |
+          STATUS="yellow"
+          if [[ "${{ needs.validate-site.result }}" == "success" && \
+                "${{ needs.security.result }}" == "success" && \
+                "${{ needs.private-vault.result }}" == "success" ]]; then
+            STATUS="green"
+          fi
+
           cat > data/pipeline-status.json << EOF
           {
             "generatedAt": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
             "lastSuccessfulRun": "${{ github.sha }}",
-            "status": "${{ needs.validate-site.result == 'success' && needs.security.result == 'success' && needs.private-vault.result == 'success' && 'green' || 'yellow' }}",
+            "status": "$STATUS",
             "checks": {
               "validate-site": "${{ needs.validate-site.result }}",
               "security": "${{ needs.security.result }}",
@@ -134,7 +141,7 @@ jobs:
           }
           EOF
 
-      - name: Commit status artifact (only on main)
+      - name: Commit status artifact (main branch only)
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         run: |
           git config user.name "github-actions[bot]"

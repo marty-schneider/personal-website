@@ -1711,6 +1711,24 @@ a{color:inherit;text-decoration:none}
 }
 .cve-link:hover{color:#fff;border-color:#fff}
 
+/* Full Feed Viewer specific tweaks */
+#feed-results .feed-item {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  cursor: pointer;
+}
+#feed-results .feed-item:hover {
+  background: rgba(0,240,255,0.04);
+}
+#feed-results .feed-item .feed-id {
+  font-weight: 600;
+  color: #00f0ff;
+  min-width: 140px;
+}
+
 /* Scanlines (very subtle, full viewport) */
 .scanlines{
   position:fixed;inset:0;pointer-events:none;z-index:90;
@@ -1967,7 +1985,7 @@ a{color:inherit;text-decoration:none}
 
 <!-- Bottom-wide cybersecurity news ticker -->
 <aside class="news-ticker" id="news-ticker" aria-label="Cybersecurity news ticker">
-  <div class="ticker-label">
+  <div class="ticker-label" id="ticker-label">
     Cyber // Feed
     <span class="jp">FLASH</span>
   </div>
@@ -2864,6 +2882,103 @@ a{color:inherit;text-decoration:none}
     });
   }
 
+  // ===== Full CVE Feed Viewer (opened by clicking ticker label) =====
+  const feedViewer = document.getElementById('cve-feed-viewer');
+  const feedViewerClose = document.getElementById('feed-viewer-close');
+  const feedSearch = document.getElementById('feed-search');
+  const feedFilterSeverity = document.getElementById('feed-filter-severity');
+  const feedOnlyKev = document.getElementById('feed-only-kev');
+  const feedResults = document.getElementById('feed-results');
+
+  const tickerLabel = document.getElementById('ticker-label');
+
+  function renderFeedViewer(filteredItems) {
+    if (!feedResults) return;
+    feedResults.innerHTML = filteredItems.map(item => {
+      const epssStr = item.epss != null ? `${(item.epss*100).toFixed(0)}%` : '';
+      const kevStr = item.isKev ? `<span style="color:#ff2bd6; margin-left:8px;">KEV</span>` : '';
+      return `
+        <div class="feed-item" data-cve="${item.cveId}">
+          <div>
+            <span class="feed-id">${item.cveId}</span>
+            <span class="ticker-sev ${sevClass(item.severity)}" style="font-size:9px; padding:1px 5px;">${item.severity}</span>
+            ${epssStr ? `<span class="ticker-epss" style="font-size:10px;">${epssStr}</span>` : ''}
+            ${kevStr}
+          </div>
+          <div style="flex:1; min-width:0; color:#c5d0e6; font-size:12px; line-height:1.3;">
+            ${esc(item.description || '').slice(0, 160)}${(item.description || '').length > 160 ? '…' : ''}
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    // Make rows clickable to open individual modal
+    feedResults.querySelectorAll('.feed-item').forEach(row => {
+      row.addEventListener('click', () => {
+        const cveId = row.dataset.cve;
+        const fullItem = nvdFullItems.find(x => x.cveId === cveId);
+        if (fullItem) {
+          closeFeedViewer();
+          setTimeout(() => openCveModal(fullItem), 50);
+        }
+      });
+    });
+  }
+
+  function filterAndRenderFeed() {
+    if (!nvdFullItems.length) return;
+
+    const searchTerm = (feedSearch?.value || '').toLowerCase();
+    const severityFilter = feedFilterSeverity?.value || '';
+    const onlyKev = feedOnlyKev?.checked;
+
+    const filtered = nvdFullItems.filter(item => {
+      const matchesSearch = !searchTerm ||
+        (item.cveId && item.cveId.toLowerCase().includes(searchTerm)) ||
+        (item.description && item.description.toLowerCase().includes(searchTerm)) ||
+        (item.products && item.products.some(p => p.toLowerCase().includes(searchTerm)));
+
+      const matchesSeverity = !severityFilter || item.severity === severityFilter;
+      const matchesKev = !onlyKev || item.isKev;
+
+      return matchesSearch && matchesSeverity && matchesKev;
+    });
+
+    renderFeedViewer(filtered);
+  }
+
+  function openFeedViewer() {
+    if (!feedViewer || !nvdFullItems.length) return;
+    feedViewer.setAttribute('aria-hidden', 'false');
+    filterAndRenderFeed();
+
+    // Wire up filters
+    const onFilterChange = () => filterAndRenderFeed();
+    feedSearch?.addEventListener('input', onFilterChange);
+    feedFilterSeverity?.addEventListener('change', onFilterChange);
+    feedOnlyKev?.addEventListener('change', onFilterChange);
+
+    // One-time close handler
+    const close = () => {
+      feedViewer.setAttribute('aria-hidden', 'true');
+      feedSearch?.removeEventListener('input', onFilterChange);
+      feedFilterSeverity?.removeEventListener('change', onFilterChange);
+      feedOnlyKev?.removeEventListener('change', onFilterChange);
+    };
+    feedViewerClose.onclick = close;
+    feedViewer.querySelector('.cve-modal-backdrop').onclick = close;
+  }
+
+  function closeFeedViewer() {
+    if (feedViewer) feedViewer.setAttribute('aria-hidden', 'true');
+  }
+
+  // Wire ticker label click → open full feed viewer
+  if (tickerLabel) {
+    tickerLabel.style.cursor = 'pointer';
+    tickerLabel.addEventListener('click', openFeedViewer);
+  }
+
 })();
 </script>
 
@@ -2921,6 +3036,39 @@ a{color:inherit;text-decoration:none}
       <div class="cve-modal-actions">
         <a id="cve-modal-nvd" href="#" target="_blank" rel="noopener" class="cve-link">VIEW ON NVD →</a>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Full CVE Feed Viewer (triggered from ticker label) -->
+<div id="cve-feed-viewer" class="cve-modal" aria-hidden="true">
+  <div class="cve-modal-backdrop"></div>
+  <div class="cve-modal-panel" style="max-width: 920px; width: 95%;">
+    <div class="cve-modal-header">
+      <div class="cve-modal-dots">
+        <span class="terminal-dot red"></span>
+        <span class="terminal-dot yellow"></span>
+        <span class="terminal-dot green"></span>
+      </div>
+      <div class="cve-modal-title">CVE INTELLIGENCE FEED — SECTOR 7</div>
+      <button class="cve-modal-close" id="feed-viewer-close">×</button>
+    </div>
+
+    <div class="cve-modal-body" style="max-height: 65vh; overflow-y: auto;">
+      <div style="display:flex; gap:12px; margin-bottom:12px; flex-wrap:wrap;">
+        <input id="feed-search" placeholder="Filter CVEs..." style="flex:1; min-width:200px; background:#0a0d1f; border:1px solid var(--border); color:#dfe7f5; padding:6px 10px; font-family:inherit;">
+        <select id="feed-filter-severity" style="background:#0a0d1f; border:1px solid var(--border); color:#dfe7f5; padding:6px 10px;">
+          <option value="">All Severities</option>
+          <option value="CRITICAL">CRITICAL</option>
+          <option value="HIGH">HIGH</option>
+          <option value="MEDIUM">MEDIUM</option>
+        </select>
+        <label style="display:flex; align-items:center; gap:6px; font-size:12px;">
+          <input type="checkbox" id="feed-only-kev"> Only KEV
+        </label>
+      </div>
+
+      <div id="feed-results" style="font-size:13px;"></div>
     </div>
   </div>
 </div>

@@ -137,11 +137,22 @@
     <div class="section">
       <div class="section-title">ONGOING PRACTICES</div>
       <ul>
-        <li>Automated CVE intelligence feed (EPSS + CISA KEV + relevance) as a living security sensor.</li>
+        <li>Automated CVE intelligence feed (EPSS + CISA KEV + relevance) as a living security sensor — see the bottom ticker and <code>/security.html</code> integration.</li>
         <li>Private vault content never committed to this public repo.</li>
-        <li>CI pipeline with workflow security (zizmor), secret scanning, dependency review, and header validation — results published to <code>data/pipeline-status.json</code> and visible in the terminal.</li>
+        <li>CI pipeline (<code>.github/workflows/ci.yml</code>) with zizmor (workflow security), CodeQL, gitleaks, dependency review, link checking, and header validation. Results are published to <code>data/pipeline-status.json</code> and visible via the <code>status</code> command in the terminal.</li>
         <li>Regular review of this document (target: quarterly or on significant changes).</li>
       </ul>
+    </div>
+
+    <div class="section">
+      <div class="section-title">RECENT APPLIED WORK (2026)</div>
+      <p>Concrete examples of security engineering applied to this public presence:</p>
+      <ul>
+        <li><strong>Initiative #2</strong>: Upgraded the CVE ticker into a production-grade intelligence feed with exploit prediction (EPSS), known exploited vulnerabilities (CISA KEV), and DevSecOps relevance scoring. Includes click-to-modal and a full filterable viewer.</li>
+        <li><strong>Initiative #3</strong>: Introduced a real CI/CD quality &amp; security gate workflow that runs on every PR/push, including workflow linting, secret scanning, static analysis, and automated header verification.</li>
+        <li><strong>Initiative #1</strong> (this page): Turning implicit security decisions into an explicit, referenceable, living case study.</li>
+      </ul>
+      <p class="note">These three initiatives were implemented in sequence as a deliberate demonstration of end-to-end security thinking on a personal system.</p>
     </div>
 
     <div class="footer">
